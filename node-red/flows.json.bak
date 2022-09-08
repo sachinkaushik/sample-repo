@@ -41,7 +41,8 @@
         "y": 260,
         "wires": [
             [
-                "43023069ac19a95d"
+                "43023069ac19a95d",
+                "80be1e7980a7bbed"
             ]
         ]
     },
@@ -189,7 +190,7 @@
         "y": 260,
         "wires": [
             [
-                "8ca5e8f9859d99f0"
+                "69b0de436638768f"
             ]
         ]
     },
@@ -198,7 +199,7 @@
         "type": "function",
         "z": "afe5cbb8a0d95320",
         "name": "Pre-Process: person pipeline request",
-        "func": "const parameters = {\n    \"parameters\" : {\n        ...msg.config\n    }\n}\nmsg.payload = { \n    ...msg.source,\n    ...msg.destination,\n    ...parameters\n};\n\nmsg.endpoint = msg.pipelineList[msg.pipeline];\nreturn msg;",
+        "func": "const parameters = {\n    \"parameters\" : {\n        ...msg.modelInstanceId,\n        ...msg.config\n    }\n}\nmsg.payload = { \n    ...msg.source,\n    ...msg.destination,\n    ...parameters\n};\n\nmsg.endpoint = msg.pipelineList[msg.pipeline];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -217,7 +218,7 @@
         "type": "function",
         "z": "afe5cbb8a0d95320",
         "name": "Pre-Process: shelf-object-count request",
-        "func": "const parameters = {\n    \"parameters\": {\n        ...msg.config\n    }\n}\nmsg.payload = {\n    ...msg.source,\n    ...msg.destination,\n    ...parameters\n};\n\nmsg.endpoint = msg.pipelineList[msg.pipeline];\nreturn msg;",
+        "func": "const parameters = {\n    \"parameters\": {\n        ...msg.modelInstanceId,\n        ...msg.config\n    }\n}\nmsg.payload = {\n    ...msg.source,\n    ...msg.destination,\n    ...parameters\n};\n\nmsg.endpoint = msg.pipelineList[msg.pipeline];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -236,7 +237,7 @@
         "type": "function",
         "z": "afe5cbb8a0d95320",
         "name": "Pre-Process: Shopper-pose-mood request",
-        "func": "const parameters = {\n    \"parameters\": {\n        ...msg.config\n    }\n}\nmsg.payload = {\n    ...msg.source,\n    ...msg.destination,\n    ...parameters\n};\n\nmsg.endpoint = msg.pipelineList[msg.pipeline];\nreturn msg;",
+        "func": "const parameters = {\n    \"parameters\": {\n        ...msg.modelInstanceId,\n        ...msg.config\n    }\n}\nmsg.payload = {\n    ...msg.source,\n    ...msg.destination,\n    ...parameters\n};\n\nmsg.endpoint = msg.pipelineList[msg.pipeline];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -368,6 +369,74 @@
         ]
     },
     {
+        "id": "69b0de436638768f",
+        "type": "change",
+        "z": "afe5cbb8a0d95320",
+        "name": "Set EVAM Status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "success",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1390,
+        "y": 360,
+        "wires": [
+            [
+                "8ca5e8f9859d99f0"
+            ]
+        ]
+    },
+    {
+        "id": "80be1e7980a7bbed",
+        "type": "function",
+        "z": "afe5cbb8a0d95320",
+        "name": "Check EVAM Status",
+        "func": "flow.set(\"success\", false);\nmsg.resetEndpoint = \"http://\" + env.get(\"HOST_IP\") + \":9000/hooks/reset-evam\";\n\nconst checkStatus = async function () {\n\n    /*\n     Start a timer that resolves if EVAM responds.\n     If not, rejects after 6 sec.\n     */\n    \n    const timer = new Promise((resolve, reject) => {\n        let count = 0;\n        const check = setInterval (() => {\n            count = count + 1;\n            if (flow.get(\"success\") === true) {\n                resolve(true);\n            }\n            if (count === 6) {\n                reject(false);\n                clearInterval(check);\n            }\n        }, 1000);\n    });\n\n    try {\n        await timer;\n    } catch (ex) {\n        return msg;\n    }\n\n};\n\nreturn checkStatus();",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 540,
+        "wires": [
+            [
+                "f603ba943ea246bb"
+            ]
+        ]
+    },
+    {
+        "id": "f603ba943ea246bb",
+        "type": "http request",
+        "z": "afe5cbb8a0d95320",
+        "name": "RESET EVAM",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "{{{resetEndpoint}}}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 760,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "8ca5e8f9859d99f0",
         "type": "debug",
         "z": "afe5cbb8a0d95320",
@@ -380,8 +449,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1410,
-        "y": 380,
+        "x": 1390,
+        "y": 460,
         "wires": []
     }
 ]
