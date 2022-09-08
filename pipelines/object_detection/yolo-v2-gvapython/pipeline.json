@@ -1,0 +1,71 @@
+{
+	"type": "GStreamer",
+	"template": ["{auto_source} ! decodebin ! videoconvert ! capsfilter caps=video/x-raw,format=BGRx",
+				" ! gvadetect model={parameters[detection-model]} model_proc={parameters[detection-model-proc]} name=detection",
+				" ! gvapython class=PostProcess module=/home/pipeline-server/extensions/sra/shelfpostprocess.py function=shelfPostProcess name=shelf-post-process",
+				" ! gvametaconvert name=metaconvert ! gvametapublish name=destination",
+				" ! appsink name=appsink"
+			],
+	"description": "Object Detection based on yolo-v2-tiny-tf",
+	"parameters": {
+		"type": "object",
+		"properties": {
+			"detection-model": {
+				"type": "string",
+				"default": "models/object_detection/yolo-v2/FP16/yolo-v2-tiny-tf.xml"
+			},
+			"detection-model-proc": {
+				"type": "string",
+				"default": "models/object_detection/yolo-v2/yolo-v2-tiny-tf.json"
+			},
+			"detection-properties": {
+				"element": {
+					"name": "detection",
+					"format": "element-properties"
+				}
+			},
+			"detection-device": {
+				"element": {
+					"name": "detection",
+					"property": "device"
+				},
+				"type": "string",
+				"default": "CPU"
+			},
+			"detection-model-instance-id": {
+				"element": {
+					"name": "detection",
+					"property": "model-instance-id"
+				},
+				"type": "string"
+			},
+			"inference-interval": {
+				"element": "detection",
+				"type": "integer"
+			},
+			"threshold": {
+				"element": "detection",
+				"type": "number"
+			},
+			"zmq-config": {
+				"element": {
+					"name": "shelf-post-process",
+					"property": "kwarg",
+					"format": "json"
+				},
+				"type": "object",
+				"properties": {
+					"imagezmqSocket": {
+						"type": "string"
+					},
+					"mqttTopic": {
+						"type": "string"
+					},
+					"pipelineName": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	}
+}

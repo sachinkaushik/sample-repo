@@ -1,0 +1,64 @@
+{
+	"type": "GStreamer",
+	"template": [
+		"{auto_source} ! decodebin ! videoconvert ! capsfilter caps=video/x-raw,format=BGRx",
+		" ! gvadetect model={parameters[detection-model]} model_proc={parameters[detection-model-proc]} name=detection",
+		" ! gvapython class=PostProcess module=/home/pipeline-server/extensions/sra/trafficpostprocess.py function=trafficPostProcess name=shopper-post-process",
+		" ! gvametaconvert name=metaconvert ! gvametapublish name=destination",
+		" ! appsink name=appsink"
+	],
+	"description": "Person Detection based on person-detection-retail-0013",
+	"parameters": {
+		"type": "object",
+		"properties": {
+			"detection-model": {
+				"type": "string",
+				"default": "models/object_detection/person/FP16/person-detection-retail-0013.xml"
+			},
+			"detection-model-proc": {
+				"type": "string",
+				"default": "models/object_detection/person/person-detection-retail-0013.json"
+			},
+			"detection-properties": {
+				"element": {
+					"name": "detection",
+					"format": "element-properties"
+				}
+			},
+			"detection-device": {
+				"element": {
+					"name": "detection",
+					"property": "device"
+				},
+				"type": "string",
+				"default": "CPU"
+			},
+			"detection-model-instance-id": {
+				"element": {
+					"name": "detection",
+					"property": "model-instance-id"
+				},
+				"type": "string"
+			},
+			"zmq-config": {
+				"element": {
+					"name": "shopper-post-process",
+					"property": "kwarg",
+					"format": "json"
+				},
+				"type": "object",
+				"properties": {
+					"imagezmqSocket": {
+						"type": "string"
+					},
+					"mqttTopic": {
+						"type": "string"
+					},
+					"pipelineName": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	}
+}

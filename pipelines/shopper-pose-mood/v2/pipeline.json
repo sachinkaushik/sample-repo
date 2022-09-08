@@ -1,0 +1,116 @@
+{
+	"type": "GStreamer",
+	"template": ["{auto_source} ! decodebin ! videoconvert ! capsfilter caps=video/x-raw,format=BGRx",
+                " ! gvadetect model={parameters[detection-model]} model_proc={parameters[detection-model-proc]} name=detection",
+				" ! gvapython class=PostProcess module=/home/pipeline-server/extensions/sra/shopperpostprocess.py function=facePostProcess name=face-post-process",
+                " ! gvainference model={parameters[inference-model]} name=inference",
+				" ! gvapython class=PostProcess module=/home/pipeline-server/extensions/sra/shopperpostprocess.py function=headPostProcess name=head-post-process",
+				" ! gvaclassify model={parameters[classification-model]} model_proc={parameters[classification-model-proc]} name=classification",
+				" ! gvapython class=PostProcess module=/home/pipeline-server/extensions/sra/shopperpostprocess.py function=emotionPostProcess name=emotion-post-process",
+				" ! gvametaconvert name=metaconvert ! gvametapublish name=destination",
+				" ! appsink name=appsink"
+			],
+	"description": "Shopper mood-pose detection based on face-detection-adas-0001, head-pose-estimation-adas-0001 and emotions-recognition-retail-0003",
+	"parameters": {
+		"type": "object",
+		"properties": {
+			"detection-model": {
+				"type": "string",
+				"default": "models/face_detection/adas/FP16/face-detection-adas-0001.xml"
+			},
+			"detection-model-proc": {
+				"type": "string",
+				"default": "models/face_detection/adas/face-detection-adas-0001.json"
+			},
+			"inference-model": {
+				"type": "string",
+				"default": "models/action_recognition/head_pose/FP16/head-pose-estimation-adas-0001.xml"
+			},
+			"classification-model": {
+				"type": "string",
+				"default": "models/emotion_recognition/1/FP16/emotions-recognition-retail-0003.xml"
+			},
+			"classification-model-proc": {
+				"type": "string",
+				"default": "models/emotion_recognition/1/emotions-recognition-retail-0003.json"
+			},
+			"detection-device":{
+				"element": [
+					{ "name": "detection", "property": "device" },
+					{ "name": "inference", "property": "device" },
+					{ "name": "classification", "property": "device" }
+				],
+				"type": "string",
+				"default": "CPU"
+			},
+			"inference-property":{
+				"element": [
+					{ "name": "inference", "property": "inference-region" },
+					{ "name": "classification", "property": "inference-region" }
+				],
+				"type": "string",
+				"default": "roi-list"
+			},
+			"object-property":{
+				"element":	{ 
+					"name": "classification", 
+					"property": "object-class" 
+				},
+				"type": "string",
+				"default": "looking"
+			},
+			"detection-model-instance-id": {
+				"element": {
+					"name": "detection",
+					"property": "model-instance-id"
+				},
+				"type": "string"
+			},
+			"inference-model-instance-id": {
+				"element": {
+					"name": "inference",
+					"property": "model-instance-id"
+				},
+				"type": "string"
+			},
+			"classification-model-instance-id": {
+				"element": {
+					"name": "classification",
+					"property": "model-instance-id"
+				},
+				"type": "string"
+			},
+			"zmq-config": {
+				"element": [
+					{
+						"name": "face-post-process",
+						"property": "kwarg",
+						"format": "json"
+					},
+					{
+						"name": "head-post-process",
+						"property": "kwarg",
+						"format": "json"
+					},
+					{
+						"name": "emotion-post-process",
+						"property": "kwarg",
+						"format": "json"
+					}
+				],
+				"type": "object",
+				"properties": {
+					"imagezmqSocket": {
+						"type": "string"
+					},
+					"mqttTopic": {
+						"type": "string"
+					},
+					"pipelineName": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	}
+}

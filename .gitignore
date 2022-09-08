@@ -1,0 +1,4 @@
+node_modules
+node-red/.*
+node-red/flows_cred.json
+node-red/package-lock.json

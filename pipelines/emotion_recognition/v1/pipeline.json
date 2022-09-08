@@ -1,0 +1,17 @@
+{
+	"type": "GStreamer",
+	"template": ["{auto_source} ! decodebin",
+				" ! gvaclassify model={models[emotion_recognition][1][network]} name=classification",
+				" ! gvametaconvert name=metaconvert ! gvametapublish name=destination",
+				" ! appsink name=appsink"
+			],
+	"description": "Emotion recognition based on emotions-recognition-retail-0003",
+	"parameters": {
+		"type": "object",
+		"properties": {
+			"device": "CPU",
+			"inference-region" : "roi-list",
+			"object-class" : "looking"
+		}
+	}
+}

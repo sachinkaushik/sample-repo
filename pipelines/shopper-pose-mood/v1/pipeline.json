@@ -1,0 +1,24 @@
+{
+	"type": "GStreamer",
+	"template": ["{auto_source} ! decodebin",
+                " ! gvadetect model={models[face_detection][adas][network]} name=detection",
+                " ! gvainference model={models[action_recognition][head_pose][network]} name=inference",
+				" ! gvaclassify model={models[emotion_recognition][1][network]} name=classification",
+				" ! gvametaconvert name=metaconvert ! gvametapublish name=destination",
+				" ! appsink name=appsink"
+			],
+	"description": "Shopper mood-pose detection based on face-detection-adas-0001, head-pose-estimation-adas-0001 and emotions-recognition-retail-0003",
+	"parameters": {
+		"type": "object",
+		"properties": {
+			"detection-device": {
+				"element": {
+					"name": "detection",
+					"property": "device"
+				},
+				"type": "string",
+				"default": "{env[DETECTION_DEVICE]}"
+			}
+		}
+	}
+}

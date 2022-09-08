@@ -1,0 +1,17 @@
+{
+	"type": "GStreamer",
+	"template": [
+		"{auto_source} ! decodebin",
+		" ! gvainference model={models[action_recognition][head_pose][network]} name=inference",
+		" ! gvametaconvert name=metaconvert ! gvametapublish name=destination",
+		" ! appsink name=appsink"
+	],
+	"description": "Head-Pose Detection based on head-pose-estimation-adas-0001",
+	"parameters": {
+		"type": "object",
+		"properties": {
+			"device": "CPU",
+			"inference-region" : "roi-list"
+		}
+	}
+}

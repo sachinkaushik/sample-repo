@@ -1,0 +1,15 @@
+{
+	"type": "GStreamer",
+	"template": ["{auto_source} ! decodebin",
+				" ! gvadetect model={models[face_detection][adas][network]} name=detection",
+				" ! gvametaconvert name=metaconvert ! gvametapublish name=destination",
+				" ! appsink name=appsink"
+			],
+	"description": "Face Detection based on face-detection-adas-0001",
+	"parameters": {
+		"type": "object",
+		"properties": {
+			"device": "CPU"
+		}
+	}
+}
