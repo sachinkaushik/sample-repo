@@ -8,7 +8,7 @@ logger = logging.get_logger('shopper_count_duration', is_static=True)
 
 class PostProcess:
     
-    def __init__(self, imagezmqSocket="tcp://server:5555", mqttTopic="shopper-count-duration", pipelineName="shopper-count-duration"):
+    def __init__(self, imagezmqSocket, mqttTopic, pipelineName):
         logger.info("starting")
         self.data = {"imagezmqSocket": imagezmqSocket, "mqttTopic": mqttTopic, "pipelineName": pipelineName}
         self.labels = ['person']
