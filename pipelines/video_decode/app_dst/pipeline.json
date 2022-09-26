@@ -1,7 +1,0 @@
-{
-    "type": "GStreamer",
-    "template": ["{auto_source} ! decodebin",
-		 " ! appsink name=destination"],
-    "description": "Decode Pipeline"
-
-}
