@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../specification/clusters/schema_clusters.yaml
+# Filename will be: clusters/<cluster_bundle>-<Version>.yaml
+---
+spec_schema: "CompositApp_Clusters"
+spec_version: "0.1"
+logical_clusters:
+  - logical_cluster_name: gpu-optimized-edge
+    cluster_labels: ["edge"]
+    cluster_type: small
+    sla_requirements:
+      - requirement: camlatency
+        type: LATENCY_RTT
+        value: 10ms
+        parameter: store7.sfo.retailcompany.com
+    infra_requirements:
+      - requirement: intelgpu
+        type: gpu
+        value: intelgpu
+  - logical_cluster_name: central-cloud
+    cluster_labels: ["cloud"]
+    cluster_type: small
