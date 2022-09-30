@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=../specification/applications/schema_applications.yaml
+# Filename will be: applications/<application_bundle>-<Version>.yaml
+---
+spec_schema: "CompositApp_Applications"
+spec_version: "0.1"
+applications:
+  - app_name: sra-evam-helm                    # EMCO expects this to be the same as chart name
+    source:
+      filename: sra-app/sra-evam-helm-0.1.0.tgz
+  - app_name: rocaas-umbrella                  # EMCO expects this to be the same as chart name
+    source:
+      filename: sra-roc/rocaas-umbrella-0.1.0.tgz
