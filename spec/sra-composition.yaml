@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=/tmp/schemas/composition.yaml#/CATemplateComposition
+---
+specSchema: "CompositeApp_Composition"
+schemaVersion: "0.1"
+version: "0.1"
+name: "smart-retail-analytics"
+
+catalog:
+  icon: "null"
+  thumbnail: "null"
+  description: "null"
+  tags: [ "ai", "ml", "openvino" ]
+
+default_artifacts:
+  composite_profile: "Production"
+  deployment_plan: "GPU-Optimized"
+  logical_cluster: "null"
+
+bundles:
+  logical_clusters: "sra-clusters.yaml"
+  composite_profiles: "sra-profiles.yaml"
+  deployment_plans: "sra-deployment-plans.yaml"
+  applications: "sra-applications.yaml"
+
+applications: ["sra-evam-helm", "rocaas-umbrella"]
+compositeProfiles: ["Production"]
+deploymentPlans: ["GPU-Optimized"]
+logicalClusters: ["gpu-optimized-edge", "central-cloud"]
