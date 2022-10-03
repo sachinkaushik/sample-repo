@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=/tmp/schemas/profile.yaml#/CASpecCompositeProfiles
+---
+specSchema: "CompositeApp_Profiles"
+schemaVersion: "0.1"
+compositeProfiles:
+  - profileName: Production
+    appProfiles:
+      - appName: sra-evam-helm
+        valuesFile: sra-app/sra-evam-helm_production-profile.tar.gz
+      - appName: rocaas-umbrella
+        valuesFile: sra-roc/rocaas-umbrella_production-profile.tar.gz
