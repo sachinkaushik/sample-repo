@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=/tmp/schemas/plan.yaml#/CASpecDeploymentPlans
+---
+specSchema: "CompositeApp_Plans"
+schemaVersion: "0.1"
+deploymentPlans:
+  - planName: GPU-Optimized
+    appDeploymentPlans:
+      - appName: sra-evam-helm
+        logicalCluster: gpu-optimized-edge
+      - appName: rocaas-umbrella
+        logicalCluster: central-cloud
