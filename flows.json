@@ -529,7 +529,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"video_url\":\"https://github.com/intel-iot-devkit/sample-videos/raw/master/face-demographics-walking.mp4\",\"video\":\"/data/face-demographics-walking.mp4\"}",
+                "to": "{\"video\":\"https://github.com/intel-iot-devkit/sample-videos/raw/master/face-demographics-walking.mp4\"}",
                 "tot": "json"
             }
         ],
@@ -556,7 +556,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"video_url\":\"https://github.com/intel-iot-devkit/sample-videos/raw/master/bottle-detection.mp4\",\"video\":\"/data/bottle-detection.mp4\"}",
+                "to": "{\"video\":\"https://github.com/intel-iot-devkit/sample-videos/raw/master/bottle-detection.mp4\"}",
                 "tot": "json"
             }
         ],
@@ -583,7 +583,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"video_url\":\"https://github.com/intel-iot-devkit/sample-videos/raw/master/head-pose-face-detection-female-and-male.mp4\",\"video\":\"/data/head-pose-face-detection-female-and-male.mp4\"}",
+                "to": "{\"video\":\"https://github.com/intel-iot-devkit/sample-videos/raw/master/head-pose-face-detection-female-and-male.mp4\"}",
                 "tot": "json"
             }
         ],
