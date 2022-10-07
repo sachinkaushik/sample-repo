@@ -5,7 +5,7 @@ import numpy as np
 
 class PostProcess:
     def __init__(self, imagezmqSocket, mqttTopic, pipelineName):
-        self.pipelineNumber = np.random.randint(0, 255)
+        self.pipelineNumber = np.random.randint(0, 65535)
         self.data = {"imagezmqSocket": imagezmqSocket, "mqttTopic": mqttTopic, "pipelineName": pipelineName}
         self.Point = namedtuple("Point", "x,y")
         self.topic = self.data["pipelineName"]+"/"+str(self.pipelineNumber)
@@ -78,5 +78,7 @@ class PostProcess:
             pipeline_data["Number"] = self.pipelineNumber
             
             self.sender.send_image(self.topic, mat[:,:,:3], pipeline_data)
-
         return True
+
+    def __del__(self):
+        self.sender.close()
