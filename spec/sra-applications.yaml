@@ -5,7 +5,13 @@ schemaVersion: "0.1"
 applications:
   - appName: sra-evam-helm                    # EMCO expects this to be the same as chart name
     source:
-      filename: sra-app/sra-evam-helm-0.1.0.tgz
+      repo:
+        repoUrl: "https://harbor.tenant01.platform.site3.ka.maestro.intel.com/chartrepo/oie"
+        chartName: "sra-evam-helm"
+        version: "0.1.0-demo2"
   - appName: rocaas-umbrella                  # EMCO expects this to be the same as chart name
     source:
-      filename: sra-roc/rocaas-umbrella-0.1.0.tgz
+      repo:
+        repoUrl: "https://harbor.tenant01.platform.site3.ka.maestro.intel.com/chartrepo/roc"
+        chartName: "rocaas-umbrella"
+        version: "0.1.1"
