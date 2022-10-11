@@ -11,7 +11,7 @@ logicalClusters:
       slaRequirements:
         - requirement: camlatency
           type: LATENCY_RTT
-          value: 20ms
+          value: 30ms
           parameter: store7.sfo.retailcompany.com
       infraRequirements:
         - requirement: intelgpu
@@ -20,12 +20,9 @@ logicalClusters:
         - requirement: memory
           type: memory.size
           value: 16GB
-        - requirement: storage
-          type: storage.size
-          value: 100GB
         - requirement: cpu-cores
           type: cpu.cores
-          value: "8"
+          value: "4"
   - logicalClusterName: generic-edge
     clusterSpec:
       clusterLabels: ["cloud"]
