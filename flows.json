@@ -2,7 +2,7 @@
     {
         "id": "656ed36491044534",
         "type": "tab",
-        "label": "Smart Retail Analytics v3.3",
+        "label": "Smart Retail Analytics v3.4",
         "disabled": false,
         "info": "",
         "env": []
@@ -11,7 +11,7 @@
         "id": "f8434886bda7388e",
         "type": "junction",
         "z": "656ed36491044534",
-        "x": 320,
+        "x": 260,
         "y": 280,
         "wires": [
             [
@@ -22,28 +22,28 @@
         ]
     },
     {
-        "id": "4c15eda931d56850",
+        "id": "e1bfbd1ed07a8819",
         "type": "junction",
         "z": "656ed36491044534",
-        "x": 1260,
+        "x": 300,
         "y": 280,
         "wires": [
             [
-                "3b03b2856a0c89bb"
+                "c558ddb2fc50220d",
+                "b27f60514fbe54e1",
+                "627181e3b1f1e4f6"
             ]
         ]
     },
     {
-        "id": "e1bfbd1ed07a8819",
+        "id": "daeebc5b4836bb70",
         "type": "junction",
         "z": "656ed36491044534",
-        "x": 360,
+        "x": 1100,
         "y": 280,
         "wires": [
             [
-                "b27f60514fbe54e1",
-                "c558ddb2fc50220d",
-                "627181e3b1f1e4f6"
+                "7e3d948204adc16f"
             ]
         ]
     },
@@ -75,386 +75,19 @@
         "sessionExpiry": ""
     },
     {
-        "id": "0f00efe9409907de",
-        "type": "change",
-        "z": "656ed36491044534",
-        "name": "Configure shopper-pose-mood Pipeline",
-        "rules": [
-            {
-                "t": "set",
-                "p": "pipeline",
-                "pt": "msg",
-                "to": "shopper-pose-mood-estimation",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "modelInstanceId",
-                "pt": "msg",
-                "to": "{\"detection-model-instance-id\":\"shopper\",\"inference-model-instance-id\":\"pose\",\"classification-model-instance-id\":\"mood\"}",
-                "tot": "json"
-            },
-            {
-                "t": "set",
-                "p": "zmq-config['mqttTopic']",
-                "pt": "msg",
-                "to": "pipeline",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "zmq-config['pipelineName']",
-                "pt": "msg",
-                "to": "pipeline",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "source['uri']",
-                "pt": "msg",
-                "to": "\"file:///home/pipeline-server/videos/\" & msg.payload.video_file",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "endpoint",
-                "pt": "msg",
-                "to": "pipelineList[msg.pipeline]",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "finalPayload",
-                "tot": "msg",
-                "dc": true
-            },
-            {
-                "t": "set",
-                "p": "payload['source']",
-                "pt": "msg",
-                "to": "source",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload['destination']",
-                "pt": "msg",
-                "to": "destination",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload['parameters']",
-                "pt": "msg",
-                "to": "modelInstanceId",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload['parameters']['zmq-config']",
-                "pt": "msg",
-                "to": "zmq-config",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1020,
-        "y": 280,
-        "wires": [
-            [
-                "4c15eda931d56850"
-            ]
-        ]
-    },
-    {
-        "id": "e449f162c06eced2",
-        "type": "change",
-        "z": "656ed36491044534",
-        "name": "Configure shelf-object-count Pipeline",
-        "rules": [
-            {
-                "t": "set",
-                "p": "pipeline",
-                "pt": "msg",
-                "to": "shelf-object-count",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "modelInstanceId",
-                "pt": "msg",
-                "to": "{\"detection-model-instance-id\":\"shelf\"}",
-                "tot": "json"
-            },
-            {
-                "t": "set",
-                "p": "zmq-config['mqttTopic']",
-                "pt": "msg",
-                "to": "pipeline",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "zmq-config['pipelineName']",
-                "pt": "msg",
-                "to": "pipeline",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "source['uri']",
-                "pt": "msg",
-                "to": "\"file:///home/pipeline-server/videos/\" & msg.payload.video_file",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "endpoint",
-                "pt": "msg",
-                "to": "pipelineList[msg.pipeline]",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "finalPayload",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload['source']",
-                "pt": "msg",
-                "to": "source",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload['destination']",
-                "pt": "msg",
-                "to": "destination",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload['parameters']",
-                "pt": "msg",
-                "to": "modelInstanceId",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload['parameters']['zmq-config']",
-                "pt": "msg",
-                "to": "zmq-config",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1030,
-        "y": 380,
-        "wires": [
-            [
-                "4c15eda931d56850"
-            ]
-        ]
-    },
-    {
-        "id": "3b03b2856a0c89bb",
-        "type": "http request",
-        "z": "656ed36491044534",
-        "name": "Send to Intel Edge Video Analytics",
-        "method": "POST",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "{{{host}}}{{{endpoint}}}",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 1440,
-        "y": 280,
-        "wires": [
-            [
-                "7e3d948204adc16f"
-            ]
-        ]
-    },
-    {
-        "id": "3e141cd55a1459ea",
-        "type": "change",
-        "z": "656ed36491044534",
-        "name": "Configure Person Pipeline",
-        "rules": [
-            {
-                "t": "set",
-                "p": "pipeline",
-                "pt": "msg",
-                "to": "shopper-count-duration",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "modelInstanceId",
-                "pt": "msg",
-                "to": "{\"detection-model-instance-id\":\"person\"}",
-                "tot": "json"
-            },
-            {
-                "t": "set",
-                "p": "zmq-config['mqttTopic']",
-                "pt": "msg",
-                "to": "pipeline",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "zmq-config['pipelineName']",
-                "pt": "msg",
-                "to": "pipeline",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "source['uri']",
-                "pt": "msg",
-                "to": "\"file:///home/pipeline-server/videos/\" & msg.payload.video_file",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "endpoint",
-                "pt": "msg",
-                "to": "pipelineList[msg.pipeline]",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "destination.metadata",
-                "pt": "msg",
-                "to": "{\"type\":\"mqtt\"}",
-                "tot": "json"
-            },
-            {
-                "t": "set",
-                "p": "destination.metadata['host']",
-                "pt": "msg",
-                "to": "msg.broker.broker & \":1883\"",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "destination.metadata['topic']",
-                "pt": "msg",
-                "to": "topic",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "finalPayload",
-                "tot": "msg",
-                "dc": true
-            },
-            {
-                "t": "set",
-                "p": "payload['source']",
-                "pt": "msg",
-                "to": "source",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload['destination']",
-                "pt": "msg",
-                "to": "destination",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload['parameters']",
-                "pt": "msg",
-                "to": "msg.modelInstanceId",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload['parameters']['zmq-config']",
-                "pt": "msg",
-                "to": "zmq-config",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "action",
-                "pt": "msg",
-                "to": "subscribe",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1070,
-        "y": 180,
-        "wires": [
-            [
-                "4c15eda931d56850"
-            ]
-        ]
+        "id": "09c72df344f3e5bf",
+        "type": "edge-video-analytics-server",
+        "name": "Edge-Video-Analytics-Server",
+        "host": "EVAM_DNS",
+        "hostInputType": "env",
+        "port": "8080"
     },
     {
         "id": "6601a8ae02d23284",
         "type": "inject",
         "z": "656ed36491044534",
-        "name": "Setup Intel Edge Video Analytics",
+        "name": "Configure Hosts",
         "props": [
-            {
-                "p": "pipelineList",
-                "v": "{\"person_vehicle_bike\":\"object_detection/person_vehicle_bike\",\"vehicle\":\"object_detection/vehicle\",\"person\":\"object_detection/person\",\"action\":\"action_recognition/general\",\"head_pose\":\"action_recognition/head_pose\",\"tracking\":\"object_tracking/object_line_crossing\",\"classify_vehicle\":\"object_classification/vehicle_attributes\",\"emotion\":\"emotion_recognition/v1\",\"object_detect\":\"object_detection/yolo-v2-tiny-tf\",\"face_detect\":\"face_detection/adas\",\"shopper-pose-mood-estimation\":\"shopper-pose-mood/v2\",\"shopper-count-duration\":\"object_detection/person-gvapython\",\"shelf-object-count\":\"object_detection/yolo-v2-gvapython\"}",
-                "vt": "json"
-            },
-            {
-                "p": "host",
-                "v": "\"http://\" & $env('EVAM_DNS') & \":8080/pipelines/\"",
-                "vt": "jsonata"
-            },
-            {
-                "p": "zmq-config['imagezmqSocket']",
-                "v": "\"tcp://\" & $env('SERVER_DNS') & \":5555\"",
-                "vt": "jsonata"
-            },
-            {
-                "p": "source['type']",
-                "v": "uri",
-                "vt": "str"
-            },
-            {
-                "p": "destination",
-                "v": "{\"metadata\":{\"type\":\"file\",\"path\":\"/home/pipeline-server/videos/results.jsonl\",\"format\":\"json-lines\"}}",
-                "vt": "json"
-            },
-            {
-                "p": "preprocessHost",
-                "v": "\"http://\" & $env('PREPROCESS_DNS') & \":5009\"",
-                "vt": "jsonata"
-            },
             {
                 "p": "broker['broker']",
                 "v": "$env('MQTT_DNS')",
@@ -463,6 +96,11 @@
             {
                 "p": "topic",
                 "vt": "str"
+            },
+            {
+                "p": "preprocessHost",
+                "v": "\"http://\" & $env('PREPROCESS_DNS') & \":5009\"",
+                "vt": "jsonata"
             }
         ],
         "repeat": "",
@@ -470,7 +108,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "sra/people",
-        "x": 170,
+        "x": 140,
         "y": 280,
         "wires": [
             [
@@ -491,8 +129,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1430,
-        "y": 380,
+        "x": 1230,
+        "y": 280,
         "wires": []
     },
     {
@@ -511,11 +149,11 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 720,
+        "x": 680,
         "y": 180,
         "wires": [
             [
-                "3e141cd55a1459ea"
+                "7eff564ff8b2bf70"
             ]
         ]
     },
@@ -538,7 +176,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 500,
+        "x": 460,
         "y": 180,
         "wires": [
             [
@@ -565,7 +203,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 500,
+        "x": 460,
         "y": 380,
         "wires": [
             [
@@ -592,7 +230,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 500,
+        "x": 460,
         "y": 280,
         "wires": [
             [
@@ -616,11 +254,11 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 720,
+        "x": 680,
         "y": 280,
         "wires": [
             [
-                "0f00efe9409907de"
+                "80af62f07074ae2b"
             ]
         ]
     },
@@ -640,11 +278,11 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 720,
+        "x": 680,
         "y": 380,
         "wires": [
             [
-                "e449f162c06eced2"
+                "1aa994d23e928081"
             ]
         ]
     },
@@ -661,7 +299,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 1,
-        "x": 600,
+        "x": 640,
         "y": 480,
         "wires": [
             [
@@ -686,7 +324,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 1100,
+        "x": 1120,
         "y": 480,
         "wires": [
             [
@@ -707,33 +345,15 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1140,
+        "x": 1120,
         "y": 580,
-        "wires": []
-    },
-    {
-        "id": "472f75de724ffcfd",
-        "type": "mqtt out",
-        "z": "656ed36491044534",
-        "name": "Connect: MQTT",
-        "topic": "",
-        "qos": "",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "4cbb7822169a3c10",
-        "x": 580,
-        "y": 80,
         "wires": []
     },
     {
         "id": "12de6e650d456909",
         "type": "change",
         "z": "656ed36491044534",
-        "name": "Subscribe: MQTT",
+        "name": "Action: Subscribe",
         "rules": [
             {
                 "t": "set",
@@ -748,7 +368,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 370,
+        "x": 410,
         "y": 480,
         "wires": [
             [
@@ -760,7 +380,7 @@
         "id": "f67acaa9e7f5cbf6",
         "type": "change",
         "z": "656ed36491044534",
-        "name": "Set Action : MQTT",
+        "name": "Action: Connect",
         "rules": [
             {
                 "t": "set",
@@ -782,11 +402,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 370,
+        "x": 400,
         "y": 80,
         "wires": [
             [
-                "472f75de724ffcfd"
+                "0503d7b0e7ccf3d5"
             ]
         ]
     },
@@ -799,12 +419,252 @@
         "sourcetype": "python",
         "source": "count = 0\r\nmessage = msg['payload']\r\nsrc = message['source']\r\nvideo = src.rsplit('/', 1)[-1]\r\nfor obj in message['objects']:\r\n    if obj['detection']['label_id'] == 1:\r\n        count = count + 1\r\nmsg['payload'] = { 'num_of_person': count, 'video_src': video }\r\nreturn msg",
         "outputs": 1,
-        "x": 860,
+        "x": 880,
         "y": 480,
         "wires": [
             [
                 "03df35329a56b3b8"
             ]
         ]
+    },
+    {
+        "id": "7eff564ff8b2bf70",
+        "type": "intel-edge-video-analytics",
+        "z": "656ed36491044534",
+        "name": "Detect Person",
+        "server": "09c72df344f3e5bf",
+        "operation": "start",
+        "pipeline": "object_detection/person-gvapython",
+        "pipelineList": [
+            "",
+            "object_tracking/object_line_crossing",
+            "object_tracking/person_vehicle_bike",
+            "action_recognition/general",
+            "action_recognition/head_pose",
+            "shopper-pose-mood/v2",
+            "shopper-pose-mood/v1",
+            "face_detection/adas",
+            "emotion_recognition/v1",
+            "video_decode/app_dst",
+            "object_detection/yolo-v2-tiny-tf",
+            "object_detection/yolo-v2-gvapython",
+            "object_detection/object_zone_count",
+            "object_detection/app_src_dst",
+            "object_detection/vehicle",
+            "object_detection/person_vehicle_bike",
+            "object_detection/person",
+            "object_detection/person-gvapython",
+            "object_classification/vehicle_attributes",
+            "audio_detection/environment"
+        ],
+        "selectedPipeline": "object_detection/person-gvapython",
+        "pipelineName": "shopper-count-duration",
+        "pipelineNameType": "str",
+        "instanceId": "",
+        "instanceIdInputType": "str",
+        "video": "payload.video_file",
+        "videoInputType": "msg",
+        "selectedMetadataOption": "mqtt",
+        "mqttHost": "MQTT_DNS",
+        "mqttHostType": "env",
+        "mqttPort": "1883",
+        "mqttTopic": "sra/people",
+        "mqttTopicType": "str",
+        "kafkaHost": "",
+        "kafkaHostType": "str",
+        "kafkaPort": "",
+        "kafkaTopic": "",
+        "kafkaTopicType": "str",
+        "selectedFrameOption": "",
+        "rtspPath": "",
+        "rtspPathType": "str",
+        "peerid": "",
+        "peeridType": "str",
+        "metadata": "mqtt",
+        "frame": "",
+        "detectionDevice": "",
+        "useZeromq": true,
+        "zeromqServer": "\"tcp://\" & $env('SERVER_DNS') & \":5555\"",
+        "zeromqServerType": "jsonata",
+        "useModelInstanceId": true,
+        "modelInstanceId": "{\"detection-model-instance-id\":\"person\"}",
+        "modelInstanceIdType": "json",
+        "useNewModel": "",
+        "newModel": "",
+        "newModelType": "json",
+        "checkStatus": "",
+        "x": 940,
+        "y": 180,
+        "wires": [
+            [
+                "daeebc5b4836bb70"
+            ]
+        ]
+    },
+    {
+        "id": "80af62f07074ae2b",
+        "type": "intel-edge-video-analytics",
+        "z": "656ed36491044534",
+        "name": "Shopper Pose/Mood",
+        "server": "09c72df344f3e5bf",
+        "operation": "start",
+        "pipeline": "shopper-pose-mood/v2",
+        "pipelineList": [
+            "",
+            "object_tracking/object_line_crossing",
+            "object_tracking/person_vehicle_bike",
+            "action_recognition/general",
+            "action_recognition/head_pose",
+            "shopper-pose-mood/v2",
+            "shopper-pose-mood/v1",
+            "face_detection/adas",
+            "emotion_recognition/v1",
+            "video_decode/app_dst",
+            "object_detection/yolo-v2-tiny-tf",
+            "object_detection/yolo-v2-gvapython",
+            "object_detection/object_zone_count",
+            "object_detection/app_src_dst",
+            "object_detection/vehicle",
+            "object_detection/person_vehicle_bike",
+            "object_detection/person",
+            "object_detection/person-gvapython",
+            "object_classification/vehicle_attributes",
+            "audio_detection/environment"
+        ],
+        "selectedPipeline": "shopper-pose-mood/v2",
+        "pipelineName": "shopper-pose-mood-estimation",
+        "pipelineNameType": "str",
+        "instanceId": "",
+        "instanceIdInputType": "str",
+        "video": "payload.video_file",
+        "videoInputType": "msg",
+        "selectedMetadataOption": "",
+        "mqttHost": "",
+        "mqttHostType": "str",
+        "mqttPort": "",
+        "mqttTopic": "",
+        "mqttTopicType": "str",
+        "kafkaHost": "",
+        "kafkaHostType": "str",
+        "kafkaPort": "",
+        "kafkaTopic": "",
+        "kafkaTopicType": "str",
+        "selectedFrameOption": "",
+        "rtspPath": "",
+        "rtspPathType": "str",
+        "peerid": "",
+        "peeridType": "str",
+        "metadata": "",
+        "frame": "",
+        "detectionDevice": "",
+        "useZeromq": true,
+        "zeromqServer": "\"tcp://\" & $env('SERVER_DNS') & \":5555\"",
+        "zeromqServerType": "jsonata",
+        "useModelInstanceId": true,
+        "modelInstanceId": "{\"detection-model-instance-id\":\"shopper\",\"inference-model-instance-id\":\"pose\",\"classification-model-instance-id\":\"mood\"}",
+        "modelInstanceIdType": "json",
+        "useNewModel": "",
+        "newModel": "",
+        "newModelType": "json",
+        "checkStatus": "",
+        "x": 920,
+        "y": 280,
+        "wires": [
+            [
+                "daeebc5b4836bb70"
+            ]
+        ]
+    },
+    {
+        "id": "1aa994d23e928081",
+        "type": "intel-edge-video-analytics",
+        "z": "656ed36491044534",
+        "name": "Shelf Object Count",
+        "server": "09c72df344f3e5bf",
+        "operation": "start",
+        "pipeline": "object_detection/yolo-v2-gvapython",
+        "pipelineList": [
+            "",
+            "object_tracking/object_line_crossing",
+            "object_tracking/person_vehicle_bike",
+            "action_recognition/general",
+            "action_recognition/head_pose",
+            "shopper-pose-mood/v2",
+            "shopper-pose-mood/v1",
+            "face_detection/adas",
+            "emotion_recognition/v1",
+            "video_decode/app_dst",
+            "object_detection/yolo-v2-tiny-tf",
+            "object_detection/yolo-v2-gvapython",
+            "object_detection/object_zone_count",
+            "object_detection/app_src_dst",
+            "object_detection/vehicle",
+            "object_detection/person_vehicle_bike",
+            "object_detection/person",
+            "object_detection/person-gvapython",
+            "object_classification/vehicle_attributes",
+            "audio_detection/environment"
+        ],
+        "selectedPipeline": "object_detection/yolo-v2-gvapython",
+        "pipelineName": "shelf-object-count",
+        "pipelineNameType": "str",
+        "instanceId": "",
+        "instanceIdInputType": "str",
+        "video": "payload.video_file",
+        "videoInputType": "msg",
+        "selectedMetadataOption": "",
+        "mqttHost": "",
+        "mqttHostType": "str",
+        "mqttPort": "",
+        "mqttTopic": "",
+        "mqttTopicType": "str",
+        "kafkaHost": "",
+        "kafkaHostType": "str",
+        "kafkaPort": "",
+        "kafkaTopic": "",
+        "kafkaTopicType": "str",
+        "selectedFrameOption": "",
+        "rtspPath": "",
+        "rtspPathType": "str",
+        "peerid": "",
+        "peeridType": "str",
+        "metadata": "",
+        "frame": "",
+        "detectionDevice": "",
+        "useZeromq": true,
+        "zeromqServer": "\"tcp://\" & $env('SERVER_DNS') & \":5555\"",
+        "zeromqServerType": "jsonata",
+        "useModelInstanceId": true,
+        "modelInstanceId": "{\"detection-model-instance-id\":\"shelf\"}",
+        "modelInstanceIdType": "json",
+        "useNewModel": "",
+        "newModel": "",
+        "newModelType": "json",
+        "checkStatus": "",
+        "x": 930,
+        "y": 380,
+        "wires": [
+            [
+                "daeebc5b4836bb70"
+            ]
+        ]
+    },
+    {
+        "id": "0503d7b0e7ccf3d5",
+        "type": "mqtt out",
+        "z": "656ed36491044534",
+        "name": "Connect to MQTT Broker",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4cbb7822169a3c10",
+        "x": 650,
+        "y": 80,
+        "wires": []
     }
 ]
