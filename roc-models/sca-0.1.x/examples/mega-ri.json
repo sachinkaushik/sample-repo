@@ -1,0 +1,146 @@
+{
+  "default-target": "reference-city",
+  "Updates": {
+    "district-0.1.0": [
+      {
+        "district-id": "northeast-cams",
+        "description": "Person and Vehicle Cams in the Northeast Coalition of Neighborhoods district",
+        "display-name": "Northeast Cameras",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 150,
+          "y": 60
+        },
+        "source": [
+          {
+            "source-id": "personvehicle-input",
+            "display-name": "personvehicle-input",
+            "image": "images/floor-plan-jewellery-counter-camera.svg",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 150,
+              "y": 60,
+              "orientation-x": 30,
+              "z": 3
+            },
+            "video": {
+              "path": "person-bicycle-car-detection.mp4",
+              "source-type": "sample"
+            }
+          }
+        ]
+      },
+      {
+        "district-id": "southeast-cams",
+        "description": "Vehicle Cameras in the Southeast Uplight Neightborhood Program district",
+        "display-name": "Southeast Cameras",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 150,
+          "y": 60
+        },
+        "source": [
+          {
+            "source-id": "vehicle-input",
+            "display-name": "vehicle-input",
+            "image": "images/floor-plan-jewellery-counter-camera.svg",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 150,
+              "y": 60,
+              "orientation-x": 30,
+              "z": 3
+            },
+            "video": {
+              "path": "car-detection.mp4",
+              "source-type": "sample"
+            }
+          }
+        ]
+      },
+      {
+        "district-id": "central-cams",
+        "description": "Collision Cameras in the Central Northeast Neighbords district",
+        "display-name": "Central Cameras",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 150,
+          "y": 60
+        },
+        "source": [
+          {
+            "source-id": "vehiclecollision-input",
+            "display-name": "vehiclecollision-input",
+            "image": "images/floor-plan-jewellery-counter-camera.svg",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 150,
+              "y": 60,
+              "orientation-x": 30,
+              "z": 3
+            },
+            "video": {
+              "path": "accident.avi",
+              "source-type": "sample"
+            }
+          }
+        ]
+      }
+    ],  
+    "traffic-monitoring-0.1.0": {
+      "enable": true,
+      "default": "personvehicle-input",
+      "district": [
+        {
+          "district-ref": "northeast-cams",
+          "enabled": true,
+          "stream-count": 1
+        }
+      ],
+      "person-vehicle-bike-detection-application": {
+        "device": "gpu",
+        "precision": "fp16"
+      }
+    },
+    "traffic-classification-0.1.0": {
+      "enable": true,
+      "default": "vehicle-input",
+      "district": [
+        {
+          "district-ref": "southeast-cams",
+          "enabled": true,
+          "stream-count": 1
+        }
+      ],
+      "detection-application": {
+        "device": "gpu",
+        "precision": "fp16"
+      },
+      "classification-application": {
+        "device": "cpu",
+        "precision": "fp16"
+      }
+    },
+    "collision-detection-0.1.0": {
+      "enable": true,
+      "default": "vehiclecollision-input",
+      "district": [
+        {
+          "district-ref": "central-cams",
+          "enabled": true,
+          "stream-count": 1
+        }
+      ],
+      "detection-application": {
+        "device": "gpu",
+        "precision": "fp16"
+      }
+    }    
+  },
+  "Deletes": {},
+  "Extensions": {
+    "transaction-strategy-111": 0,
+    "model-version-101": "0.1.0",
+    "model-type-102": "Sca"
+  }
+}
