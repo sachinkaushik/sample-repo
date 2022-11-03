@@ -21,19 +21,19 @@ import (
 type Elements struct {
     
     
-    ElementShelfMonitoring *ShelfMonitoring `json:"shelf-monitoring-0.1.0,omitempty"`
+    ElementStoreTrafficMonitoring *StoreTrafficMonitoring `json:"store-traffic-monitoring,omitempty"`
     
     
     
-    ElementShopperMonitoring *ShopperMonitoring `json:"shopper-monitoring-0.1.0,omitempty"`
+    ElementShopperMonitoring *ShopperMonitoring `json:"shopper-monitoring,omitempty"`
     
     
     
-    ElementStoreTrafficMonitoring *StoreTrafficMonitoring `json:"store-traffic-monitoring-0.1.0,omitempty"`
+    ElementShelfMonitoring *ShelfMonitoring `json:"shelf-monitoring,omitempty"`
     
     
     
-    ElementRetailArea *RetailAreaList `json:"retail-area-0.1.0,omitempty"`
+    ElementRetailArea *RetailAreaList `json:"retail-area,omitempty"`
     
     
 }
@@ -191,14 +191,14 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
     
     
     
-    if elements.ElementShelfMonitoring != nil {
+    if elements.ElementStoreTrafficMonitoring != nil {
         
         
         
-        ModelUpdates, err := EncodeToGnmiShelfMonitoring(elements.ElementShelfMonitoring, false, forDelete,
-        			StoreId(target), "/shelf-monitoring")
+        ModelUpdates, err := EncodeToGnmiStoreTrafficMonitoring(elements.ElementStoreTrafficMonitoring, false, forDelete,
+        			StoreId(target), "/store-traffic-monitoring")
         if err != nil {
-            return nil, fmt.Errorf("EncodeToGnmiShelfMonitoring %s", err)
+            return nil, fmt.Errorf("EncodeToGnmiStoreTrafficMonitoring %s", err)
         }
         updates = append(updates, ModelUpdates...)
     }
@@ -223,14 +223,14 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
     
     
     
-    if elements.ElementStoreTrafficMonitoring != nil {
+    if elements.ElementShelfMonitoring != nil {
         
         
         
-        ModelUpdates, err := EncodeToGnmiStoreTrafficMonitoring(elements.ElementStoreTrafficMonitoring, false, forDelete,
-        			StoreId(target), "/store-traffic-monitoring")
+        ModelUpdates, err := EncodeToGnmiShelfMonitoring(elements.ElementShelfMonitoring, false, forDelete,
+        			StoreId(target), "/shelf-monitoring")
         if err != nil {
-            return nil, fmt.Errorf("EncodeToGnmiStoreTrafficMonitoring %s", err)
+            return nil, fmt.Errorf("EncodeToGnmiShelfMonitoring %s", err)
         }
         updates = append(updates, ModelUpdates...)
     }

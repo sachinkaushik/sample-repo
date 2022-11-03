@@ -4,6 +4,7 @@
 package sca_0_1_x
 
 import (
+	"fmt"
 	"reflect"
 
 	externalRef0 "github.com/intel-innersource/frameworks.edge.one-intel-edge.springboard.reference-implementation.roc-models/models/sca-0.1.x/api"
@@ -53,7 +54,7 @@ func ToAdditionalPropertiesUnchTarget(ygotObjValue *reflect.Value, params ...str
 		return nil, err
 	}
 	if reflectCityId != nil && isNotNil(reflectCityId.Interface()) {
-		attrCityId := reflectCityId.Interface().(string)
+		attrCityId := fmt.Sprintf("%v", reflectCityId.Interface())
 		resource.CityId = &attrCityId
 	}
 
@@ -64,7 +65,7 @@ func ToAdditionalPropertiesUnchTarget(ygotObjValue *reflect.Value, params ...str
 		return nil, err
 	}
 	if reflectUnchanged != nil && isNotNil(reflectUnchanged.Interface()) {
-		attrUnchanged := reflectUnchanged.Interface().(string)
+		attrUnchanged := fmt.Sprintf("%v", reflectUnchanged.Interface())
 		resource.Unchanged = &attrUnchanged
 	}
 
@@ -95,7 +96,7 @@ func ToAdditionalPropertyCityId(ygotObjValue *reflect.Value, params ...string) (
 		return nil, err
 	}
 	if reflectCityId != nil && isNotNil(reflectCityId.Interface()) {
-		attrCityId := reflectCityId.Interface().(string)
+		attrCityId := fmt.Sprintf("%v", reflectCityId.Interface())
 		resource.CityId = &attrCityId
 	}
 
@@ -126,7 +127,7 @@ func ToAdditionalPropertyUnchanged(ygotObjValue *reflect.Value, params ...string
 		return nil, err
 	}
 	if reflectUnchanged != nil && isNotNil(reflectUnchanged.Interface()) {
-		attrUnchanged := reflectUnchanged.Interface().(string)
+		attrUnchanged := fmt.Sprintf("%v", reflectUnchanged.Interface())
 		resource.Unchanged = &attrUnchanged
 	}
 
@@ -157,7 +158,7 @@ func ToCollisionDetection(ygotObjValue *reflect.Value, params ...string) (*Colli
 		return nil, err
 	}
 	if reflectDefault != nil && isNotNil(reflectDefault.Interface()) {
-		attrDefault := reflectDefault.Interface().(string)
+		attrDefault := fmt.Sprintf("%v", reflectDefault.Interface())
 		resource.Default = &attrDefault
 	}
 
@@ -244,7 +245,7 @@ func ToCollisionDetectionDetectionApplication(ygotObjValue *reflect.Value, param
 		return nil, err
 	}
 	if reflectModel != nil && isNotNil(reflectModel.Interface()) {
-		attrModel := reflectModel.Interface().(string)
+		attrModel := fmt.Sprintf("%v", reflectModel.Interface())
 		resource.Model = &attrModel
 	}
 
@@ -344,7 +345,7 @@ func ToCollisionDetectionDetectionApplicationModelState(ygotObjValue *reflect.Va
 		return nil, err
 	}
 	if reflectActiveModelFile != nil && isNotNil(reflectActiveModelFile.Interface()) {
-		attrActiveModelFile := reflectActiveModelFile.Interface().(string)
+		attrActiveModelFile := fmt.Sprintf("%v", reflectActiveModelFile.Interface())
 		resource.ActiveModelFile = &attrActiveModelFile
 	}
 
@@ -355,7 +356,7 @@ func ToCollisionDetectionDetectionApplicationModelState(ygotObjValue *reflect.Va
 		return nil, err
 	}
 	if reflectActiveModelName != nil && isNotNil(reflectActiveModelName.Interface()) {
-		attrActiveModelName := reflectActiveModelName.Interface().(string)
+		attrActiveModelName := fmt.Sprintf("%v", reflectActiveModelName.Interface())
 		resource.ActiveModelName = &attrActiveModelName
 	}
 
@@ -481,7 +482,7 @@ func ToDistrict(ygotObjValue *reflect.Value, params ...string) (*District, error
 		return nil, err
 	}
 	if reflectDescription != nil && isNotNil(reflectDescription.Interface()) {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%v", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -492,7 +493,7 @@ func ToDistrict(ygotObjValue *reflect.Value, params ...string) (*District, error
 		return nil, err
 	}
 	if reflectDisplayName != nil && isNotNil(reflectDisplayName.Interface()) {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%v", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -516,7 +517,7 @@ func ToDistrict(ygotObjValue *reflect.Value, params ...string) (*District, error
 		return nil, err
 	}
 	if reflectImage != nil && isNotNil(reflectImage.Interface()) {
-		attrImage := reflectImage.Interface().(string)
+		attrImage := fmt.Sprintf("%v", reflectImage.Interface())
 		resource.Image = &attrImage
 	}
 
@@ -718,7 +719,7 @@ func ToDistrictSource(ygotObjValue *reflect.Value, params ...string) (*DistrictS
 		return nil, err
 	}
 	if reflectDescription != nil && isNotNil(reflectDescription.Interface()) {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%v", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -729,7 +730,7 @@ func ToDistrictSource(ygotObjValue *reflect.Value, params ...string) (*DistrictS
 		return nil, err
 	}
 	if reflectDisplayName != nil && isNotNil(reflectDisplayName.Interface()) {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%v", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -740,7 +741,7 @@ func ToDistrictSource(ygotObjValue *reflect.Value, params ...string) (*DistrictS
 		return nil, err
 	}
 	if reflectImage != nil && isNotNil(reflectImage.Interface()) {
-		attrImage := reflectImage.Interface().(string)
+		attrImage := fmt.Sprintf("%v", reflectImage.Interface())
 		resource.Image = &attrImage
 	}
 
@@ -969,7 +970,7 @@ func ToDistrictSourceState(ygotObjValue *reflect.Value, params ...string) (*Dist
 		return nil, err
 	}
 	if reflectError != nil && isNotNil(reflectError.Interface()) {
-		attrError := reflectError.Interface().(string)
+		attrError := fmt.Sprintf("%v", reflectError.Interface())
 		resource.Error = &attrError
 	}
 
@@ -980,7 +981,7 @@ func ToDistrictSourceState(ygotObjValue *reflect.Value, params ...string) (*Dist
 		return nil, err
 	}
 	if reflectErrorSince != nil && isNotNil(reflectErrorSince.Interface()) {
-		attrErrorSince := reflectErrorSince.Interface().(string)
+		attrErrorSince := fmt.Sprintf("%v", reflectErrorSince.Interface())
 		resource.ErrorSince = &attrErrorSince
 	}
 
@@ -991,7 +992,7 @@ func ToDistrictSourceState(ygotObjValue *reflect.Value, params ...string) (*Dist
 		return nil, err
 	}
 	if reflectStatus != nil && isNotNil(reflectStatus.Interface()) {
-		attrStatus := reflectStatus.Interface().(string)
+		attrStatus := fmt.Sprintf("%v", reflectStatus.Interface())
 		resource.Status = &attrStatus
 	}
 
@@ -1022,7 +1023,7 @@ func ToDistrictSourceVideo(ygotObjValue *reflect.Value, params ...string) (*Dist
 		return nil, err
 	}
 	if reflectPath != nil && isNotNil(reflectPath.Interface()) {
-		attrPath := reflectPath.Interface().(string)
+		attrPath := fmt.Sprintf("%v", reflectPath.Interface())
 		resource.Path = attrPath
 	} else {
 		resource.Path = ""
@@ -1108,7 +1109,7 @@ func ToTrafficClassification(ygotObjValue *reflect.Value, params ...string) (*Tr
 		return nil, err
 	}
 	if reflectDefault != nil && isNotNil(reflectDefault.Interface()) {
-		attrDefault := reflectDefault.Interface().(string)
+		attrDefault := fmt.Sprintf("%v", reflectDefault.Interface())
 		resource.Default = &attrDefault
 	}
 
@@ -1195,7 +1196,7 @@ func ToTrafficClassificationClassificationApplication(ygotObjValue *reflect.Valu
 		return nil, err
 	}
 	if reflectModel != nil && isNotNil(reflectModel.Interface()) {
-		attrModel := reflectModel.Interface().(string)
+		attrModel := fmt.Sprintf("%v", reflectModel.Interface())
 		resource.Model = &attrModel
 	}
 
@@ -1295,7 +1296,7 @@ func ToTrafficClassificationClassificationApplicationModelState(ygotObjValue *re
 		return nil, err
 	}
 	if reflectActiveModelFile != nil && isNotNil(reflectActiveModelFile.Interface()) {
-		attrActiveModelFile := reflectActiveModelFile.Interface().(string)
+		attrActiveModelFile := fmt.Sprintf("%v", reflectActiveModelFile.Interface())
 		resource.ActiveModelFile = &attrActiveModelFile
 	}
 
@@ -1306,7 +1307,7 @@ func ToTrafficClassificationClassificationApplicationModelState(ygotObjValue *re
 		return nil, err
 	}
 	if reflectActiveModelName != nil && isNotNil(reflectActiveModelName.Interface()) {
-		attrActiveModelName := reflectActiveModelName.Interface().(string)
+		attrActiveModelName := fmt.Sprintf("%v", reflectActiveModelName.Interface())
 		resource.ActiveModelName = &attrActiveModelName
 	}
 
@@ -1352,7 +1353,7 @@ func ToTrafficClassificationDetectionApplication(ygotObjValue *reflect.Value, pa
 		return nil, err
 	}
 	if reflectModel != nil && isNotNil(reflectModel.Interface()) {
-		attrModel := reflectModel.Interface().(string)
+		attrModel := fmt.Sprintf("%v", reflectModel.Interface())
 		resource.Model = &attrModel
 	}
 
@@ -1452,7 +1453,7 @@ func ToTrafficClassificationDetectionApplicationModelState(ygotObjValue *reflect
 		return nil, err
 	}
 	if reflectActiveModelFile != nil && isNotNil(reflectActiveModelFile.Interface()) {
-		attrActiveModelFile := reflectActiveModelFile.Interface().(string)
+		attrActiveModelFile := fmt.Sprintf("%v", reflectActiveModelFile.Interface())
 		resource.ActiveModelFile = &attrActiveModelFile
 	}
 
@@ -1463,7 +1464,7 @@ func ToTrafficClassificationDetectionApplicationModelState(ygotObjValue *reflect
 		return nil, err
 	}
 	if reflectActiveModelName != nil && isNotNil(reflectActiveModelName.Interface()) {
-		attrActiveModelName := reflectActiveModelName.Interface().(string)
+		attrActiveModelName := fmt.Sprintf("%v", reflectActiveModelName.Interface())
 		resource.ActiveModelName = &attrActiveModelName
 	}
 
@@ -1589,7 +1590,7 @@ func ToTrafficMonitoring(ygotObjValue *reflect.Value, params ...string) (*Traffi
 		return nil, err
 	}
 	if reflectDefault != nil && isNotNil(reflectDefault.Interface()) {
-		attrDefault := reflectDefault.Interface().(string)
+		attrDefault := fmt.Sprintf("%v", reflectDefault.Interface())
 		resource.Default = &attrDefault
 	}
 
@@ -1771,7 +1772,7 @@ func ToTrafficMonitoringPersonVehicleBikeDetectionApplication(ygotObjValue *refl
 		return nil, err
 	}
 	if reflectModel != nil && isNotNil(reflectModel.Interface()) {
-		attrModel := reflectModel.Interface().(string)
+		attrModel := fmt.Sprintf("%v", reflectModel.Interface())
 		resource.Model = &attrModel
 	}
 
@@ -1871,7 +1872,7 @@ func ToTrafficMonitoringPersonVehicleBikeDetectionApplicationModelState(ygotObjV
 		return nil, err
 	}
 	if reflectActiveModelFile != nil && isNotNil(reflectActiveModelFile.Interface()) {
-		attrActiveModelFile := reflectActiveModelFile.Interface().(string)
+		attrActiveModelFile := fmt.Sprintf("%v", reflectActiveModelFile.Interface())
 		resource.ActiveModelFile = &attrActiveModelFile
 	}
 
@@ -1882,7 +1883,7 @@ func ToTrafficMonitoringPersonVehicleBikeDetectionApplicationModelState(ygotObjV
 		return nil, err
 	}
 	if reflectActiveModelName != nil && isNotNil(reflectActiveModelName.Interface()) {
-		attrActiveModelName := reflectActiveModelName.Interface().(string)
+		attrActiveModelName := fmt.Sprintf("%v", reflectActiveModelName.Interface())
 		resource.ActiveModelName = &attrActiveModelName
 	}
 
