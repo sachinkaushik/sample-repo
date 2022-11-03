@@ -1,0 +1,195 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
+//
+// SPDX-License-Identifier: LicenseRef-Intel
+
+module intel-sca-source {
+  namespace "http://intel.com/one-intel-edge/intel-sca-source";
+  prefix src;
+
+  organization "Intel Corporation";
+  contact "ROC Engineering";
+  description "Configuration of Smart City Analytics in Ledge Park - Inference source";
+
+  revision "2022-10-27" {
+    description "Initial version";
+    reference "ROC Smart City Analytics Notes";
+  }
+
+    list district {
+      key district-id;
+
+      leaf district-id {
+        type string {
+          length 1..80;
+        }
+        description "An identifier for the district";
+      }
+
+      leaf display-name {
+        type string {
+          length 1..80;
+        }
+        description "display name to use in GUI or CLI";
+      }
+
+      leaf description {
+        type string {
+          length 1..1024;
+        }
+        description "long description field";
+      }
+
+      leaf image {
+        type string {
+         length 1..200;
+        }
+        description "a URL to an image file (e.g. SVG, PNG). Optional";
+      }
+
+      uses location;
+
+      list source {
+        key source-id;
+
+        leaf source-id {
+            type string;
+            description "the name of the inference source";
+        }
+
+        leaf display-name {
+          type string {
+            length 1..80;
+          }
+          description "display name to use in GUI or CLI";
+        }
+
+        leaf description {
+          type string {
+            length 1..1024;
+          }
+          description "long description field";
+        }
+
+        leaf image {
+          type string {
+            length 1..200;
+          }
+          description "a URL to an image file (e.g. SVG, PNG). Optional";
+        }
+
+        uses location;
+
+        container video {
+          leaf path {
+            type string {
+              length 1..100;
+              pattern "[a-zA-Z0-9\\./_:-]*";
+            }
+            mandatory true;
+            description "the path to the inference source";
+          }
+
+          leaf source-type {
+            type enumeration {
+              enum file {
+                value 0;
+                description "File based source";
+              }
+              enum stream {
+                value 1;
+                description "Stream source";
+              }
+              enum device {
+                value 2;
+                description "Device source";
+              }
+              enum sample {
+                value 3;
+                description "Sample source";
+              }
+            }
+            mandatory true;
+            description "Source type";
+          }
+          description "attributes related to video stream";
+        }
+
+        container state {
+          config false;
+
+          leaf status {
+            type string;
+            description "status of the source";
+          }
+
+          leaf error {
+            type string;
+            description "description of error if present";
+          }
+
+          leaf error-since {
+            type string;
+            description "date and time error last updated";
+          }
+
+          description "read only attributes of the source - populated by adapter from analytics engine";
+        }
+
+        description "The list of cameras";
+    }
+
+      description "district is a subsection of a city";
+    }
+
+
+    grouping location {
+      container location {
+        presence true;
+
+        leaf x {
+          type int64;
+          mandatory true;
+          description "The X position in grid or longitude by 10e-7";
+        }
+
+        leaf y {
+          type int64;
+          mandatory true;
+          description "The Y position in grid or latitude by 10e-7";
+        }
+
+        leaf z {
+          type int64;
+          description "The Z position in grid or elevation in centimetres (optional)";
+        }
+
+        leaf coordinate-system {
+          type enumeration {
+            enum grid-bottom-left {
+              value 0;
+              description "Using an x-y grid system, with origin at bottom left";
+            }
+            enum grid-top-left {
+              value 1;
+              description "Using an x-y grid system, with origin at top left";
+            }
+            enum lat-long {
+              value 2;
+              description "Using longitude (X) and latitude (Y) in decimal by 10e-7 and elevation in centimetres";
+            }
+          }
+          mandatory true;
+          description "choice of coordinate system";
+        }
+
+        leaf orientation-x {
+          type int64;
+          units centi-degree;
+          description "rotation in dgrees the X-Y plane clockwise from the 3 o'clock position";
+        }
+
+        description "physical location in grid or latitude and longitude";
+      }
+      description "grouping of location attributes";
+    }
+}

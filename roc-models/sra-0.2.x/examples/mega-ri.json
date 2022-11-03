@@ -1,0 +1,165 @@
+{
+  "default-target": "reference-store",
+  "Updates": {
+    "retail-area-0.1.0": [
+      {
+        "area-id": "jewelry-shopper-cams",
+        "description": "Shopper Monitoring Cameras in the Jewelry Department",
+        "display-name": "Jewelry Department Shopper Cameras",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 150,
+          "y": 60
+        },
+        "source": [
+          {
+            "source-id": "headpose-input1",
+            "display-name": "headpose-input1",
+            "image": "images/floor-plan-jewellery-counter-camera.svg",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 150,
+              "y": 60,
+              "orientation-x": 30,
+              "z": 3
+            },
+            "video": {
+              "path": "head-pose-face-detection-female-and-male.mp4",
+              "source-type": "sample"
+            }
+          },
+          {
+            "source-id": "headpose-input2",
+            "display-name": "headpose-input2",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 155,
+              "y": 70,
+              "orientation-x": 180,
+              "z": 2
+            },
+            "video": {
+              "path": "head-pose-face-detection-female.mp4",
+              "source-type": "sample"
+            }
+          }
+        ]
+      },
+      {
+        "area-id": "jewelry-traffic-cams",
+        "description": "Traffic Monitoring Cameras in the Jewelry Department",
+        "display-name": "Jewelry Department Traffic Cameras",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 150,
+          "y": 60
+        },
+        "source": [
+          {
+            "source-id": "faceemotion-input",
+            "display-name": "faceemotion-input",
+            "image": "images/floor-plan-jewellery-counter-camera.svg",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 150,
+              "y": 60,
+              "orientation-x": 30,
+              "z": 3
+            },
+            "video": {
+              "path": "face-demographics-walking.mp4",
+              "source-type": "sample"
+            }
+          }
+        ]
+      },
+      {
+        "area-id": "beverage-shelf-cams",
+        "description": "Shelf Monitoring Cameras in the Beverage Department",
+        "display-name": "Beverage Department Shelf Cameras",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 150,
+          "y": 60
+        },
+        "source": [
+          {
+            "source-id": "objdetection-input",
+            "display-name": "objdetection-input",
+            "image": "images/floor-plan-jewellery-counter-camera.svg",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 150,
+              "y": 60,
+              "orientation-x": 30,
+              "z": 3
+            },
+            "video": {
+              "path": "bottle-detection.mp4",
+              "source-type": "sample"
+            }
+          }
+        ]
+      }
+    ],  
+    "store-traffic-monitoring-0.1.0": {
+      "enable": true,
+      "default": "faceemotion-input",
+      "retail-area": [
+        {
+          "area-ref": "jewelry-traffic-cams",
+          "enabled": true,
+          "stream-count": 1
+        }
+      ],
+      "person-detection-application": {
+        "device": "gpu",
+        "precision": "fp16"
+      }
+    },
+    "shopper-monitoring-0.1.0": {
+      "enable": true,
+      "default": "headpose-input1",
+      "retail-area": [
+        {
+          "area-ref": "jewelry-shopper-cams",
+          "enabled": true,
+          "stream-count": 1
+        }
+      ],
+      "face-detection-application": {
+        "device": "gpu",
+        "precision": "fp16"
+      },
+      "head-pose-detection-application": {
+        "device": "cpu",
+        "precision": "fp16"
+      },
+      "emotion-recognition-application": {
+        "device": "gpu",
+        "precision": "fp16"
+      }
+    },
+    "shelf-monitoring-0.1.0": {
+      "enable": true,
+      "default": "objdetection-input",
+      "retail-area": [
+        {
+          "area-ref": "beverage-shelf-cams",
+          "enabled": true,
+          "stream-count": 1
+        }
+      ],
+      "object-detection-application": {
+        "device": "gpu",
+        "precision": "fp16"
+      }
+    }    
+  },
+  "Deletes": {},
+  "Extensions": {
+    "transaction-strategy-111": 0,
+    "model-version-101": "0.2.0",
+    "model-type-102": "Sra"
+  }
+}

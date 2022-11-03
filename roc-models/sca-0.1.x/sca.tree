@@ -1,0 +1,81 @@
+module: intel-sca-source
+  +--rw district* [district-id]
+     +--rw district-id     string
+     +--rw display-name?   string
+     +--rw description?    string
+     +--rw image?          string
+     +--rw location!
+     |  +--rw x                    int64
+     |  +--rw y                    int64
+     |  +--rw z?                   int64
+     |  +--rw coordinate-system    enumeration
+     |  +--rw orientation-x?       int64
+     +--rw source* [source-id]
+        +--rw source-id       string
+        +--rw display-name?   string
+        +--rw description?    string
+        +--rw image?          string
+        +--rw location!
+        |  +--rw x                    int64
+        |  +--rw y                    int64
+        |  +--rw z?                   int64
+        |  +--rw coordinate-system    enumeration
+        |  +--rw orientation-x?       int64
+        +--rw video
+        |  +--rw path           string
+        |  +--rw source-type    enumeration
+        +--ro state
+           +--ro status?        string
+           +--ro error?         string
+           +--ro error-since?   string
+
+module: intel-sca
+  +--rw traffic-monitoring!
+  |  +--rw enable                                       boolean
+  |  +--rw default?                                     -> /src:district/source/source-id
+  |  +--rw district* [district-ref]
+  |  |  +--rw district-ref    -> /src:district/district-id
+  |  |  +--rw enabled         boolean
+  |  |  +--rw stream-count?   uint8
+  |  +--rw person-vehicle-bike-detection-application
+  |     +--rw device         enumeration
+  |     +--rw precision      enumeration
+  |     +--rw model?         string
+  |     +--ro model-state
+  |        +--ro active-model-name?   string
+  |        +--ro active-model-file?   string
+  +--rw traffic-classification!
+  |  +--rw enable                        boolean
+  |  +--rw default?                      -> /src:district/source/source-id
+  |  +--rw district* [district-ref]
+  |  |  +--rw district-ref    -> /src:district/district-id
+  |  |  +--rw enabled         boolean
+  |  |  +--rw stream-count?   uint8
+  |  +--rw detection-application
+  |  |  +--rw device         enumeration
+  |  |  +--rw precision      enumeration
+  |  |  +--rw model?         string
+  |  |  +--ro model-state
+  |  |     +--ro active-model-name?   string
+  |  |     +--ro active-model-file?   string
+  |  +--rw classification-application
+  |     +--rw device         enumeration
+  |     +--rw precision      enumeration
+  |     +--rw model?         string
+  |     +--ro model-state
+  |        +--ro active-model-name?   string
+  |        +--ro active-model-file?   string
+  +--rw collision-detection!
+     +--rw enable                   boolean
+     +--rw default?                 -> /src:district/source/source-id
+     +--rw district* [district-ref]
+     |  +--rw district-ref    -> /src:district/district-id
+     |  +--rw enabled         boolean
+     |  +--rw stream-count?   uint8
+     +--rw detection-application
+        +--rw device         enumeration
+        +--rw precision      enumeration
+        +--rw model?         string
+        +--ro model-state
+           +--ro active-model-name?   string
+           +--ro active-model-file?   string

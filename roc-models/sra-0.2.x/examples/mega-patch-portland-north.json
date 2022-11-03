@@ -1,0 +1,273 @@
+{
+  "default-target": "portland-north",
+  "Updates": {
+    "retail-area-0.1.0": [
+      {
+        "area-id": "carts",
+        "description": "Shopping Carts",
+        "display-name": "Carts",
+        "image": "images/floor-plan-carts.svg",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 150,
+          "y": 100
+        }
+      },
+      {
+        "area-id": "jewellery",
+        "description": "Jewellery Section",
+        "display-name": "Jewellery",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 150,
+          "y": 60
+        },
+        "source": [
+          {
+            "source-id": "jewellery-counter",
+            "display-name": "Jewellery Counter Camera",
+            "image": "images/floor-plan-jewellery-counter-camera.svg",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 150,
+              "y": 60,
+              "orientation-x": 30,
+              "z": 3
+            },
+            "video": {
+              "path": "counter.jewellery.north.portland.stores.intel.com",
+              "source-type": "stream"
+            }
+          },
+          {
+            "source-id": "jewellery-display",
+            "display-name": "Jewellery Display Cabinets Camera",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 155,
+              "y": 70,
+              "orientation-x": 180,
+              "z": 2
+            },
+            "video": {
+              "path": "display.jewellery.north.portland.stores.intel.com",
+              "source-type": "stream"
+            }
+          },
+          {
+            "source-id": "jewellery-feature",
+            "display-name": "Jewellery Feature Area Camera",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 160,
+              "y": 70,
+              "orientation-x": 135,
+              "z": 3
+            },
+            "video": {
+              "path": "feature.jewellery.north.portland.stores.intel.com",
+              "source-type": "stream"
+            }
+          }
+        ]
+      },
+      {
+        "area-id": "womenswear",
+        "description": "Womens clothing and accessories",
+        "display-name": "Women's wear",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 100,
+          "y": 60
+        },
+        "source": [
+          {
+            "source-id": "womenswear-designer",
+            "display-name": "Womenswear Designer Section Camera",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 110,
+              "y": 70,
+              "orientation-x": 135,
+              "z": 3
+            },
+            "video": {
+              "path": "designer.womenswear.north.portland.stores.intel.com",
+              "source-type": "stream"
+            }
+          },
+          {
+            "source-id": "womenswear-accessories",
+            "display-name": "Womenswear Accessories Section Camera",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 110,
+              "y": 75,
+              "orientation-x": 45,
+              "z": 3
+            },
+            "video": {
+              "path": "accessories.womenswear.north.portland.stores.intel.com",
+              "source-type": "stream"
+            }
+          },
+          {
+            "source-id": "womenswear-changing",
+            "display-name": "Womenswear Changing Rooms Camera",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 120,
+              "y": 74,
+              "orientation-x": 180,
+              "z": 3
+            },
+            "video": {
+              "path": "changine.womenswear.north.portland.stores.intel.com",
+              "source-type": "stream"
+            }
+          }
+        ]
+      },
+      {
+        "area-id": "menswear",
+        "description": "Mens clothing and accessories",
+        "display-name": "Men's wear",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 150,
+          "y": 30
+        },
+        "source": [
+          {
+            "source-id": "menswear-footwear",
+            "display-name": "Menswear Footwear Section Camera",
+            "location": {
+              "coordinate-system": "grid-top-left",
+              "x": 155,
+              "y": 32,
+              "orientation-x": 270,
+              "z": 3
+            },
+            "video": {
+              "path": "footwear.menswear.north.portland.stores.intel.com",
+              "source-type": "stream"
+            }
+          }
+        ]
+      },
+      {
+        "area-id": "childrenswear",
+        "description": "Children's clothing and accessories",
+        "display-name": "Children's wear",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 100,
+          "y": 30
+        }
+      },
+      {
+        "area-id": "sporting-goods",
+        "display-name": "Sporting goods",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 150,
+          "y": 0
+        }
+      },
+      {
+        "area-id": "electronics",
+        "display-name": "Electronics",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 100,
+          "y": 0
+        }
+      },
+      {
+        "area-id": "toys",
+        "display-name": "Toy section",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 50,
+          "y": 30
+        }
+      },
+      {
+        "area-id": "store",
+        "display-name": "Storeroom",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "area-id": "car-care",
+        "display-name": "Car accessories",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 0,
+          "y": 50
+        }
+      },
+      {
+        "area-id": "tills",
+        "display-name": "Checkouts and bagging",
+        "location": {
+          "coordinate-system": "grid-top-left",
+          "x": 80,
+          "y": 100
+        }
+      }
+    ],
+    "store-traffic-monitoring-0.1.0": {
+      "enable": true,
+      "default": "jewellery-feature",
+      "retail-area": [
+        {
+          "area-ref": "jewellery",
+          "enabled": true,
+          "stream-count": 1
+        },
+        {
+          "area-ref": "womenswear",
+          "enabled": true,
+          "stream-count": 1
+        }
+      ],
+      "person-detection-application": {
+        "device": "gpu",
+        "precision": "fp16"
+      }
+    },
+    "shopper-monitoring-0.1.0": {
+      "enable": true,
+      "default": "jewellery-counter",
+      "retail-area": [
+        {
+          "area-ref": "jewellery",
+          "enabled": true,
+          "stream-count": 1
+        }
+      ],
+      "face-detection-application": {
+        "device": "gpu",
+        "precision": "fp16"
+      },
+      "head-pose-detection-application": {
+        "device": "cpu",
+        "precision": "fp16"
+      },
+      "emotion-recognition-application": {
+        "device": "gpu",
+        "precision": "fp16"
+      }
+    }
+  },
+  "Deletes": {},
+  "Extensions": {
+    "transaction-strategy-111": 0,
+    "model-version-101": "0.2.0",
+    "model-type-102": "Sra"
+  }
+}

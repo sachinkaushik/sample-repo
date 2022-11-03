@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2022-present Intel Corporation
+#
+# SPDX-License-Identifier: LicenseRef-Intel
+
+name: sra
+version: 0.2.x
+artifactName: sra-0.2.x
+goPackage: github.com/intel-innersource/frameworks.edge.one-intel-edge.springboard.reference-implementation.roc-models/models/sra-0.2.x
+openAPITargetAlias: store-id
+contactName: Intel Corporation
+contactUrl: https://www.intel.com
+licenseName: LicenseRef-Intel
+modules:
+  - name: intel-sra-source
+    organization: Intel Corporation
+    revision: 2022-09-24
+    file: intel-sra-source@2022-09-24.yang
+  - name: intel-sra
+    organization: Intel Corporation
+    revision: 2022-09-24
+    file: intel-sra@2022-09-24.yang
