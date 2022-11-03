@@ -21,15 +21,15 @@ import (
 type Elements struct {
     
     
+    ElementTrafficClassification *TrafficClassification `json:"traffic-classification,omitempty"`
+    
+    
+    
     ElementCollisionDetection *CollisionDetection `json:"collision-detection,omitempty"`
     
     
     
     ElementDistrict *DistrictList `json:"district,omitempty"`
-    
-    
-    
-    ElementTrafficClassification *TrafficClassification `json:"traffic-classification,omitempty"`
     
     
     
@@ -191,6 +191,22 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
     
     
     
+    if elements.ElementTrafficClassification != nil {
+        
+        
+        
+        ModelUpdates, err := EncodeToGnmiTrafficClassification(elements.ElementTrafficClassification, false, forDelete,
+        			CityId(target), "/traffic-classification")
+        if err != nil {
+            return nil, fmt.Errorf("EncodeToGnmiTrafficClassification %s", err)
+        }
+        updates = append(updates, ModelUpdates...)
+    }
+    
+    
+    
+    
+    
     if elements.ElementCollisionDetection != nil {
         
         
@@ -223,22 +239,6 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
             updates = append(updates, ModelUpdates...)
         }
     }
-    
-    
-    
-    
-    if elements.ElementTrafficClassification != nil {
-        
-        
-        
-        ModelUpdates, err := EncodeToGnmiTrafficClassification(elements.ElementTrafficClassification, false, forDelete,
-        			CityId(target), "/traffic-classification")
-        if err != nil {
-            return nil, fmt.Errorf("EncodeToGnmiTrafficClassification %s", err)
-        }
-        updates = append(updates, ModelUpdates...)
-    }
-    
     
     
     
