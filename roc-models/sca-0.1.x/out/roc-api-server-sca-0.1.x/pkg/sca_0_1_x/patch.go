@@ -21,19 +21,19 @@ import (
 type Elements struct {
     
     
-    ElementTrafficMonitoring *TrafficMonitoring `json:"traffic-monitoring-0.1.0,omitempty"`
+    ElementCollisionDetection *CollisionDetection `json:"collision-detection,omitempty"`
     
     
     
-    ElementCollisionDetection *CollisionDetection `json:"collision-detection-0.1.0,omitempty"`
+    ElementDistrict *DistrictList `json:"district,omitempty"`
     
     
     
-    ElementDistrict *DistrictList `json:"district-0.1.0,omitempty"`
+    ElementTrafficClassification *TrafficClassification `json:"traffic-classification,omitempty"`
     
     
     
-    ElementTrafficClassification *TrafficClassification `json:"traffic-classification-0.1.0,omitempty"`
+    ElementTrafficMonitoring *TrafficMonitoring `json:"traffic-monitoring,omitempty"`
     
     
 }
@@ -191,22 +191,6 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
     
     
     
-    if elements.ElementTrafficMonitoring != nil {
-        
-        
-        
-        ModelUpdates, err := EncodeToGnmiTrafficMonitoring(elements.ElementTrafficMonitoring, false, forDelete,
-        			CityId(target), "/traffic-monitoring")
-        if err != nil {
-            return nil, fmt.Errorf("EncodeToGnmiTrafficMonitoring %s", err)
-        }
-        updates = append(updates, ModelUpdates...)
-    }
-    
-    
-    
-    
-    
     if elements.ElementCollisionDetection != nil {
         
         
@@ -251,6 +235,22 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
         			CityId(target), "/traffic-classification")
         if err != nil {
             return nil, fmt.Errorf("EncodeToGnmiTrafficClassification %s", err)
+        }
+        updates = append(updates, ModelUpdates...)
+    }
+    
+    
+    
+    
+    
+    if elements.ElementTrafficMonitoring != nil {
+        
+        
+        
+        ModelUpdates, err := EncodeToGnmiTrafficMonitoring(elements.ElementTrafficMonitoring, false, forDelete,
+        			CityId(target), "/traffic-monitoring")
+        if err != nil {
+            return nil, fmt.Errorf("EncodeToGnmiTrafficMonitoring %s", err)
         }
         updates = append(updates, ModelUpdates...)
     }

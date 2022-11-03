@@ -67,7 +67,7 @@ func DistrictListToLeafRefOptions (districtListVar  *DistrictList, targetPath st
 
 
 
-func (i *ServerImpl) GnmiGetTrafficMonitoringDistrictDistrictRefValuesLeafref (ctx context.Context, openApiPath string, enterpriseId CityId , args ...string) (*LeafRefOptions, error) {
+func (i *ServerImpl) GnmiGetTrafficClassificationDefaultValuesLeafref (ctx context.Context, openApiPath string, enterpriseId CityId , args ...string) (*LeafRefOptions, error) {
     gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
     if err != nil {
         return nil, err
@@ -102,12 +102,12 @@ func (i *ServerImpl) GnmiGetTrafficMonitoringDistrictDistrictRefValuesLeafref (c
         return nil, err
     }
 
-    return DistrictListToLeafRefOptions(response, "district-id", args...)
+    return DistrictListToLeafRefOptions(response, "source/source-id", args...)
 
 }
 
 
-func (i *ServerImpl) GetTrafficMonitoringDistrictDistrictRefValuesLeafref (ctx echo.Context, cityId CityId, districtRef string) error {
+func (i *ServerImpl) GetTrafficClassificationDefaultValuesLeafref (ctx echo.Context, cityId CityId) error {
     var response interface{}
     var err error
 
@@ -115,7 +115,7 @@ func (i *ServerImpl) GetTrafficMonitoringDistrictDistrictRefValuesLeafref (ctx e
     defer cancel()
 
     // Response GET OK 200
-    response, err = i.GnmiGetTrafficMonitoringDistrictDistrictRefValuesLeafref(gnmiCtx, "/sca/v0.1.x/{city-id}/district", cityId, districtRef)
+    response, err = i.GnmiGetTrafficClassificationDefaultValuesLeafref(gnmiCtx, "/sca/v0.1.x/{city-id}/district", cityId)
     if err != nil {
         httpErr := utils.ConvertGrpcError(err)
         if httpErr == echo.ErrNotFound {
@@ -197,7 +197,7 @@ func (i *ServerImpl) GetCollisionDetectionDistrictDistrictRefValuesLeafref (ctx 
 }
 
 
-func (i *ServerImpl) GnmiGetTrafficClassificationDefaultValuesLeafref (ctx context.Context, openApiPath string, enterpriseId CityId , args ...string) (*LeafRefOptions, error) {
+func (i *ServerImpl) GnmiGetTrafficMonitoringDistrictDistrictRefValuesLeafref (ctx context.Context, openApiPath string, enterpriseId CityId , args ...string) (*LeafRefOptions, error) {
     gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
     if err != nil {
         return nil, err
@@ -232,12 +232,12 @@ func (i *ServerImpl) GnmiGetTrafficClassificationDefaultValuesLeafref (ctx conte
         return nil, err
     }
 
-    return DistrictListToLeafRefOptions(response, "source/source-id", args...)
+    return DistrictListToLeafRefOptions(response, "district-id", args...)
 
 }
 
 
-func (i *ServerImpl) GetTrafficClassificationDefaultValuesLeafref (ctx echo.Context, cityId CityId) error {
+func (i *ServerImpl) GetTrafficMonitoringDistrictDistrictRefValuesLeafref (ctx echo.Context, cityId CityId, districtRef string) error {
     var response interface{}
     var err error
 
@@ -245,7 +245,72 @@ func (i *ServerImpl) GetTrafficClassificationDefaultValuesLeafref (ctx echo.Cont
     defer cancel()
 
     // Response GET OK 200
-    response, err = i.GnmiGetTrafficClassificationDefaultValuesLeafref(gnmiCtx, "/sca/v0.1.x/{city-id}/district", cityId)
+    response, err = i.GnmiGetTrafficMonitoringDistrictDistrictRefValuesLeafref(gnmiCtx, "/sca/v0.1.x/{city-id}/district", cityId, districtRef)
+    if err != nil {
+        httpErr := utils.ConvertGrpcError(err)
+        if httpErr == echo.ErrNotFound {
+            return ctx.NoContent(http.StatusNotFound)
+        }
+        return httpErr
+    }
+    // It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+    if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+        return ctx.NoContent(http.StatusNotFound)
+    }
+
+    return ctx.JSON(http.StatusOK, response)
+}
+
+
+func (i *ServerImpl) GnmiGetTrafficClassificationDistrictDistrictRefValuesLeafref (ctx context.Context, openApiPath string, enterpriseId CityId , args ...string) (*LeafRefOptions, error) {
+    gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+    if err != nil {
+        return nil, err
+    }
+    log.Infof("gnmiGetRequest %s", gnmiGet.String())
+    gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+    if err != nil {
+        log.Info("getresponse update error: ", err)
+        return nil, err
+    }
+    if gnmiVal == nil {
+        log.Info("gnmiVal is empty")
+        return nil, nil
+    }
+
+    gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+    if !ok {
+        return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+    }
+    log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+    var gnmiResponse externalRef0.Device
+    if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+        return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+    }
+    mpd := ModelPluginDevice{
+        device: gnmiResponse,
+    }
+
+    response, err := mpd.ToDistrictList(args[:0]...)
+    if err != nil {
+        log.Info("error unmarshaling to switch-model: ", err)
+        return nil, err
+    }
+
+    return DistrictListToLeafRefOptions(response, "district-id", args...)
+
+}
+
+
+func (i *ServerImpl) GetTrafficClassificationDistrictDistrictRefValuesLeafref (ctx echo.Context, cityId CityId, districtRef string) error {
+    var response interface{}
+    var err error
+
+    gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+    defer cancel()
+
+    // Response GET OK 200
+    response, err = i.GnmiGetTrafficClassificationDistrictDistrictRefValuesLeafref(gnmiCtx, "/sca/v0.1.x/{city-id}/district", cityId, districtRef)
     if err != nil {
         httpErr := utils.ConvertGrpcError(err)
         if httpErr == echo.ErrNotFound {
@@ -376,71 +441,6 @@ func (i *ServerImpl) GetCollisionDetectionDefaultValuesLeafref (ctx echo.Context
 
     // Response GET OK 200
     response, err = i.GnmiGetCollisionDetectionDefaultValuesLeafref(gnmiCtx, "/sca/v0.1.x/{city-id}/district", cityId)
-    if err != nil {
-        httpErr := utils.ConvertGrpcError(err)
-        if httpErr == echo.ErrNotFound {
-            return ctx.NoContent(http.StatusNotFound)
-        }
-        return httpErr
-    }
-    // It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-    if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-        return ctx.NoContent(http.StatusNotFound)
-    }
-
-    return ctx.JSON(http.StatusOK, response)
-}
-
-
-func (i *ServerImpl) GnmiGetTrafficClassificationDistrictDistrictRefValuesLeafref (ctx context.Context, openApiPath string, enterpriseId CityId , args ...string) (*LeafRefOptions, error) {
-    gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
-    if err != nil {
-        return nil, err
-    }
-    log.Infof("gnmiGetRequest %s", gnmiGet.String())
-    gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-    if err != nil {
-        log.Info("getresponse update error: ", err)
-        return nil, err
-    }
-    if gnmiVal == nil {
-        log.Info("gnmiVal is empty")
-        return nil, nil
-    }
-
-    gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-    if !ok {
-        return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-    }
-    log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-    var gnmiResponse externalRef0.Device
-    if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-        return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-    }
-    mpd := ModelPluginDevice{
-        device: gnmiResponse,
-    }
-
-    response, err := mpd.ToDistrictList(args[:0]...)
-    if err != nil {
-        log.Info("error unmarshaling to switch-model: ", err)
-        return nil, err
-    }
-
-    return DistrictListToLeafRefOptions(response, "district-id", args...)
-
-}
-
-
-func (i *ServerImpl) GetTrafficClassificationDistrictDistrictRefValuesLeafref (ctx echo.Context, cityId CityId, districtRef string) error {
-    var response interface{}
-    var err error
-
-    gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
-    defer cancel()
-
-    // Response GET OK 200
-    response, err = i.GnmiGetTrafficClassificationDistrictDistrictRefValuesLeafref(gnmiCtx, "/sca/v0.1.x/{city-id}/district", cityId, districtRef)
     if err != nil {
         httpErr := utils.ConvertGrpcError(err)
         if httpErr == echo.ErrNotFound {
