@@ -21,15 +21,15 @@ import (
 type Elements struct {
     
     
-    ElementRetailArea *RetailAreaList `json:"retail-area,omitempty"`
-    
-    
-    
     ElementShelfMonitoring *ShelfMonitoring `json:"shelf-monitoring,omitempty"`
     
     
     
     ElementStoreTrafficMonitoring *StoreTrafficMonitoring `json:"store-traffic-monitoring,omitempty"`
+    
+    
+    
+    ElementRetailArea *RetailAreaList `json:"retail-area,omitempty"`
     
     
     
@@ -191,26 +191,6 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
     
     
     
-    if elements.ElementRetailArea != nil && len(*elements.ElementRetailArea) > 0 {
-        for _, e := range *elements.ElementRetailArea {
-            
-            if e.AreaId == undefined {
-                log.Warnw("area-id is undefined", "area-id", e)
-                return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "area-id cannot be undefined")
-            }
-            
-            ModelUpdates, err := EncodeToGnmiRetailAreaList(elements.ElementRetailArea, false,
-            			forDelete, StoreId(target), "/retail-area")
-            if err != nil {
-                return nil, fmt.Errorf("EncodeToGnmiRetailAreaList() %s", err)
-            }
-            updates = append(updates, ModelUpdates...)
-        }
-    }
-    
-    
-    
-    
     if elements.ElementShelfMonitoring != nil {
         
         
@@ -239,6 +219,26 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
         updates = append(updates, ModelUpdates...)
     }
     
+    
+    
+    
+    
+    if elements.ElementRetailArea != nil && len(*elements.ElementRetailArea) > 0 {
+        for _, e := range *elements.ElementRetailArea {
+            
+            if e.AreaId == undefined {
+                log.Warnw("area-id is undefined", "area-id", e)
+                return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "area-id cannot be undefined")
+            }
+            
+            ModelUpdates, err := EncodeToGnmiRetailAreaList(elements.ElementRetailArea, false,
+            			forDelete, StoreId(target), "/retail-area")
+            if err != nil {
+                return nil, fmt.Errorf("EncodeToGnmiRetailAreaList() %s", err)
+            }
+            updates = append(updates, ModelUpdates...)
+        }
+    }
     
     
     
