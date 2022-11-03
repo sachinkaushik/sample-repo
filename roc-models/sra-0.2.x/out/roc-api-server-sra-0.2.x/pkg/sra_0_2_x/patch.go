@@ -21,11 +21,7 @@ import (
 type Elements struct {
     
     
-    ElementStoreTrafficMonitoring *StoreTrafficMonitoring `json:"store-traffic-monitoring,omitempty"`
-    
-    
-    
-    ElementShopperMonitoring *ShopperMonitoring `json:"shopper-monitoring,omitempty"`
+    ElementRetailArea *RetailAreaList `json:"retail-area,omitempty"`
     
     
     
@@ -33,7 +29,11 @@ type Elements struct {
     
     
     
-    ElementRetailArea *RetailAreaList `json:"retail-area,omitempty"`
+    ElementStoreTrafficMonitoring *StoreTrafficMonitoring `json:"store-traffic-monitoring,omitempty"`
+    
+    
+    
+    ElementShopperMonitoring *ShopperMonitoring `json:"shopper-monitoring,omitempty"`
     
     
 }
@@ -191,6 +191,42 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
     
     
     
+    if elements.ElementRetailArea != nil && len(*elements.ElementRetailArea) > 0 {
+        for _, e := range *elements.ElementRetailArea {
+            
+            if e.AreaId == undefined {
+                log.Warnw("area-id is undefined", "area-id", e)
+                return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "area-id cannot be undefined")
+            }
+            
+            ModelUpdates, err := EncodeToGnmiRetailAreaList(elements.ElementRetailArea, false,
+            			forDelete, StoreId(target), "/retail-area")
+            if err != nil {
+                return nil, fmt.Errorf("EncodeToGnmiRetailAreaList() %s", err)
+            }
+            updates = append(updates, ModelUpdates...)
+        }
+    }
+    
+    
+    
+    
+    if elements.ElementShelfMonitoring != nil {
+        
+        
+        
+        ModelUpdates, err := EncodeToGnmiShelfMonitoring(elements.ElementShelfMonitoring, false, forDelete,
+        			StoreId(target), "/shelf-monitoring")
+        if err != nil {
+            return nil, fmt.Errorf("EncodeToGnmiShelfMonitoring %s", err)
+        }
+        updates = append(updates, ModelUpdates...)
+    }
+    
+    
+    
+    
+    
     if elements.ElementStoreTrafficMonitoring != nil {
         
         
@@ -219,42 +255,6 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
         updates = append(updates, ModelUpdates...)
     }
     
-    
-    
-    
-    
-    if elements.ElementShelfMonitoring != nil {
-        
-        
-        
-        ModelUpdates, err := EncodeToGnmiShelfMonitoring(elements.ElementShelfMonitoring, false, forDelete,
-        			StoreId(target), "/shelf-monitoring")
-        if err != nil {
-            return nil, fmt.Errorf("EncodeToGnmiShelfMonitoring %s", err)
-        }
-        updates = append(updates, ModelUpdates...)
-    }
-    
-    
-    
-    
-    
-    if elements.ElementRetailArea != nil && len(*elements.ElementRetailArea) > 0 {
-        for _, e := range *elements.ElementRetailArea {
-            
-            if e.AreaId == undefined {
-                log.Warnw("area-id is undefined", "area-id", e)
-                return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "area-id cannot be undefined")
-            }
-            
-            ModelUpdates, err := EncodeToGnmiRetailAreaList(elements.ElementRetailArea, false,
-            			forDelete, StoreId(target), "/retail-area")
-            if err != nil {
-                return nil, fmt.Errorf("EncodeToGnmiRetailAreaList() %s", err)
-            }
-            updates = append(updates, ModelUpdates...)
-        }
-    }
     
     
 

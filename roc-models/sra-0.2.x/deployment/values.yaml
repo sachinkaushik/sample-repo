@@ -50,8 +50,8 @@ onos-cli: {}
 # ROC API
 roc-api:
   image:
-    registry: default-route-openshift-image-registry.apps.nex.one-edge.intel.com/
-    repository: springboard-dev-common//roc-api-server-sra-0.2.x
+    registry: default-route-openshift-image-registry.apps.nex.one-edge.intel.com
+    repository: springboard-dev-common/roc-api-server-sra-0.2.x
     tag: v0.0.1
     pullPolicy: IfNotPresent
 # for GUI development only - comment out for production
@@ -61,7 +61,7 @@ roc-api:
 roc-adapter:
   fullnameOverride: "roc-adapter"
   image:
-    registry: default-route-openshift-image-registry.apps.nex.one-edge.intel.com/
+    registry: default-route-openshift-image-registry.apps.nex.one-edge.intel.com
     repository: springboard-dev-common/roc-adapter-sra-0.2.x
     tag: v0.0.1
     pullPolicy: IfNotPresent
@@ -70,9 +70,9 @@ roc-gui:
   runtimeConfig:
     targetType: store
   image:
-    registry: default-route-openshift-image-registry.apps.nex.one-edge.intel.com/
+    registry: default-route-openshift-image-registry.apps.nex.one-edge.intel.com
     repository: springboard-dev-common/roc-ui
-    tag: 
+    tag: v0.2.2
     pullPolicy: IfNotPresent
 
 # ONOS-TOPO
@@ -87,7 +87,7 @@ onos-config:
     consensus:
       enabled: false
   modelPlugins:
-    - name: sra-0.2.x
+    - name: sra-0-2-x
       image: default-route-openshift-image-registry.apps.nex.one-edge.intel.com/springboard-dev-common/roc-sra-0.2.x:v0.0.1
       pullPolicy: IfNotPresent
       endpoint: localhost

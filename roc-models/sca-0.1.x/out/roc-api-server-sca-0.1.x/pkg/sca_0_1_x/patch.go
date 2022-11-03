@@ -21,19 +21,19 @@ import (
 type Elements struct {
     
     
-    ElementCollisionDetection *CollisionDetection `json:"collision-detection,omitempty"`
-    
-    
-    
     ElementDistrict *DistrictList `json:"district,omitempty"`
     
     
     
-    ElementTrafficClassification *TrafficClassification `json:"traffic-classification,omitempty"`
-    
-    
-    
     ElementTrafficMonitoring *TrafficMonitoring `json:"traffic-monitoring,omitempty"`
+    
+    
+    
+    ElementCollisionDetection *CollisionDetection `json:"collision-detection,omitempty"`
+    
+    
+    
+    ElementTrafficClassification *TrafficClassification `json:"traffic-classification,omitempty"`
     
     
 }
@@ -191,22 +191,6 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
     
     
     
-    if elements.ElementCollisionDetection != nil {
-        
-        
-        
-        ModelUpdates, err := EncodeToGnmiCollisionDetection(elements.ElementCollisionDetection, false, forDelete,
-        			CityId(target), "/collision-detection")
-        if err != nil {
-            return nil, fmt.Errorf("EncodeToGnmiCollisionDetection %s", err)
-        }
-        updates = append(updates, ModelUpdates...)
-    }
-    
-    
-    
-    
-    
     if elements.ElementDistrict != nil && len(*elements.ElementDistrict) > 0 {
         for _, e := range *elements.ElementDistrict {
             
@@ -227,22 +211,6 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
     
     
     
-    if elements.ElementTrafficClassification != nil {
-        
-        
-        
-        ModelUpdates, err := EncodeToGnmiTrafficClassification(elements.ElementTrafficClassification, false, forDelete,
-        			CityId(target), "/traffic-classification")
-        if err != nil {
-            return nil, fmt.Errorf("EncodeToGnmiTrafficClassification %s", err)
-        }
-        updates = append(updates, ModelUpdates...)
-    }
-    
-    
-    
-    
-    
     if elements.ElementTrafficMonitoring != nil {
         
         
@@ -251,6 +219,38 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
         			CityId(target), "/traffic-monitoring")
         if err != nil {
             return nil, fmt.Errorf("EncodeToGnmiTrafficMonitoring %s", err)
+        }
+        updates = append(updates, ModelUpdates...)
+    }
+    
+    
+    
+    
+    
+    if elements.ElementCollisionDetection != nil {
+        
+        
+        
+        ModelUpdates, err := EncodeToGnmiCollisionDetection(elements.ElementCollisionDetection, false, forDelete,
+        			CityId(target), "/collision-detection")
+        if err != nil {
+            return nil, fmt.Errorf("EncodeToGnmiCollisionDetection %s", err)
+        }
+        updates = append(updates, ModelUpdates...)
+    }
+    
+    
+    
+    
+    
+    if elements.ElementTrafficClassification != nil {
+        
+        
+        
+        ModelUpdates, err := EncodeToGnmiTrafficClassification(elements.ElementTrafficClassification, false, forDelete,
+        			CityId(target), "/traffic-classification")
+        if err != nil {
+            return nil, fmt.Errorf("EncodeToGnmiTrafficClassification %s", err)
         }
         updates = append(updates, ModelUpdates...)
     }
