@@ -6,4 +6,4 @@ docker build --platform linux/x86_64 -t default-route-openshift-image-registry.a
 
 docker build --platform linux/x86_64 -f roc-models/sra-0.2.x/out/roc-api-server-sra-0.2.x/build/Dockerfile -t default-route-openshift-image-registry.apps.nex.one-edge.intel.com/springboard-dev-common/roc-api-server-sra-0.2.x:0.2.0-dev roc-models/sra-0.2.x/out/roc-api-server-sra-0.2.x&
 
-docker build --platform linux/x86_64 -f roc-models/sra-0.2.x/out/roc-adapter-stubs-sra-0.2.x/Dockerfile -t default-route-openshift-image-registry.apps.nex.one-edge.intel.com/springboard-dev-common/roc-adapter-sra-0.2.x:0.2.0-dev roc-models/sra-0.2.x/out/roc-adapter-stubs-sra-0.2.x&
+docker build --platform linux/x86_64 -f roc-models/sra-0.2.x/out/roc-adapter-impl-sra-0.2.x/Dockerfile -t default-route-openshift-image-registry.apps.nex.one-edge.intel.com/springboard-dev-common/roc-adapter-sra-0.2.x:0.2.0-dev roc-models/sra-0.2.x/out/roc-adapter-impl-sra-0.2.x&

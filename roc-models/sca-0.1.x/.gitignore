@@ -2,5 +2,5 @@
 # SPDX-License-Identifier: LicenseRef-Intel
 vendor/
 _bin/
-out/roc-adapter-stubs-sca-0.1.x/vendor
+out/roc-adapter-impl-sca-0.1.x/vendor
 out/roc-api-server-sca-0.1.x/vendor

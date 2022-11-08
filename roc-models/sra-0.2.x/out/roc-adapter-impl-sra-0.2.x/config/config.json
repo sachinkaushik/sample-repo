@@ -1,0 +1,143 @@
+{
+    "version": 1.0,
+    "modelList": {
+        "face_detection":[
+            {
+                "name": "face-detection-adas-0001",
+                "modelDescription":"https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/face-detection-adas-0001/README.md",
+                "modelSize": "2.835GFlops"
+            }
+        ],
+        "pose_estimation":[
+            {
+                "name": "head-pose-estimation-adas-0001",
+                "modelDescription":"https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/head-pose-estimation-adas-0001/README.md",
+                "modelSize": "0.105GFlops"
+            }
+        ],
+        "emotion_recognition":[
+            {
+                "name": "emotions-recognition-retail-0003",
+                "modelDescription":"https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/emotions-recognition-retail-0003/README.md",
+                "modelSize": "0.126GFlops"
+            }
+        ],
+        "person_detection":[
+            {
+                "name": "person-detection-retail-0013",
+                "modelDescription":"https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/person-detection-retail-0013/README.md",
+                "modelSize":"2.300GFlops"
+            }
+        ],
+        "object_detection":[
+            {
+                "name": "yolo-v2-tiny-tf",
+                "modelDescription":"https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/public/yolo-v2-tiny-tf/README.md",
+                "modelSize":"5.424GFlops"
+            }
+        ]
+       
+    },
+    "sourceList": [
+        {
+            "sourceName": "headpose-input1",
+            "source": "head-pose-face-detection-female-and-male.mp4",
+            "sourceType": "sample"
+
+        },
+        {
+            "sourceName": "headpose-input2",
+            "source": "head-pose-face-detection-female.mp4",
+            "sourceType": "sample"
+
+        },
+        {
+            "sourceName": "faceemotion-input",
+            "source": "face-demographics-walking.mp4",
+            "sourceType": "sample"
+
+        },
+        {
+            "sourceName": "objdetection-input",
+            "source": "bottle-detection.mp4",
+            "sourceType": "sample"
+
+        }
+    ],
+    "pipelineList": [
+        {
+            "pipelineName": "shopper-pose-mood-estimation",
+            "info": "Application to recognize Shopper Emotions",
+            "enable": "True",
+
+            "sources": [
+                {
+                    "sourceName": "headpose-input1",
+                    "streamCount": 2
+                },
+                {
+                    "sourceName": "headpose-input2",
+                    "streamCount": 1
+                }
+            ],
+            "nodeList": [
+                {
+                    "nodeName": "face_detection",
+                    "model": "face-detection-adas-0001",
+                    "precision": "FP16",
+                    "device": "CPU"
+                },
+                {
+                    "nodeName": "pose_estimation",
+                    "model": "head-pose-estimation-adas-0001",
+                    "precision": "FP16",
+                    "device": "CPU"
+                },
+                {
+                    "nodeName": "emotion_recognition",
+                    "model": "emotions-recognition-retail-0003",
+                    "precision": "FP16",
+                    "device": "CPU"
+                }
+            ]
+        },
+        {
+            "pipelineName": "shopper-count-duration",
+            "info": "Application to display shopper count",
+            "enable": "True",
+            "sources": [
+                {
+                    "sourceName": "faceemotion-input",
+                    "streamCount": 1
+                }
+            ],
+            "nodeList": [
+                {
+                    "nodeName": "person_detection",
+                    "model": "person-detection-retail-0013",
+                    "precision": "FP16",
+                    "device": "CPU"
+                }
+            ]
+        },
+        {
+            "pipelineName": "shelf-object-count",
+            "info": "Application to count objects in shelf",
+            "enable": "True",
+            "sources": [
+                {
+                    "sourceName": "objdetection-input",
+                    "streamCount": 1
+                }
+            ],
+            "nodeList": [
+                {
+                    "nodeName": "object_detection",
+                    "model": "yolo-v2-tiny-tf",
+                    "precision": "FP16",
+                    "device": "CPU"
+                }
+            ]
+        }
+    ]
+}
