@@ -967,8 +967,8 @@ github.com/onosproject/aether-models/models/aether-2.0.x/v2 v2.0.12 h1:nktZq7imQ
 github.com/onosproject/aether-models/models/aether-2.0.x/v2 v2.0.12/go.mod h1:ID177xI/PrY4zhqLrfW3/F6/xUYTfDqBRWxSRLVRbfc=
 github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.11 h1:EyGwfA5yxz0ffzNh6vDG9dhUftRcfd65ubn1+Do4T2c=
 github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.11/go.mod h1:ippuNvjQGdCvmg4TabaOD2WaFe4AETnnI1+2v/CcStM=
-github.com/onosproject/aether-roc-api v0.10.20 h1:VhPWxsRpat5bw5vatEyvIWAAsgEaSo6+1aZX/s+AW3E=
-github.com/onosproject/aether-roc-api v0.10.20/go.mod h1:N+69JfjHfCJUfzvhHgEuFFRlctwb6Kkhn4X+RDErKoA=
+github.com/onosproject/aether-roc-api v0.10.21 h1:dESaQjGHRby7gAQf/7xPzUp7v4U5o4aGJi+dADtVHjE=
+github.com/onosproject/aether-roc-api v0.10.21/go.mod h1:N+69JfjHfCJUfzvhHgEuFFRlctwb6Kkhn4X+RDErKoA=
 github.com/onosproject/config-models v0.10.16/go.mod h1:RfLQAkEGYAlvgfpJTt3F3nPbfHF9+eMXaPHRA4R82cc=
 github.com/onosproject/config-models v0.10.26/go.mod h1:z2S+j3eKJvzoCuzc+cmV5YE7sN3vQwZu/Yh5+gj0H0Y=
 github.com/onosproject/config-models v0.10.28/go.mod h1:z2S+j3eKJvzoCuzc+cmV5YE7sN3vQwZu/Yh5+gj0H0Y=
@@ -1382,8 +1382,8 @@ golang.org/x/exp v0.0.0-20191227195350-da58074b4299/go.mod h1:2RIsYlXP63K8oxa1u0
 golang.org/x/exp v0.0.0-20200119233911-0405dc783f0a/go.mod h1:2RIsYlXP63K8oxa1u096TMicItID8zy7Y6sNkU49FU4=
 golang.org/x/exp v0.0.0-20200207192155-f17229e696bd/go.mod h1:J/WKrq2StrnmMY6+EHIKF9dgMWnmCNThgcyBT1FY9mM=
 golang.org/x/exp v0.0.0-20200224162631-6cc2880d07d6/go.mod h1:3jZMyOhIsHpP37uCMkUooju7aAi5cS1Q23tOzKc+0MU=
-golang.org/x/exp v0.0.0-20221031165847-c99f073a8326 h1:QfTh0HpN6hlw6D3vu8DAwC8pBIwikq0AI1evdm+FksE=
-golang.org/x/exp v0.0.0-20221031165847-c99f073a8326/go.mod h1:CxIveKay+FTh1D0yPZemJVgC/95VzuuOLq5Qi4xnoYc=
+golang.org/x/exp v0.0.0-20221110155412-d0897a79cd37 h1:wKMvZzBFHbOCGvF2OmxR5Fqv/jDlkt7slnPz5ejEU8A=
+golang.org/x/exp v0.0.0-20221110155412-d0897a79cd37/go.mod h1:CxIveKay+FTh1D0yPZemJVgC/95VzuuOLq5Qi4xnoYc=
 golang.org/x/image v0.0.0-20190227222117-0694c2d4d067/go.mod h1:kZ7UVZpmo3dzQBMxlp+ypCbDeSB+sBbTgSJuh5dn5js=
 golang.org/x/image v0.0.0-20190802002840-cff245a6509b/go.mod h1:FeLwcggjj3mMvU+oOTbSwawSJRM1uh48EjtB4UJZlP0=
 golang.org/x/lint v0.0.0-20181026193005-c67002cb31c3/go.mod h1:UVdnD1Gm6xHRNCYTkRU2/jEulfH38KcIWyp/GAMgvoE=

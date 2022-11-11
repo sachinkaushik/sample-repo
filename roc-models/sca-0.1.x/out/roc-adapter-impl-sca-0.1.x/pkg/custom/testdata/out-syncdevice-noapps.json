@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "modelList": {
+    "classification_model": [
+      {
+        "name": "vehicle-attributes-recognition-barrier-0039",
+        "modelDescription": "https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/vehicle-attributes-recognition-barrier-0039/README.md",
+        "modelSize": "0.126GFlops"
+      }
+    ],
+    "detection_model": [
+      {
+        "name": "vehicle-detection-0202",
+        "modelDescription": "https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/vehicle-detection-0202/README.md",
+        "modelSize": "3.143GFlops"
+      }
+    ],
+    "person_vehicle_bike_model": [
+      {
+        "name": "person-vehicle-bike-detection-crossroad-0078",
+        "modelDescription": "https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/person-vehicle-bike-detection-crossroad-0078/README.md",
+        "modelSize": "3.964GFlops"
+      }
+    ],
+    "vehicle_model": [
+      {
+        "name": "vehicle-detection-0202",
+        "modelDescription": "https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/vehicle-detection-0202/README.md",
+        "modelSize": "3.143GFlops"
+      }
+    ]
+  },
+  "sourceList": [
+    {
+      "sourceName": "source1",
+      "source": "/path/to/source1",
+      "sourceType": "sample"
+    },
+    {
+      "sourceName": "source2",
+      "source": "/path/to/source2",
+      "sourceType": "sample"
+    },
+    {
+      "sourceName": "source3",
+      "source": "/path/to/source3",
+      "sourceType": "sample"
+    }
+  ],
+  "pipelineList": [
+    {
+      "pipelineName": "person-vehicle-bike-detection",
+      "info": "Application to detect person and vehicles",
+      "enable": "False",
+      "sources": null,
+      "nodeList": [
+        {
+          "nodeName": "person_vehicle_bike_model",
+          "model": "person-vehicle-bike-detection-crossroad-0078",
+          "precision": "FP16",
+          "device": "CPU"
+        }
+      ]
+    },
+    {
+      "pipelineName": "vehicle-classification",
+      "info": "Application to detect and classify vehicles",
+      "enable": "False",
+      "sources": null,
+      "nodeList": [
+        {
+          "nodeName": "detection_model",
+          "model": "vehicle-detection-0202",
+          "precision": "FP16",
+          "device": "CPU"
+        },
+        {
+          "nodeName": "classification_model",
+          "model": "vehicle-attributes-recognition-barrier-0039",
+          "precision": "FP16",
+          "device": "CPU"
+        }
+      ]
+    },
+    {
+      "pipelineName": "vehicle-collision-detection",
+      "info": "Application to detect collision of vehicles",
+      "enable": "False",
+      "sources": null,
+      "nodeList": [
+        {
+          "nodeName": "vehicle_model",
+          "model": "vehicle-detection-0202",
+          "precision": "FP16",
+          "device": "CPU"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+    "version": 1.0,
+    "modelList": {
+        "person_vehicle_bike_model":[
+            {
+                "name": "person-vehicle-bike-detection-crossroad-0078",
+                "modelDescription":"https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/person-vehicle-bike-detection-crossroad-0078/README.md",
+                "modelSize": "3.964GFlops"
+            }
+        ],
+        "detection_model":[
+            {
+                "name": "vehicle-detection-0202",
+                "modelDescription":"https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/vehicle-detection-0202/README.md",
+                "modelSize": "3.143GFlops"
+            }
+        ],
+        "classification_model":[
+            {
+                "name": "vehicle-attributes-recognition-barrier-0039",
+                "modelDescription":"https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/vehicle-attributes-recognition-barrier-0039/README.md",
+                "modelSize": "0.126GFlops"
+            }
+        ],
+        "vehicle_model":[
+            {
+                "name": "vehicle-detection-0202",
+                "modelDescription":"https://github.com/openvinotoolkit/open_model_zoo/blob/master/models/intel/vehicle-detection-0202/README.md",
+                "modelSize":"3.143GFlops"
+            }
+        ]
+    
+       
+    },
+    "sourceList": [
+        {
+            "sourceName": "personvehicle-input",
+            "source": "person-bicycle-car-detection.mp4",
+            "sourceType": "sample"
+
+        },
+        {
+            "sourceName": "vehicle-input",
+            "source": "car-detection.mp4",
+            "sourceType": "sample"
+
+        },
+        {
+            "sourceName": "vehiclecollision-input",
+            "source": "accident.avi",
+            "sourceType": "sample"
+
+        }
+
+    ],
+    "pipelineList": [
+        {
+            "pipelineName": "person-vehicle-bike-detection",
+            "info": "Application to detect person and vehicles",
+            "enable": "True",
+
+            "sources": [
+                {
+                    "sourceName": "personvehicle-input",
+                    "streamCount": 1
+                }
+
+            ],
+            "nodeList": [
+                {
+                    "nodeName": "person_vehicle_bike_model",
+                    "model": "person-vehicle-bike-detection-crossroad-0078",
+                    "precision": "FP16",
+                    "device": "CPU"
+                }
+            ]
+        },
+        {
+            "pipelineName": "vehicle-classification",
+            "info": "Application to detect and classify vehicles",
+            "enable": "True",
+            "sources": [
+                {
+                    "sourceName": "vehicle-input",
+                    "streamCount": 1
+                }
+            ],
+            "nodeList": [
+                {
+                    "nodeName": "detection_model",
+                    "model": "vehicle-detection-0202",
+                    "precision": "FP16",
+                    "device": "CPU"
+                },
+                {
+                    "nodeName": "classification_model",
+                    "model": "vehicle-attributes-recognition-barrier-0039",
+                    "precision": "FP16",
+                    "device": "CPU"
+                }
+            ]
+        },
+        {
+            "pipelineName": "vehicle-collision-detection",
+            "info": "Application to detect collision of vehicles",
+            "enable": "True",
+            "sources": [
+                {
+                    "sourceName": "vehiclecollision-input",
+                    "streamCount": 1
+                }
+            ],
+            "nodeList": [
+                {
+                    "nodeName": "vehicle_model",
+                    "model": "vehicle-detection-0202",
+                    "precision": "FP16",
+                    "device": "CPU"
+                }
+            ]
+        }
+    ]
+}
