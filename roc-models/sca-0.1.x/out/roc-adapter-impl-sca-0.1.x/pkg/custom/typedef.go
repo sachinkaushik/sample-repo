@@ -16,9 +16,14 @@ const (
 	VideoDevice = models.IntelScaSource_District_Source_Video_SourceType_device
 	VideoSample = models.IntelScaSource_District_Source_Video_SourceType_sample
 
-	PipeLineCollisionDetection    = "vehicle-collision-detection"
+	PipelineCollisionDetection    = "vehicle-collision-detection"
 	PipelineTrafficClassification = "vehicle-classification"
 	PipelineTrafficMonitoring     = "person-vehicle-bike-detection"
+
+	AppPersonVehicleBikeModel = "person_vehicle_bike_model"
+	AppDetectionModel         = "detection_model"
+	AppClassificationModel    = "classification_model"
+	AppVehicleModel           = "vehicle_model"
 )
 
 type SmartCity = models.Device                                       //nolint

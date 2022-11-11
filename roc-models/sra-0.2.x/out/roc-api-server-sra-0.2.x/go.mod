@@ -12,13 +12,13 @@ require (
 	github.com/iancoleman/strcase v0.1.2
 	github.com/intel-innersource/frameworks.edge.one-intel-edge.springboard.reference-implementation.roc-models/models/sra-0.2.x v0.0.0
 	github.com/labstack/echo/v4 v4.8.0
-	github.com/onosproject/aether-roc-api v0.10.20
+	github.com/onosproject/aether-roc-api v0.10.21
 	github.com/onosproject/onos-api/go v0.10.0
 	github.com/onosproject/onos-config v0.10.38
 	github.com/onosproject/onos-lib-go v0.9.3
 	github.com/openconfig/gnmi v0.0.0-20220617175856-41246b1b3507
 	github.com/spf13/cobra v1.4.0
-	golang.org/x/exp v0.0.0-20221106115401-f9659909a136
+	golang.org/x/exp v0.0.0-20221111094246-ab4555d3164f
 	google.golang.org/grpc v1.48.0
 )
 

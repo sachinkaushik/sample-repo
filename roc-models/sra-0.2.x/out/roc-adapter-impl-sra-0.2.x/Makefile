@@ -91,11 +91,11 @@ docker-build:
 	go mod vendor
 	docker build ${PLATFORM} . -f Dockerfile \
 	$(DOCKER_BUILD_ARGS) \
-	-t ${DOCKER_REPOSITORY}roc-adapter:${ROC-ADAPTER_VERSION}
+	-t ${DOCKER_REPOSITORY}${ROC-ADAPTER_IMAGE_NAME}:${ROC-ADAPTER_VERSION}
 
 # @HELP publish docker images to CI/CD system
 docker-cicd: docker-build
-	docker tag ${DOCKER_REPOSITORY}roc-adapter:${ROC-ADAPTER_VERSION} ${IMG_REGISTRY}
+	docker tag ${DOCKER_REPOSITORY}${ROC-ADAPTER_IMAGE_NAME}:${ROC-ADAPTER_VERSION} ${IMG_REGISTRY}
 	docker push ${IMG_REGISTRY}	
 
 # @HELP remove all the build artifacts

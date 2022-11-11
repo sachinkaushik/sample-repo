@@ -19,6 +19,12 @@ const (
 	PipelineShopperMonitoring      = "shopper-pose-mood-estimation"
 	PipelineStoreTrafficMonitoring = "shopper-count-duration"
 	PipelineShelfMonitoring        = "shelf-object-count"
+
+	AppObjectDetection    = "object_detection"
+	AppFaceDetection      = "face_detection"
+	AppPoseEstimation     = "pose_estimation"
+	AppEmotionRecognition = "emotion_recognition"
+	AppPersonDetection    = "person_detection"
 )
 
 type RetailStore = models.Device                                       //nolint

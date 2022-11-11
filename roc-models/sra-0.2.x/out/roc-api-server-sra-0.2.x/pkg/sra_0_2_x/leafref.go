@@ -67,6 +67,136 @@ func RetailAreaListToLeafRefOptions (retailAreaListVar  *RetailAreaList, targetP
 
 
 
+func (i *ServerImpl) GnmiGetShelfMonitoringRetailAreaAreaRefValuesLeafref (ctx context.Context, openApiPath string, enterpriseId StoreId , args ...string) (*LeafRefOptions, error) {
+    gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+    if err != nil {
+        return nil, err
+    }
+    log.Infof("gnmiGetRequest %s", gnmiGet.String())
+    gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+    if err != nil {
+        log.Info("getresponse update error: ", err)
+        return nil, err
+    }
+    if gnmiVal == nil {
+        log.Info("gnmiVal is empty")
+        return nil, nil
+    }
+
+    gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+    if !ok {
+        return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+    }
+    log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+    var gnmiResponse externalRef0.Device
+    if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+        return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+    }
+    mpd := ModelPluginDevice{
+        device: gnmiResponse,
+    }
+
+    response, err := mpd.ToRetailAreaList(args[:0]...)
+    if err != nil {
+        log.Info("error unmarshaling to switch-model: ", err)
+        return nil, err
+    }
+
+    return RetailAreaListToLeafRefOptions(response, "area-id", args...)
+
+}
+
+
+func (i *ServerImpl) GetShelfMonitoringRetailAreaAreaRefValuesLeafref (ctx echo.Context, storeId StoreId, areaRef string) error {
+    var response interface{}
+    var err error
+
+    gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+    defer cancel()
+
+    // Response GET OK 200
+    response, err = i.GnmiGetShelfMonitoringRetailAreaAreaRefValuesLeafref(gnmiCtx, "/sra/v0.2.x/{store-id}/retail-area", storeId, areaRef)
+    if err != nil {
+        httpErr := utils.ConvertGrpcError(err)
+        if httpErr == echo.ErrNotFound {
+            return ctx.NoContent(http.StatusNotFound)
+        }
+        return httpErr
+    }
+    // It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+    if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+        return ctx.NoContent(http.StatusNotFound)
+    }
+
+    return ctx.JSON(http.StatusOK, response)
+}
+
+
+func (i *ServerImpl) GnmiGetShopperMonitoringRetailAreaAreaRefValuesLeafref (ctx context.Context, openApiPath string, enterpriseId StoreId , args ...string) (*LeafRefOptions, error) {
+    gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+    if err != nil {
+        return nil, err
+    }
+    log.Infof("gnmiGetRequest %s", gnmiGet.String())
+    gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+    if err != nil {
+        log.Info("getresponse update error: ", err)
+        return nil, err
+    }
+    if gnmiVal == nil {
+        log.Info("gnmiVal is empty")
+        return nil, nil
+    }
+
+    gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+    if !ok {
+        return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+    }
+    log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+    var gnmiResponse externalRef0.Device
+    if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+        return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+    }
+    mpd := ModelPluginDevice{
+        device: gnmiResponse,
+    }
+
+    response, err := mpd.ToRetailAreaList(args[:0]...)
+    if err != nil {
+        log.Info("error unmarshaling to switch-model: ", err)
+        return nil, err
+    }
+
+    return RetailAreaListToLeafRefOptions(response, "area-id", args...)
+
+}
+
+
+func (i *ServerImpl) GetShopperMonitoringRetailAreaAreaRefValuesLeafref (ctx echo.Context, storeId StoreId, areaRef string) error {
+    var response interface{}
+    var err error
+
+    gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+    defer cancel()
+
+    // Response GET OK 200
+    response, err = i.GnmiGetShopperMonitoringRetailAreaAreaRefValuesLeafref(gnmiCtx, "/sra/v0.2.x/{store-id}/retail-area", storeId, areaRef)
+    if err != nil {
+        httpErr := utils.ConvertGrpcError(err)
+        if httpErr == echo.ErrNotFound {
+            return ctx.NoContent(http.StatusNotFound)
+        }
+        return httpErr
+    }
+    // It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+    if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+        return ctx.NoContent(http.StatusNotFound)
+    }
+
+    return ctx.JSON(http.StatusOK, response)
+}
+
+
 func (i *ServerImpl) GnmiGetShelfMonitoringDefaultValuesLeafref (ctx context.Context, openApiPath string, enterpriseId StoreId , args ...string) (*LeafRefOptions, error) {
     gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
     if err != nil {
@@ -262,71 +392,6 @@ func (i *ServerImpl) GetStoreTrafficMonitoringDefaultValuesLeafref (ctx echo.Con
 }
 
 
-func (i *ServerImpl) GnmiGetShelfMonitoringRetailAreaAreaRefValuesLeafref (ctx context.Context, openApiPath string, enterpriseId StoreId , args ...string) (*LeafRefOptions, error) {
-    gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
-    if err != nil {
-        return nil, err
-    }
-    log.Infof("gnmiGetRequest %s", gnmiGet.String())
-    gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-    if err != nil {
-        log.Info("getresponse update error: ", err)
-        return nil, err
-    }
-    if gnmiVal == nil {
-        log.Info("gnmiVal is empty")
-        return nil, nil
-    }
-
-    gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-    if !ok {
-        return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-    }
-    log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-    var gnmiResponse externalRef0.Device
-    if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-        return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-    }
-    mpd := ModelPluginDevice{
-        device: gnmiResponse,
-    }
-
-    response, err := mpd.ToRetailAreaList(args[:0]...)
-    if err != nil {
-        log.Info("error unmarshaling to switch-model: ", err)
-        return nil, err
-    }
-
-    return RetailAreaListToLeafRefOptions(response, "area-id", args...)
-
-}
-
-
-func (i *ServerImpl) GetShelfMonitoringRetailAreaAreaRefValuesLeafref (ctx echo.Context, storeId StoreId, areaRef string) error {
-    var response interface{}
-    var err error
-
-    gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
-    defer cancel()
-
-    // Response GET OK 200
-    response, err = i.GnmiGetShelfMonitoringRetailAreaAreaRefValuesLeafref(gnmiCtx, "/sra/v0.2.x/{store-id}/retail-area", storeId, areaRef)
-    if err != nil {
-        httpErr := utils.ConvertGrpcError(err)
-        if httpErr == echo.ErrNotFound {
-            return ctx.NoContent(http.StatusNotFound)
-        }
-        return httpErr
-    }
-    // It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-    if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-        return ctx.NoContent(http.StatusNotFound)
-    }
-
-    return ctx.JSON(http.StatusOK, response)
-}
-
-
 func (i *ServerImpl) GnmiGetStoreTrafficMonitoringRetailAreaAreaRefValuesLeafref (ctx context.Context, openApiPath string, enterpriseId StoreId , args ...string) (*LeafRefOptions, error) {
     gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
     if err != nil {
@@ -376,71 +441,6 @@ func (i *ServerImpl) GetStoreTrafficMonitoringRetailAreaAreaRefValuesLeafref (ct
 
     // Response GET OK 200
     response, err = i.GnmiGetStoreTrafficMonitoringRetailAreaAreaRefValuesLeafref(gnmiCtx, "/sra/v0.2.x/{store-id}/retail-area", storeId, areaRef)
-    if err != nil {
-        httpErr := utils.ConvertGrpcError(err)
-        if httpErr == echo.ErrNotFound {
-            return ctx.NoContent(http.StatusNotFound)
-        }
-        return httpErr
-    }
-    // It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-    if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-        return ctx.NoContent(http.StatusNotFound)
-    }
-
-    return ctx.JSON(http.StatusOK, response)
-}
-
-
-func (i *ServerImpl) GnmiGetShopperMonitoringRetailAreaAreaRefValuesLeafref (ctx context.Context, openApiPath string, enterpriseId StoreId , args ...string) (*LeafRefOptions, error) {
-    gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
-    if err != nil {
-        return nil, err
-    }
-    log.Infof("gnmiGetRequest %s", gnmiGet.String())
-    gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-    if err != nil {
-        log.Info("getresponse update error: ", err)
-        return nil, err
-    }
-    if gnmiVal == nil {
-        log.Info("gnmiVal is empty")
-        return nil, nil
-    }
-
-    gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-    if !ok {
-        return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-    }
-    log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-    var gnmiResponse externalRef0.Device
-    if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-        return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-    }
-    mpd := ModelPluginDevice{
-        device: gnmiResponse,
-    }
-
-    response, err := mpd.ToRetailAreaList(args[:0]...)
-    if err != nil {
-        log.Info("error unmarshaling to switch-model: ", err)
-        return nil, err
-    }
-
-    return RetailAreaListToLeafRefOptions(response, "area-id", args...)
-
-}
-
-
-func (i *ServerImpl) GetShopperMonitoringRetailAreaAreaRefValuesLeafref (ctx echo.Context, storeId StoreId, areaRef string) error {
-    var response interface{}
-    var err error
-
-    gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
-    defer cancel()
-
-    // Response GET OK 200
-    response, err = i.GnmiGetShopperMonitoringRetailAreaAreaRefValuesLeafref(gnmiCtx, "/sra/v0.2.x/{store-id}/retail-area", storeId, areaRef)
     if err != nil {
         httpErr := utils.ConvertGrpcError(err)
         if httpErr == echo.ErrNotFound {

@@ -60,6 +60,8 @@ roc-api:
 
 roc-adapter:
   fullnameOverride: "roc-adapter"
+  certManager:
+    enabled: true
   image:
     registry: default-route-openshift-image-registry.apps.nex.one-edge.intel.com
     repository: springboard-dev-common/roc-adapter-sca-0.1.x

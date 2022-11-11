@@ -19,7 +19,7 @@ func (ss *SCASyncStep) LookupEnable(pipeline *string) (bool, error) {
 	if pipeline == nil {
 		return false, fmt.Errorf("nil pipeline")
 	}
-	if *pipeline == PipeLineCollisionDetection {
+	if *pipeline == PipelineCollisionDetection {
 		return (ss.City != nil) &&
 			(ss.City.CollisionDetection != nil) &&
 			(ss.City.CollisionDetection.Enable != nil) && *ss.City.CollisionDetection.Enable, nil
@@ -34,6 +34,68 @@ func (ss *SCASyncStep) LookupEnable(pipeline *string) (bool, error) {
 	} else {
 		return false, fmt.Errorf("unknown pipeline %s", *pipeline)
 	}
+}
+
+// LookupApplication given a pipeline name and a node name, return details about the application
+func (ss *SCASyncStep) LookupApplication(pipeline *string, node *string) (*string, *string, *string, error) {
+	if pipeline == nil {
+		return nil, nil, nil, fmt.Errorf("nil pipeline")
+	}
+	if node == nil {
+		return nil, nil, nil, fmt.Errorf("nil node")
+	}
+
+	var model *string = nil
+	var precision *string = nil
+	var device *string = nil
+
+	switch *pipeline {
+	case PipelineCollisionDetection:
+		switch *node {
+		case AppVehicleModel:
+			if (ss.City != nil) && (ss.City.CollisionDetection != nil) && (ss.City.CollisionDetection.DetectionApplication != nil) {
+				model = ss.City.CollisionDetection.DetectionApplication.Model
+				precision = synchronizer.AStr(ss.City.CollisionDetection.DetectionApplication.Precision.String())
+				device = synchronizer.AStr(ss.City.CollisionDetection.DetectionApplication.Device.String())
+			}
+
+		default:
+			return nil, nil, nil, fmt.Errorf("unknown node %s", *node)
+		}
+	case PipelineTrafficClassification:
+		switch *node {
+		case AppDetectionModel:
+			if (ss.City != nil) && (ss.City.TrafficClassification != nil) && (ss.City.TrafficClassification.DetectionApplication != nil) {
+				model = ss.City.TrafficClassification.DetectionApplication.Model
+				precision = synchronizer.AStr(ss.City.TrafficClassification.DetectionApplication.Precision.String())
+				device = synchronizer.AStr(ss.City.TrafficClassification.DetectionApplication.Device.String())
+			}
+		case AppClassificationModel:
+			if (ss.City != nil) && (ss.City.TrafficClassification != nil) && (ss.City.TrafficClassification.ClassificationApplication != nil) {
+				model = ss.City.TrafficClassification.ClassificationApplication.Model
+				precision = synchronizer.AStr(ss.City.TrafficClassification.ClassificationApplication.Precision.String())
+				device = synchronizer.AStr(ss.City.TrafficClassification.ClassificationApplication.Device.String())
+			}
+
+		default:
+			return nil, nil, nil, fmt.Errorf("unknown node %s", *node)
+		}
+	case PipelineTrafficMonitoring:
+		switch *node {
+		case AppPersonVehicleBikeModel:
+			if (ss.City != nil) && (ss.City.TrafficMonitoring != nil) && (ss.City.TrafficMonitoring.PersonVehicleBikeDetectionApplication != nil) {
+				model = ss.City.TrafficMonitoring.PersonVehicleBikeDetectionApplication.Model
+				precision = synchronizer.AStr(ss.City.TrafficMonitoring.PersonVehicleBikeDetectionApplication.Precision.String())
+				device = synchronizer.AStr(ss.City.TrafficMonitoring.PersonVehicleBikeDetectionApplication.Device.String())
+			}
+		default:
+			return nil, nil, nil, fmt.Errorf("unknown node %s", *node)
+		}
+	default:
+		return nil, nil, nil, fmt.Errorf("unknown pipeline %s", *pipeline)
+	}
+
+	return model, precision, device, nil
 }
 
 // LookupDestrict given a district name returns that District
@@ -56,7 +118,7 @@ func (ss *SCASyncStep) LookupDistricts(pipeline *string) ([]*DistrictRef, error)
 	if pipeline == nil {
 		return districtrefs, fmt.Errorf("nil pipeline")
 	}
-	if *pipeline == PipeLineCollisionDetection {
+	if *pipeline == PipelineCollisionDetection {
 		if ss.City.CollisionDetection == nil {
 			return districtrefs, nil
 		}

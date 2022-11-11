@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: (C) 2022 Intel Corporation
 # SPDX-License-Identifier: LicenseRef-Intel
 
-FROM default-route-openshift-image-registry.apps.nex.one-edge.intel.com/springboard-dev-common/roc-cli:0.0.4 as build
+FROM golang:1.19-alpine as build
 
 ENV ADAPTER_ROOT=$GOPATH/src/roc-adapter
 ENV CGO_ENABLED=0
@@ -13,9 +13,7 @@ COPY . $ADAPTER_ROOT/
 RUN cat $ADAPTER_ROOT/go.mod
 RUN apk add git
 
-WORKDIR $ADAPTER_ROOT
-
-RUN GO111MODULE=on go build -o /go/bin/roc-adapter \
+RUN cd $ADAPTER_ROOT && GO111MODULE=on go build -o /go/bin/roc-adapter \
         -ldflags \
         "-X roc-adapter/internal/pkg/version.Version=$org_label_schema_version \
          -X roc-adapter/internal/pkg/version.GitCommit=$org_label_schema_vcs_ref  \
@@ -26,7 +24,7 @@ RUN GO111MODULE=on go build -o /go/bin/roc-adapter \
          -X roc-adapter/internal/pkg/version.BuildTime=$org_label_schema_build_date" \
          ./cmd/roc-adapter
 
-FROM alpine:3.16
+FROM alpine:3.14
 RUN apk add bash openssl curl libc6-compat
 
 ENV HOME=/home/roc-adapter
@@ -36,5 +34,3 @@ WORKDIR $HOME
 
 COPY --from=build /go/bin/roc-adapter /usr/local/bin/roc-adapter
 COPY config/config.json /home/roc-adapter/
-
-ENTRYPOINT /usr/local/bin/roc-adapter

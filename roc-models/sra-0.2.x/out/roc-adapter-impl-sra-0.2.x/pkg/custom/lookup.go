@@ -36,6 +36,72 @@ func (ss *SRASyncStep) LookupEnable(pipeline *string) (bool, error) {
 	}
 }
 
+// LookupApplication given a pipeline name and a node name, return details about the application
+func (ss *SRASyncStep) LookupApplication(pipeline *string, node *string) (*string, *string, *string, error) {
+	if pipeline == nil {
+		return nil, nil, nil, fmt.Errorf("nil pipeline")
+	}
+	if node == nil {
+		return nil, nil, nil, fmt.Errorf("nil node")
+	}
+
+	var model *string = nil
+	var precision *string = nil
+	var device *string = nil
+
+	switch *pipeline {
+	case PipelineShopperMonitoring:
+		switch *node {
+		case AppFaceDetection:
+			if (ss.Store != nil) && (ss.Store.ShopperMonitoring != nil) && (ss.Store.ShopperMonitoring.FaceDetectionApplication != nil) {
+				model = ss.Store.ShopperMonitoring.FaceDetectionApplication.Model
+				precision = synchronizer.AStr(ss.Store.ShopperMonitoring.FaceDetectionApplication.Precision.String())
+				device = synchronizer.AStr(ss.Store.ShopperMonitoring.FaceDetectionApplication.Device.String())
+			}
+		case AppPoseEstimation:
+			if (ss.Store != nil) && (ss.Store.ShopperMonitoring != nil) && (ss.Store.ShopperMonitoring.HeadPoseDetectionApplication != nil) {
+				model = ss.Store.ShopperMonitoring.HeadPoseDetectionApplication.Model
+				precision = synchronizer.AStr(ss.Store.ShopperMonitoring.HeadPoseDetectionApplication.Precision.String())
+				device = synchronizer.AStr(ss.Store.ShopperMonitoring.HeadPoseDetectionApplication.Device.String())
+			}
+		case AppEmotionRecognition:
+			if (ss.Store != nil) && (ss.Store.ShopperMonitoring != nil) && (ss.Store.ShopperMonitoring.EmotionRecognitionApplication != nil) {
+				model = ss.Store.ShopperMonitoring.EmotionRecognitionApplication.Model
+				precision = synchronizer.AStr(ss.Store.ShopperMonitoring.EmotionRecognitionApplication.Precision.String())
+				device = synchronizer.AStr(ss.Store.ShopperMonitoring.EmotionRecognitionApplication.Device.String())
+			}
+		default:
+			return nil, nil, nil, fmt.Errorf("unknown node %s", *node)
+		}
+	case PipelineStoreTrafficMonitoring:
+		switch *node {
+		case AppPersonDetection:
+			if (ss.Store != nil) && (ss.Store.StoreTrafficMonitoring != nil) && (ss.Store.StoreTrafficMonitoring.PersonDetectionApplication != nil) {
+				model = ss.Store.StoreTrafficMonitoring.PersonDetectionApplication.Model
+				precision = synchronizer.AStr(ss.Store.StoreTrafficMonitoring.PersonDetectionApplication.Precision.String())
+				device = synchronizer.AStr(ss.Store.StoreTrafficMonitoring.PersonDetectionApplication.Device.String())
+			}
+		default:
+			return nil, nil, nil, fmt.Errorf("unknown node %s", *node)
+		}
+	case PipelineShelfMonitoring:
+		switch *node {
+		case AppObjectDetection:
+			if (ss.Store != nil) && (ss.Store.ShelfMonitoring != nil) && (ss.Store.ShelfMonitoring.ObjectDetectionApplication != nil) {
+				model = ss.Store.ShelfMonitoring.ObjectDetectionApplication.Model
+				precision = synchronizer.AStr(ss.Store.ShelfMonitoring.ObjectDetectionApplication.Precision.String())
+				device = synchronizer.AStr(ss.Store.ShelfMonitoring.ObjectDetectionApplication.Device.String())
+			}
+		default:
+			return nil, nil, nil, fmt.Errorf("unknown node %s", *node)
+		}
+	default:
+		return nil, nil, nil, fmt.Errorf("unknown pipeline %s", *pipeline)
+	}
+
+	return model, precision, device, nil
+}
+
 // LookupArea given an area name returns that RetailArea
 func (ss *SRASyncStep) LookupArea(ref *string) (*RetailArea, error) {
 	if ref == nil {

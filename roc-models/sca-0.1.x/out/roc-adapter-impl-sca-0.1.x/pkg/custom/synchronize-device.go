@@ -82,8 +82,23 @@ func (ss *SCASyncStep) SynchronizePipeline(srcPipeline *pipelineDefinition) erro
 	}
 
 	// Copy Nodes from the source JSON
-	// TODO: We still need to handle node selection from the ROC models in here.
 	pipeline.Nodes = srcPipeline.Nodes
+
+	for k, node := range pipeline.Nodes {
+		model, precision, device, err := ss.LookupApplication(&pipeline.Name, &node.Name)
+		if err != nil {
+			return err
+		}
+		if model != nil {
+			pipeline.Nodes[k].Model = *model
+		}
+		if precision != nil {
+			pipeline.Nodes[k].Precision = *precision
+		}
+		if device != nil {
+			pipeline.Nodes[k].Device = *device
+		}
+	}
 
 	// Resolve all the district references for this pipeline
 	districtRefs, err := ss.LookupDistricts(&srcPipeline.Name)

@@ -21,15 +21,15 @@ import (
 type Elements struct {
     
     
+    ElementDistrict *DistrictList `json:"district,omitempty"`
+    
+    
+    
     ElementTrafficClassification *TrafficClassification `json:"traffic-classification,omitempty"`
     
     
     
     ElementCollisionDetection *CollisionDetection `json:"collision-detection,omitempty"`
-    
-    
-    
-    ElementDistrict *DistrictList `json:"district,omitempty"`
     
     
     
@@ -191,6 +191,26 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
     
     
     
+    if elements.ElementDistrict != nil && len(*elements.ElementDistrict) > 0 {
+        for _, e := range *elements.ElementDistrict {
+            
+            if e.DistrictId == undefined {
+                log.Warnw("district-id is undefined", "district-id", e)
+                return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "district-id cannot be undefined")
+            }
+            
+            ModelUpdates, err := EncodeToGnmiDistrictList(elements.ElementDistrict, false,
+            			forDelete, CityId(target), "/district")
+            if err != nil {
+                return nil, fmt.Errorf("EncodeToGnmiDistrictList() %s", err)
+            }
+            updates = append(updates, ModelUpdates...)
+        }
+    }
+    
+    
+    
+    
     if elements.ElementTrafficClassification != nil {
         
         
@@ -219,26 +239,6 @@ func encodeToGnmiElements(elements *Elements, target string, forDelete bool) ([]
         updates = append(updates, ModelUpdates...)
     }
     
-    
-    
-    
-    
-    if elements.ElementDistrict != nil && len(*elements.ElementDistrict) > 0 {
-        for _, e := range *elements.ElementDistrict {
-            
-            if e.DistrictId == undefined {
-                log.Warnw("district-id is undefined", "district-id", e)
-                return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "district-id cannot be undefined")
-            }
-            
-            ModelUpdates, err := EncodeToGnmiDistrictList(elements.ElementDistrict, false,
-            			forDelete, CityId(target), "/district")
-            if err != nil {
-                return nil, fmt.Errorf("EncodeToGnmiDistrictList() %s", err)
-            }
-            updates = append(updates, ModelUpdates...)
-        }
-    }
     
     
     

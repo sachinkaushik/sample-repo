@@ -26,7 +26,7 @@ func TestLookupEnable(t *testing.T) {
 
 	var b bool
 
-	b, err = ss.LookupEnable(synchronizer.AStr(PipeLineCollisionDetection))
+	b, err = ss.LookupEnable(synchronizer.AStr(PipelineCollisionDetection))
 	assert.Nil(t, err)
 	assert.Equal(t, true, b)
 
