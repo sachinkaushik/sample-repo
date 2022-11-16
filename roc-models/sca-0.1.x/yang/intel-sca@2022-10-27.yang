@@ -1,0 +1,194 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
+//
+// SPDX-License-Identifier: LicenseRef-Intel
+
+module intel-sca {
+  namespace "http://intel.com/one-intel-edge/intel-sca";
+  prefix sca;
+
+  import intel-sca-source {prefix src;}
+
+  organization "Intel Corporation";
+  contact "ROC Engineering";
+  description "Configuration of Smart Retail Analytics in One Intel Edge - Use Cases";
+
+  revision "2022-10-27" {
+    description "Initial version";
+    reference "SCA-as-a-Service Design";
+  }
+
+  container traffic-monitoring {
+    presence true;
+
+    leaf enable {
+      type boolean;
+      mandatory true;
+      description "Pipeline enabled";
+    }
+
+    uses district-ref-grouping;
+
+    container person-vehicle-bike-detection-application {
+
+      uses application-grouping;
+
+      description "configuration Person, Vehicle, and Bike detection";
+    }
+
+    description "Configure of Application to display count of persons, vehicles, and bicycles";
+  }
+
+  container traffic-classification {
+    presence true;
+
+    leaf enable {
+      type boolean;
+      mandatory true;
+      description "Pipeline enabled";
+    }
+
+    uses district-ref-grouping;
+
+    container detection-application {
+
+      uses application-grouping;
+
+      description "configuration of vehicle detection";
+    }
+
+    container classification-application {
+
+      uses application-grouping;
+
+      description "configuration of traffic classification";
+    }
+
+    description "Configure the Application to classify traffic";
+  }
+
+  container collision-detection {
+    presence true;
+
+    leaf enable {
+      type boolean;
+      mandatory true;
+      description "Pipeline enabled";
+    }
+
+    uses district-ref-grouping;
+
+    container detection-application {
+
+      uses application-grouping;
+
+      description "configuration of vehicle Detection";
+    }
+
+    description "Configure Application to count objects in shelf";
+  }
+
+    grouping application-grouping {
+      leaf device {
+        type enumeration {
+          enum cpu {
+            value 1;
+            description "CPU device";
+          }
+          enum gpu {
+            value 2;
+            description "GPU device";
+          }
+          enum vpu {
+            value 3;
+            description "VPU device";
+          }
+        }
+        mandatory true;
+        description "Choice of node device";
+      }
+
+      leaf precision {
+          type enumeration {
+            enum fp8 {
+              value 1;
+              description "8 bit Floating Point";
+            }
+            enum fp16 {
+              value 2;
+              description "16 bit Floating Point";
+            }
+            enum fp32 {
+              value 3;
+              description "32 bit Floating Point";
+            }
+          }
+          mandatory true;
+          description "Choice of node device";
+      }
+
+      leaf model {
+        type string {
+          length 1..100;
+        }
+        description "Enter model name. Leave blank to use the default model.
+        Invalid values will be ignored and the default values will be used instead.
+        This is an example of a loosely coupled attribute. State values are needed below
+        to show the actual result of the configuration";
+      }
+
+      container model-state {
+        config false;
+
+        leaf active-model-name {
+          type string;
+          description "The model in use will be shown here";
+        }
+
+        leaf active-model-file {
+          type string;
+          description "The file name of the model in use will be shown here";
+        }
+
+        description "read only values about the models state";
+      }
+
+      description "grouping of application attributes";
+    }
+
+  grouping district-ref-grouping {
+    leaf default {
+      type leafref {
+        path "/src:district/src:source/src:source-id";
+      }
+      description "mark the default source";
+    }
+
+    list district {
+      key district-ref;
+
+      leaf district-ref {
+        type leafref {
+          path "/src:district/src:district-id";
+        }
+        description "reference to a district";
+      }
+
+      leaf enabled {
+        type boolean;
+        mandatory true;
+        description "district sources are enabled";
+      }
+
+      leaf stream-count {
+        type uint8 {
+          range 1..8;
+        }
+        default 1;
+        description "Count of streams in this source";
+      }
+
+      description "a list of references to sources";
+    }
+    description "district reference attributes";
+  }
+}

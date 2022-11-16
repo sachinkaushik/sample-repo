@@ -1,0 +1,207 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
+//
+// SPDX-License-Identifier: LicenseRef-Intel
+
+module intel-sra {
+  namespace "http://intel.com/one-intel-edge/intel-sra";
+  prefix sra;
+
+  import intel-sra-source {prefix src;}
+
+  organization "Intel Corporation";
+  contact "ROC Engineering";
+  description "Configuration of Smart Retail Analytics in One Intel Edge - Use Cases";
+
+  revision "2022-09-24" {
+    description "Use case refers to retail-area";
+    reference "ROC Smart Retail Analytics Notes";
+  }
+
+  revision "2022-08-29" {
+    description "Initial version";
+    reference "SRA-as-a-Service Design
+     https://intel.sharepoint.com/:w:/s/nex-oie/Ede25sytcPdFouX6K_jyiAMBpy1_eZRGWgNl90t0B1zPPQ?e=P3VXbJ";
+  }
+
+  container store-traffic-monitoring {
+    presence true;
+
+    leaf enable {
+      type boolean;
+      mandatory true;
+      description "Pipeline enabled";
+    }
+
+    uses retail-area-ref-grouping;
+
+    container person-detection-application {
+
+      uses application-grouping;
+
+      description "configuration Person Detection";
+    }
+
+    description "Configure of Application to display shopper count";
+  }
+
+  container shopper-monitoring {
+    presence true;
+
+    leaf enable {
+      type boolean;
+      mandatory true;
+      description "Pipeline enabled";
+    }
+
+    uses retail-area-ref-grouping;
+
+    container face-detection-application {
+
+      uses application-grouping;
+
+      description "configuration of face detection";
+    }
+
+    container head-pose-detection-application {
+
+      uses application-grouping;
+
+      description "configuration of head pose detection";
+    }
+
+    container emotion-recognition-application {
+
+      uses application-grouping;
+
+      description "configuration of emotion recognition";
+    }
+
+    description "Configure the Application to recognize Shopper Emotions";
+  }
+
+  container shelf-monitoring {
+    presence true;
+
+    leaf enable {
+      type boolean;
+      mandatory true;
+      description "Pipeline enabled";
+    }
+
+    uses retail-area-ref-grouping;
+
+    container object-detection-application {
+
+      uses application-grouping;
+
+      description "configuration of Object Detection";
+    }
+
+    description "Configure Application to count objects in shelf";
+  }
+
+    grouping application-grouping {
+      leaf device {
+        type enumeration {
+          enum cpu {
+            value 1;
+            description "CPU device";
+          }
+          enum gpu {
+            value 2;
+            description "GPU device";
+          }
+          enum vpu {
+            value 3;
+            description "VPU device";
+          }
+        }
+        mandatory true;
+        description "Choice of node device";
+      }
+
+      leaf precision {
+          type enumeration {
+            enum fp8 {
+              value 1;
+              description "8 bit Floating Point";
+            }
+            enum fp16 {
+              value 2;
+              description "16 bit Floating Point";
+            }
+            enum fp32 {
+              value 3;
+              description "32 bit Floating Point";
+            }
+          }
+          mandatory true;
+          description "Choice of node device";
+      }
+
+      leaf model {
+        type string {
+          length 1..100;
+        }
+        description "Enter model name. Leave blank to use the default model.
+        Invalid values will be ignored and the default values will be used instead.
+        This is an example of a loosely coupled attribute. State values are needed below
+        to show the actual result of the configuration";
+      }
+
+      container model-state {
+        config false;
+
+        leaf active-model-name {
+          type string;
+          description "The model in use will be shown here";
+        }
+
+        leaf active-model-file {
+          type string;
+          description "The file name of the model in use will be shown here";
+        }
+
+        description "read only values about the models state";
+      }
+
+      description "grouping of application attributes";
+    }
+
+  grouping retail-area-ref-grouping {
+    leaf default {
+      type leafref {
+        path "/src:retail-area/src:source/src:source-id";
+      }
+      description "mark the default source";
+    }
+
+    list retail-area {
+      key area-ref;
+
+      leaf area-ref {
+        type leafref {
+          path "/src:retail-area/src:area-id";
+        }
+        description "reference to a retail-area";
+      }
+
+      leaf enabled {
+        type boolean;
+        mandatory true;
+        description "retail-area sources are enabled";
+      }
+
+      leaf stream-count {
+        type uint8 {
+          range 1..8;
+        }
+        default 1;
+        description "Count of streams in this source";
+      }
+
+      description "a list of references to sources";
+    }
+    description "retail area reference attributes";
+  }
+}

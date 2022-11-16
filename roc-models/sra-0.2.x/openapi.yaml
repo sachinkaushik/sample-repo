@@ -1,0 +1,1688 @@
+# SPDX-FileCopyrightText: 2022-present Intel Corporation
+# SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+#
+# SPDX-License-Identifier: Apache-2.0
+components:
+  parameters:
+    store-id:
+      content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: store-id (target in onos-config)
+      in: path
+      name: store-id
+      required: true
+  requestBodies:
+    RequestBody_Retail-area:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Retail-area'
+    RequestBody_Retail-area_Location:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Retail-area_Location'
+    RequestBody_Retail-area_Source:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Retail-area_Source'
+    RequestBody_Retail-area_Source_Location:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Retail-area_Source_Location'
+    RequestBody_Retail-area_Source_State:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Retail-area_Source_State'
+    RequestBody_Retail-area_Source_Video:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Retail-area_Source_Video'
+    RequestBody_Shelf-monitoring:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shelf-monitoring'
+    RequestBody_Shelf-monitoring_Object-detection-application:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shelf-monitoring_Object-detection-application'
+    RequestBody_Shelf-monitoring_Object-detection-application_Model-state:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shelf-monitoring_Object-detection-application_Model-state'
+    RequestBody_Shelf-monitoring_Retail-area:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shelf-monitoring_Retail-area'
+    RequestBody_Shopper-monitoring:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shopper-monitoring'
+    RequestBody_Shopper-monitoring_Emotion-recognition-application:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shopper-monitoring_Emotion-recognition-application'
+    RequestBody_Shopper-monitoring_Emotion-recognition-application_Model-state:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shopper-monitoring_Emotion-recognition-application_Model-state'
+    RequestBody_Shopper-monitoring_Face-detection-application:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shopper-monitoring_Face-detection-application'
+    RequestBody_Shopper-monitoring_Face-detection-application_Model-state:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shopper-monitoring_Face-detection-application_Model-state'
+    RequestBody_Shopper-monitoring_Head-pose-detection-application:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shopper-monitoring_Head-pose-detection-application'
+    RequestBody_Shopper-monitoring_Head-pose-detection-application_Model-state:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shopper-monitoring_Head-pose-detection-application_Model-state'
+    RequestBody_Shopper-monitoring_Retail-area:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Shopper-monitoring_Retail-area'
+    RequestBody_Store-traffic-monitoring:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Store-traffic-monitoring'
+    RequestBody_Store-traffic-monitoring_Person-detection-application:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Store-traffic-monitoring_Person-detection-application'
+    RequestBody_Store-traffic-monitoring_Person-detection-application_Model-state:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Store-traffic-monitoring_Person-detection-application_Model-state'
+    RequestBody_Store-traffic-monitoring_Retail-area:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Store-traffic-monitoring_Retail-area'
+  schemas:
+    AdditionalPropertiesUnchTarget:
+      description: both the additional property 'unchanged' and the 'store-id'
+      properties:
+        store-id:
+          description: an override of the store-id (target)
+          title: store-id
+          type: string
+        unchanged:
+          description: A comma seperated list of unchanged mandatory attribute names
+          title: unchanged
+          type: string
+      title: AdditionalPropertiesUnchTarget
+      type: object
+    AdditionalPropertyStore-Id:
+      description: Optionally specify a store-id other than the default (only on PATCH
+        method)
+      properties:
+        store-id:
+          description: an override of the store-id (target)
+          title: store-id
+          type: string
+      title: AdditionalPropertyStore-Id
+      type: object
+    AdditionalPropertyUnchanged:
+      description: To optionally omit 'required' properties, add them to 'unchanged'
+        list
+      properties:
+        unchanged:
+          description: A comma seperated list of unchanged mandatory attribute names
+          title: unchanged
+          type: string
+      title: AdditionalPropertyUnchanged
+      type: object
+    LeafRefOption:
+      description: single label/value of the leafref option
+      properties:
+        label:
+          description: label of the leafref option
+          title: label
+          type: string
+        value:
+          description: value of the leafref option
+          title: value
+          type: string
+      type: object
+    LeafRefOptions:
+      description: List of label/value of leafref options
+      items:
+        $ref: '#/components/schemas/LeafRefOption'
+      title: LeafRefOptions
+      type: array
+    Retail-area:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyStore-Id'
+      description: Area is a physical place in a retail location e.g. department,
+        floor (single)
+      properties:
+        area-id:
+          description: An identifier for the retail area
+          maxLength: 80
+          minLength: 1
+          title: area-id
+          type: string
+          x-go-type: ListKey
+        description:
+          description: long description field
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        image:
+          description: a URL to an image file (e.g. SVG, PNG). Optional
+          maxLength: 200
+          minLength: 1
+          title: image
+          type: string
+        location:
+          $ref: '#/components/schemas/Retail-area_Location'
+        source:
+          $ref: '#/components/schemas/Retail-area_Source_List'
+      required:
+      - area-id
+      title: Retail-area
+      type: object
+      x-list-multiple: true
+    Retail-area_List:
+      description: Area is a physical place in a retail location e.g. department,
+        floor (list)
+      items:
+        $ref: '#/components/schemas/Retail-area'
+      type: array
+      uniqueItems: true
+      x-keys:
+      - area-id
+      x-list-multiple: true
+    Retail-area_Location:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: physical location in grid or latitude and longitude
+      properties:
+        coordinate-system:
+          description: choice of coordinate system
+          enum:
+          - grid-bottom-left
+          - grid-top-left
+          - lat-long
+          title: coordinate-system
+          type: string
+        orientation-x:
+          description: rotation in dgrees the X-Y plane clockwise from the 3 o'clock
+            position
+          format: int64
+          title: orientation-x
+          type: integer
+        x:
+          description: The X position in grid or longitude by 10e-7
+          format: int64
+          title: x
+          type: integer
+        "y":
+          description: The Y position in grid or latitude by 10e-7
+          format: int64
+          title: "y"
+          type: integer
+        z:
+          description: The Z position in grid or elevation in centimetres (optional)
+          format: int64
+          title: z
+          type: integer
+      required:
+      - coordinate-system
+      - x
+      - "y"
+      title: Retail-area_Location
+      type: object
+    Retail-area_Source:
+      description: The list of cameras (single)
+      properties:
+        description:
+          description: long description field
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        image:
+          description: a URL to an image file (e.g. SVG, PNG). Optional
+          maxLength: 200
+          minLength: 1
+          title: image
+          type: string
+        location:
+          $ref: '#/components/schemas/Retail-area_Source_Location'
+        source-id:
+          description: the name of the inference source
+          title: source-id
+          type: string
+          x-go-type: ListKey
+        state:
+          $ref: '#/components/schemas/Retail-area_Source_State'
+        video:
+          $ref: '#/components/schemas/Retail-area_Source_Video'
+      required:
+      - source-id
+      title: Retail-area_Source
+      type: object
+      x-list-multiple: true
+    Retail-area_Source_List:
+      description: The list of cameras (list)
+      items:
+        $ref: '#/components/schemas/Retail-area_Source'
+      type: array
+      uniqueItems: true
+      x-keys:
+      - source-id
+      x-list-multiple: true
+    Retail-area_Source_Location:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: physical location in grid or latitude and longitude
+      properties:
+        coordinate-system:
+          description: choice of coordinate system
+          enum:
+          - grid-bottom-left
+          - grid-top-left
+          - lat-long
+          title: coordinate-system
+          type: string
+        orientation-x:
+          description: rotation in dgrees the X-Y plane clockwise from the 3 o'clock
+            position
+          format: int64
+          title: orientation-x
+          type: integer
+        x:
+          description: The X position in grid or longitude by 10e-7
+          format: int64
+          title: x
+          type: integer
+        "y":
+          description: The Y position in grid or latitude by 10e-7
+          format: int64
+          title: "y"
+          type: integer
+        z:
+          description: The Z position in grid or elevation in centimetres (optional)
+          format: int64
+          title: z
+          type: integer
+      required:
+      - coordinate-system
+      - x
+      - "y"
+      title: Retail-area_Source_Location
+      type: object
+    Retail-area_Source_State:
+      description: read only attributes of the source - populated by adapter from
+        analytics engine
+      properties:
+        error:
+          description: description of error if present
+          readOnly: true
+          title: error
+          type: string
+        error-since:
+          description: date and time error last updated
+          readOnly: true
+          title: error-since
+          type: string
+        status:
+          description: status of the source
+          readOnly: true
+          title: status
+          type: string
+      title: Retail-area_Source_State
+      type: object
+    Retail-area_Source_Video:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: attributes related to video stream
+      properties:
+        path:
+          description: the path to the inference source
+          maxLength: 100
+          minLength: 1
+          pattern: '[a-zA-Z0-9\./_:-]*'
+          title: path
+          type: string
+        source-type:
+          description: Source type
+          enum:
+          - device
+          - file
+          - sample
+          - stream
+          title: source-type
+          type: string
+      required:
+      - path
+      - source-type
+      title: Retail-area_Source_Video
+      type: object
+    Shelf-monitoring:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertiesUnchTarget'
+      description: Configure Application to count objects in shelf
+      properties:
+        default:
+          description: mark the default source
+          title: default
+          type: string
+          x-leafref: /src:retail-area/src:source/src:source-id
+          x-leafref-resolver: /sra/v0.2.x/{store-id}/shelf-monitoring/default/values
+        enable:
+          description: Pipeline enabled
+          title: enable
+          type: boolean
+        object-detection-application:
+          $ref: '#/components/schemas/Shelf-monitoring_Object-detection-application'
+        retail-area:
+          $ref: '#/components/schemas/Shelf-monitoring_Retail-area_List'
+      required:
+      - enable
+      title: Shelf-monitoring
+      type: object
+    Shelf-monitoring_Object-detection-application:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: configuration of Object Detection
+      properties:
+        device:
+          description: Choice of node device
+          enum:
+          - cpu
+          - gpu
+          - vpu
+          title: device
+          type: string
+        model:
+          description: |-
+            Enter model name. Leave blank to use the default model.
+            Invalid values will be ignored and the default values will be used instead.
+            This is an example of a loosely coupled attribute. State values are needed below
+            to show the actual result of the configuration
+          maxLength: 100
+          minLength: 1
+          title: model
+          type: string
+        model-state:
+          $ref: '#/components/schemas/Shelf-monitoring_Object-detection-application_Model-state'
+        precision:
+          description: Choice of node device
+          enum:
+          - fp16
+          - fp32
+          - fp8
+          title: precision
+          type: string
+      required:
+      - device
+      - precision
+      title: Shelf-monitoring_Object-detection-application
+      type: object
+    Shelf-monitoring_Object-detection-application_Model-state:
+      description: read only values about the models state
+      properties:
+        active-model-file:
+          description: The file name of the model in use will be shown here
+          readOnly: true
+          title: active-model-file
+          type: string
+        active-model-name:
+          description: The model in use will be shown here
+          readOnly: true
+          title: active-model-name
+          type: string
+      title: Shelf-monitoring_Object-detection-application_Model-state
+      type: object
+    Shelf-monitoring_Retail-area:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: a list of references to sources (single)
+      properties:
+        area-ref:
+          description: reference to a retail-area
+          title: area-ref
+          type: string
+          x-go-type: ListKey
+          x-leafref: /src:retail-area/src:area-id
+          x-leafref-resolver: /sra/v0.2.x/{store-id}/shelf-monitoring/retail-area/{area-ref}/area-ref/values
+        enabled:
+          description: retail-area sources are enabled
+          title: enabled
+          type: boolean
+        stream-count:
+          description: Count of streams in this source
+          maximum: 8
+          minimum: 1
+          title: stream-count
+          type: integer
+      required:
+      - area-ref
+      - enabled
+      title: Shelf-monitoring_Retail-area
+      type: object
+      x-list-multiple: true
+    Shelf-monitoring_Retail-area_List:
+      description: a list of references to sources (list)
+      items:
+        $ref: '#/components/schemas/Shelf-monitoring_Retail-area'
+      type: array
+      uniqueItems: true
+      x-keys:
+      - area-ref
+      x-list-multiple: true
+    Shopper-monitoring:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertiesUnchTarget'
+      description: Configure the Application to recognize Shopper Emotions
+      properties:
+        default:
+          description: mark the default source
+          title: default
+          type: string
+          x-leafref: /src:retail-area/src:source/src:source-id
+          x-leafref-resolver: /sra/v0.2.x/{store-id}/shopper-monitoring/default/values
+        emotion-recognition-application:
+          $ref: '#/components/schemas/Shopper-monitoring_Emotion-recognition-application'
+        enable:
+          description: Pipeline enabled
+          title: enable
+          type: boolean
+        face-detection-application:
+          $ref: '#/components/schemas/Shopper-monitoring_Face-detection-application'
+        head-pose-detection-application:
+          $ref: '#/components/schemas/Shopper-monitoring_Head-pose-detection-application'
+        retail-area:
+          $ref: '#/components/schemas/Shopper-monitoring_Retail-area_List'
+      required:
+      - enable
+      title: Shopper-monitoring
+      type: object
+    Shopper-monitoring_Emotion-recognition-application:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: configuration of emotion recognition
+      properties:
+        device:
+          description: Choice of node device
+          enum:
+          - cpu
+          - gpu
+          - vpu
+          title: device
+          type: string
+        model:
+          description: |-
+            Enter model name. Leave blank to use the default model.
+            Invalid values will be ignored and the default values will be used instead.
+            This is an example of a loosely coupled attribute. State values are needed below
+            to show the actual result of the configuration
+          maxLength: 100
+          minLength: 1
+          title: model
+          type: string
+        model-state:
+          $ref: '#/components/schemas/Shopper-monitoring_Emotion-recognition-application_Model-state'
+        precision:
+          description: Choice of node device
+          enum:
+          - fp16
+          - fp32
+          - fp8
+          title: precision
+          type: string
+      required:
+      - device
+      - precision
+      title: Shopper-monitoring_Emotion-recognition-application
+      type: object
+    Shopper-monitoring_Emotion-recognition-application_Model-state:
+      description: read only values about the models state
+      properties:
+        active-model-file:
+          description: The file name of the model in use will be shown here
+          readOnly: true
+          title: active-model-file
+          type: string
+        active-model-name:
+          description: The model in use will be shown here
+          readOnly: true
+          title: active-model-name
+          type: string
+      title: Shopper-monitoring_Emotion-recognition-application_Model-state
+      type: object
+    Shopper-monitoring_Face-detection-application:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: configuration of face detection
+      properties:
+        device:
+          description: Choice of node device
+          enum:
+          - cpu
+          - gpu
+          - vpu
+          title: device
+          type: string
+        model:
+          description: |-
+            Enter model name. Leave blank to use the default model.
+            Invalid values will be ignored and the default values will be used instead.
+            This is an example of a loosely coupled attribute. State values are needed below
+            to show the actual result of the configuration
+          maxLength: 100
+          minLength: 1
+          title: model
+          type: string
+        model-state:
+          $ref: '#/components/schemas/Shopper-monitoring_Face-detection-application_Model-state'
+        precision:
+          description: Choice of node device
+          enum:
+          - fp16
+          - fp32
+          - fp8
+          title: precision
+          type: string
+      required:
+      - device
+      - precision
+      title: Shopper-monitoring_Face-detection-application
+      type: object
+    Shopper-monitoring_Face-detection-application_Model-state:
+      description: read only values about the models state
+      properties:
+        active-model-file:
+          description: The file name of the model in use will be shown here
+          readOnly: true
+          title: active-model-file
+          type: string
+        active-model-name:
+          description: The model in use will be shown here
+          readOnly: true
+          title: active-model-name
+          type: string
+      title: Shopper-monitoring_Face-detection-application_Model-state
+      type: object
+    Shopper-monitoring_Head-pose-detection-application:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: configuration of head pose detection
+      properties:
+        device:
+          description: Choice of node device
+          enum:
+          - cpu
+          - gpu
+          - vpu
+          title: device
+          type: string
+        model:
+          description: |-
+            Enter model name. Leave blank to use the default model.
+            Invalid values will be ignored and the default values will be used instead.
+            This is an example of a loosely coupled attribute. State values are needed below
+            to show the actual result of the configuration
+          maxLength: 100
+          minLength: 1
+          title: model
+          type: string
+        model-state:
+          $ref: '#/components/schemas/Shopper-monitoring_Head-pose-detection-application_Model-state'
+        precision:
+          description: Choice of node device
+          enum:
+          - fp16
+          - fp32
+          - fp8
+          title: precision
+          type: string
+      required:
+      - device
+      - precision
+      title: Shopper-monitoring_Head-pose-detection-application
+      type: object
+    Shopper-monitoring_Head-pose-detection-application_Model-state:
+      description: read only values about the models state
+      properties:
+        active-model-file:
+          description: The file name of the model in use will be shown here
+          readOnly: true
+          title: active-model-file
+          type: string
+        active-model-name:
+          description: The model in use will be shown here
+          readOnly: true
+          title: active-model-name
+          type: string
+      title: Shopper-monitoring_Head-pose-detection-application_Model-state
+      type: object
+    Shopper-monitoring_Retail-area:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: a list of references to sources (single)
+      properties:
+        area-ref:
+          description: reference to a retail-area
+          title: area-ref
+          type: string
+          x-go-type: ListKey
+          x-leafref: /src:retail-area/src:area-id
+          x-leafref-resolver: /sra/v0.2.x/{store-id}/shopper-monitoring/retail-area/{area-ref}/area-ref/values
+        enabled:
+          description: retail-area sources are enabled
+          title: enabled
+          type: boolean
+        stream-count:
+          description: Count of streams in this source
+          maximum: 8
+          minimum: 1
+          title: stream-count
+          type: integer
+      required:
+      - area-ref
+      - enabled
+      title: Shopper-monitoring_Retail-area
+      type: object
+      x-list-multiple: true
+    Shopper-monitoring_Retail-area_List:
+      description: a list of references to sources (list)
+      items:
+        $ref: '#/components/schemas/Shopper-monitoring_Retail-area'
+      type: array
+      uniqueItems: true
+      x-keys:
+      - area-ref
+      x-list-multiple: true
+    Store-traffic-monitoring:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertiesUnchTarget'
+      description: Configure of Application to display shopper count
+      properties:
+        default:
+          description: mark the default source
+          title: default
+          type: string
+          x-leafref: /src:retail-area/src:source/src:source-id
+          x-leafref-resolver: /sra/v0.2.x/{store-id}/store-traffic-monitoring/default/values
+        enable:
+          description: Pipeline enabled
+          title: enable
+          type: boolean
+        person-detection-application:
+          $ref: '#/components/schemas/Store-traffic-monitoring_Person-detection-application'
+        retail-area:
+          $ref: '#/components/schemas/Store-traffic-monitoring_Retail-area_List'
+      required:
+      - enable
+      title: Store-traffic-monitoring
+      type: object
+    Store-traffic-monitoring_Person-detection-application:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: configuration Person Detection
+      properties:
+        device:
+          description: Choice of node device
+          enum:
+          - cpu
+          - gpu
+          - vpu
+          title: device
+          type: string
+        model:
+          description: |-
+            Enter model name. Leave blank to use the default model.
+            Invalid values will be ignored and the default values will be used instead.
+            This is an example of a loosely coupled attribute. State values are needed below
+            to show the actual result of the configuration
+          maxLength: 100
+          minLength: 1
+          title: model
+          type: string
+        model-state:
+          $ref: '#/components/schemas/Store-traffic-monitoring_Person-detection-application_Model-state'
+        precision:
+          description: Choice of node device
+          enum:
+          - fp16
+          - fp32
+          - fp8
+          title: precision
+          type: string
+      required:
+      - device
+      - precision
+      title: Store-traffic-monitoring_Person-detection-application
+      type: object
+    Store-traffic-monitoring_Person-detection-application_Model-state:
+      description: read only values about the models state
+      properties:
+        active-model-file:
+          description: The file name of the model in use will be shown here
+          readOnly: true
+          title: active-model-file
+          type: string
+        active-model-name:
+          description: The model in use will be shown here
+          readOnly: true
+          title: active-model-name
+          type: string
+      title: Store-traffic-monitoring_Person-detection-application_Model-state
+      type: object
+    Store-traffic-monitoring_Retail-area:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: a list of references to sources (single)
+      properties:
+        area-ref:
+          description: reference to a retail-area
+          title: area-ref
+          type: string
+          x-go-type: ListKey
+          x-leafref: /src:retail-area/src:area-id
+          x-leafref-resolver: /sra/v0.2.x/{store-id}/store-traffic-monitoring/retail-area/{area-ref}/area-ref/values
+        enabled:
+          description: retail-area sources are enabled
+          title: enabled
+          type: boolean
+        stream-count:
+          description: Count of streams in this source
+          maximum: 8
+          minimum: 1
+          title: stream-count
+          type: integer
+      required:
+      - area-ref
+      - enabled
+      title: Store-traffic-monitoring_Retail-area
+      type: object
+      x-list-multiple: true
+    Store-traffic-monitoring_Retail-area_List:
+      description: a list of references to sources (list)
+      items:
+        $ref: '#/components/schemas/Store-traffic-monitoring_Retail-area'
+      type: array
+      uniqueItems: true
+      x-keys:
+      - area-ref
+      x-list-multiple: true
+info:
+  contact:
+    name: Intel Corporation
+    url: https://www.intel.com
+  description: OpenAPI 3 specification is generated from sra onos-config model plugin
+  license:
+    name: LicenseRef-Intel
+  title: sra-0.2.x
+  version: 0.2.x
+openapi: 3.0.0
+paths:
+  /sra/v0.2.x/{store-id}/retail-area:
+    description: Area is a physical place in a retail location e.g. department, floor
+    get:
+      operationId: getRetail-area_List
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Retail-area_List'
+          description: GET OK 200
+      summary: GET /retail-area List
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/retail-area/{area-id}:
+    delete:
+      operationId: deleteRetail-area
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /retail-area
+    description: Area is a physical place in a retail location e.g. department, floor
+    get:
+      operationId: getRetail-area
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Retail-area'
+          description: GET OK 200
+      summary: GET /retail-area Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-id}
+      in: path
+      name: area-id
+      required: true
+    post:
+      operationId: postRetail-area
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Retail-area'
+      responses:
+        "201":
+          description: created
+      summary: POST /retail-area
+  /sra/v0.2.x/{store-id}/retail-area/{area-id}/location:
+    delete:
+      operationId: deleteRetail-area_Location
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /retail-area/{area-id}/location
+    description: physical location in grid or latitude and longitude
+    get:
+      operationId: getRetail-area_Location
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Retail-area_Location'
+          description: GET OK 200
+      summary: GET /retail-area/{area-id}/location Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-id}
+      in: path
+      name: area-id
+      required: true
+    post:
+      operationId: postRetail-area_Location
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Retail-area_Location'
+      responses:
+        "201":
+          description: created
+      summary: POST /retail-area/{area-id}/location
+  /sra/v0.2.x/{store-id}/retail-area/{area-id}/source:
+    description: The list of cameras
+    get:
+      operationId: getRetail-area_Source_List
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Retail-area_Source_List'
+          description: GET OK 200
+      summary: GET /retail-area/{area-id}/source List
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-id}
+      in: path
+      name: area-id
+      required: true
+  /sra/v0.2.x/{store-id}/retail-area/{area-id}/source/{source-id}:
+    delete:
+      operationId: deleteRetail-area_Source
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /retail-area/{area-id}/source
+    description: The list of cameras
+    get:
+      operationId: getRetail-area_Source
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Retail-area_Source'
+          description: GET OK 200
+      summary: GET /retail-area/{area-id}/source Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-id}
+      in: path
+      name: area-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {source-id}
+      in: path
+      name: source-id
+      required: true
+    post:
+      operationId: postRetail-area_Source
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Retail-area_Source'
+      responses:
+        "201":
+          description: created
+      summary: POST /retail-area/{area-id}/source
+  /sra/v0.2.x/{store-id}/retail-area/{area-id}/source/{source-id}/location:
+    delete:
+      operationId: deleteRetail-area_Source_Location
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /retail-area/{area-id}/source/{source-id}/location
+    description: physical location in grid or latitude and longitude
+    get:
+      operationId: getRetail-area_Source_Location
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Retail-area_Source_Location'
+          description: GET OK 200
+      summary: GET /retail-area/{area-id}/source/{source-id}/location Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-id}
+      in: path
+      name: area-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {source-id}
+      in: path
+      name: source-id
+      required: true
+    post:
+      operationId: postRetail-area_Source_Location
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Retail-area_Source_Location'
+      responses:
+        "201":
+          description: created
+      summary: POST /retail-area/{area-id}/source/{source-id}/location
+  /sra/v0.2.x/{store-id}/retail-area/{area-id}/source/{source-id}/state:
+    description: read only attributes of the source - populated by adapter from analytics
+      engine
+    get:
+      operationId: getRetail-area_Source_State
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Retail-area_Source_State'
+          description: GET OK 200
+      summary: GET /retail-area/{area-id}/source/{source-id}/state Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-id}
+      in: path
+      name: area-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {source-id}
+      in: path
+      name: source-id
+      required: true
+  /sra/v0.2.x/{store-id}/retail-area/{area-id}/source/{source-id}/video:
+    delete:
+      operationId: deleteRetail-area_Source_Video
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /retail-area/{area-id}/source/{source-id}/video
+    description: attributes related to video stream
+    get:
+      operationId: getRetail-area_Source_Video
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Retail-area_Source_Video'
+          description: GET OK 200
+      summary: GET /retail-area/{area-id}/source/{source-id}/video Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-id}
+      in: path
+      name: area-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {source-id}
+      in: path
+      name: source-id
+      required: true
+    post:
+      operationId: postRetail-area_Source_Video
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Retail-area_Source_Video'
+      responses:
+        "201":
+          description: created
+      summary: POST /retail-area/{area-id}/source/{source-id}/video
+  /sra/v0.2.x/{store-id}/shelf-monitoring:
+    delete:
+      operationId: deleteShelf-monitoring
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /shelf-monitoring
+    description: Configure Application to count objects in shelf
+    get:
+      operationId: getShelf-monitoring
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shelf-monitoring'
+          description: GET OK 200
+      summary: GET /shelf-monitoring Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    post:
+      operationId: postShelf-monitoring
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Shelf-monitoring'
+      responses:
+        "201":
+          description: created
+      summary: POST /shelf-monitoring
+  /sra/v0.2.x/{store-id}/shelf-monitoring/default/values:
+    description: mark the default source
+    get:
+      operationId: getShelf-monitoring_Default_Values_Leafref
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeafRefOptions'
+          description: GET OK 200
+      summary: GET /shelf-monitoring/default/values Leafref
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/shelf-monitoring/object-detection-application:
+    delete:
+      operationId: deleteShelf-monitoring_Object-detection-application
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /shelf-monitoring/object-detection-application
+    description: configuration of Object Detection
+    get:
+      operationId: getShelf-monitoring_Object-detection-application
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shelf-monitoring_Object-detection-application'
+          description: GET OK 200
+      summary: GET /shelf-monitoring/object-detection-application Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    post:
+      operationId: postShelf-monitoring_Object-detection-application
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Shelf-monitoring_Object-detection-application'
+      responses:
+        "201":
+          description: created
+      summary: POST /shelf-monitoring/object-detection-application
+  /sra/v0.2.x/{store-id}/shelf-monitoring/object-detection-application/model-state:
+    description: read only values about the models state
+    get:
+      operationId: getShelf-monitoring_Object-detection-application_Model-state
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shelf-monitoring_Object-detection-application_Model-state'
+          description: GET OK 200
+      summary: GET /shelf-monitoring/object-detection-application/model-state Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/shelf-monitoring/retail-area:
+    description: a list of references to sources
+    get:
+      operationId: getShelf-monitoring_Retail-area_List
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shelf-monitoring_Retail-area_List'
+          description: GET OK 200
+      summary: GET /shelf-monitoring/retail-area List
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/shelf-monitoring/retail-area/{area-ref}:
+    delete:
+      operationId: deleteShelf-monitoring_Retail-area
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /shelf-monitoring/retail-area
+    description: a list of references to sources
+    get:
+      operationId: getShelf-monitoring_Retail-area
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shelf-monitoring_Retail-area'
+          description: GET OK 200
+      summary: GET /shelf-monitoring/retail-area Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-ref}
+      in: path
+      name: area-ref
+      required: true
+    post:
+      operationId: postShelf-monitoring_Retail-area
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Shelf-monitoring_Retail-area'
+      responses:
+        "201":
+          description: created
+      summary: POST /shelf-monitoring/retail-area
+  /sra/v0.2.x/{store-id}/shelf-monitoring/retail-area/{area-ref}/area-ref/values:
+    description: reference to a retail-area
+    get:
+      operationId: getShelf-monitoring_Retail-area_Area-ref_Values_Leafref
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeafRefOptions'
+          description: GET OK 200
+      summary: GET /shelf-monitoring/retail-area/{area-ref}/area-ref/values Leafref
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-ref}
+      in: path
+      name: area-ref
+      required: true
+  /sra/v0.2.x/{store-id}/shopper-monitoring:
+    delete:
+      operationId: deleteShopper-monitoring
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /shopper-monitoring
+    description: Configure the Application to recognize Shopper Emotions
+    get:
+      operationId: getShopper-monitoring
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shopper-monitoring'
+          description: GET OK 200
+      summary: GET /shopper-monitoring Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    post:
+      operationId: postShopper-monitoring
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Shopper-monitoring'
+      responses:
+        "201":
+          description: created
+      summary: POST /shopper-monitoring
+  /sra/v0.2.x/{store-id}/shopper-monitoring/default/values:
+    description: mark the default source
+    get:
+      operationId: getShopper-monitoring_Default_Values_Leafref
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeafRefOptions'
+          description: GET OK 200
+      summary: GET /shopper-monitoring/default/values Leafref
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/shopper-monitoring/emotion-recognition-application:
+    delete:
+      operationId: deleteShopper-monitoring_Emotion-recognition-application
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /shopper-monitoring/emotion-recognition-application
+    description: configuration of emotion recognition
+    get:
+      operationId: getShopper-monitoring_Emotion-recognition-application
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shopper-monitoring_Emotion-recognition-application'
+          description: GET OK 200
+      summary: GET /shopper-monitoring/emotion-recognition-application Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    post:
+      operationId: postShopper-monitoring_Emotion-recognition-application
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Shopper-monitoring_Emotion-recognition-application'
+      responses:
+        "201":
+          description: created
+      summary: POST /shopper-monitoring/emotion-recognition-application
+  /sra/v0.2.x/{store-id}/shopper-monitoring/emotion-recognition-application/model-state:
+    description: read only values about the models state
+    get:
+      operationId: getShopper-monitoring_Emotion-recognition-application_Model-state
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shopper-monitoring_Emotion-recognition-application_Model-state'
+          description: GET OK 200
+      summary: GET /shopper-monitoring/emotion-recognition-application/model-state
+        Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/shopper-monitoring/face-detection-application:
+    delete:
+      operationId: deleteShopper-monitoring_Face-detection-application
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /shopper-monitoring/face-detection-application
+    description: configuration of face detection
+    get:
+      operationId: getShopper-monitoring_Face-detection-application
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shopper-monitoring_Face-detection-application'
+          description: GET OK 200
+      summary: GET /shopper-monitoring/face-detection-application Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    post:
+      operationId: postShopper-monitoring_Face-detection-application
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Shopper-monitoring_Face-detection-application'
+      responses:
+        "201":
+          description: created
+      summary: POST /shopper-monitoring/face-detection-application
+  /sra/v0.2.x/{store-id}/shopper-monitoring/face-detection-application/model-state:
+    description: read only values about the models state
+    get:
+      operationId: getShopper-monitoring_Face-detection-application_Model-state
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shopper-monitoring_Face-detection-application_Model-state'
+          description: GET OK 200
+      summary: GET /shopper-monitoring/face-detection-application/model-state Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/shopper-monitoring/head-pose-detection-application:
+    delete:
+      operationId: deleteShopper-monitoring_Head-pose-detection-application
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /shopper-monitoring/head-pose-detection-application
+    description: configuration of head pose detection
+    get:
+      operationId: getShopper-monitoring_Head-pose-detection-application
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shopper-monitoring_Head-pose-detection-application'
+          description: GET OK 200
+      summary: GET /shopper-monitoring/head-pose-detection-application Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    post:
+      operationId: postShopper-monitoring_Head-pose-detection-application
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Shopper-monitoring_Head-pose-detection-application'
+      responses:
+        "201":
+          description: created
+      summary: POST /shopper-monitoring/head-pose-detection-application
+  /sra/v0.2.x/{store-id}/shopper-monitoring/head-pose-detection-application/model-state:
+    description: read only values about the models state
+    get:
+      operationId: getShopper-monitoring_Head-pose-detection-application_Model-state
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shopper-monitoring_Head-pose-detection-application_Model-state'
+          description: GET OK 200
+      summary: GET /shopper-monitoring/head-pose-detection-application/model-state
+        Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/shopper-monitoring/retail-area:
+    description: a list of references to sources
+    get:
+      operationId: getShopper-monitoring_Retail-area_List
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shopper-monitoring_Retail-area_List'
+          description: GET OK 200
+      summary: GET /shopper-monitoring/retail-area List
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/shopper-monitoring/retail-area/{area-ref}:
+    delete:
+      operationId: deleteShopper-monitoring_Retail-area
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /shopper-monitoring/retail-area
+    description: a list of references to sources
+    get:
+      operationId: getShopper-monitoring_Retail-area
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shopper-monitoring_Retail-area'
+          description: GET OK 200
+      summary: GET /shopper-monitoring/retail-area Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-ref}
+      in: path
+      name: area-ref
+      required: true
+    post:
+      operationId: postShopper-monitoring_Retail-area
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Shopper-monitoring_Retail-area'
+      responses:
+        "201":
+          description: created
+      summary: POST /shopper-monitoring/retail-area
+  /sra/v0.2.x/{store-id}/shopper-monitoring/retail-area/{area-ref}/area-ref/values:
+    description: reference to a retail-area
+    get:
+      operationId: getShopper-monitoring_Retail-area_Area-ref_Values_Leafref
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeafRefOptions'
+          description: GET OK 200
+      summary: GET /shopper-monitoring/retail-area/{area-ref}/area-ref/values Leafref
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-ref}
+      in: path
+      name: area-ref
+      required: true
+  /sra/v0.2.x/{store-id}/store-traffic-monitoring:
+    delete:
+      operationId: deleteStore-traffic-monitoring
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /store-traffic-monitoring
+    description: Configure of Application to display shopper count
+    get:
+      operationId: getStore-traffic-monitoring
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Store-traffic-monitoring'
+          description: GET OK 200
+      summary: GET /store-traffic-monitoring Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    post:
+      operationId: postStore-traffic-monitoring
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Store-traffic-monitoring'
+      responses:
+        "201":
+          description: created
+      summary: POST /store-traffic-monitoring
+  /sra/v0.2.x/{store-id}/store-traffic-monitoring/default/values:
+    description: mark the default source
+    get:
+      operationId: getStore-traffic-monitoring_Default_Values_Leafref
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeafRefOptions'
+          description: GET OK 200
+      summary: GET /store-traffic-monitoring/default/values Leafref
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/store-traffic-monitoring/person-detection-application:
+    delete:
+      operationId: deleteStore-traffic-monitoring_Person-detection-application
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /store-traffic-monitoring/person-detection-application
+    description: configuration Person Detection
+    get:
+      operationId: getStore-traffic-monitoring_Person-detection-application
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Store-traffic-monitoring_Person-detection-application'
+          description: GET OK 200
+      summary: GET /store-traffic-monitoring/person-detection-application Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    post:
+      operationId: postStore-traffic-monitoring_Person-detection-application
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Store-traffic-monitoring_Person-detection-application'
+      responses:
+        "201":
+          description: created
+      summary: POST /store-traffic-monitoring/person-detection-application
+  /sra/v0.2.x/{store-id}/store-traffic-monitoring/person-detection-application/model-state:
+    description: read only values about the models state
+    get:
+      operationId: getStore-traffic-monitoring_Person-detection-application_Model-state
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Store-traffic-monitoring_Person-detection-application_Model-state'
+          description: GET OK 200
+      summary: GET /store-traffic-monitoring/person-detection-application/model-state
+        Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/store-traffic-monitoring/retail-area:
+    description: a list of references to sources
+    get:
+      operationId: getStore-traffic-monitoring_Retail-area_List
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Store-traffic-monitoring_Retail-area_List'
+          description: GET OK 200
+      summary: GET /store-traffic-monitoring/retail-area List
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+  /sra/v0.2.x/{store-id}/store-traffic-monitoring/retail-area/{area-ref}:
+    delete:
+      operationId: deleteStore-traffic-monitoring_Retail-area
+      responses:
+        "200":
+          description: DELETE 200 OK
+      summary: DELETE /store-traffic-monitoring/retail-area
+    description: a list of references to sources
+    get:
+      operationId: getStore-traffic-monitoring_Retail-area
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Store-traffic-monitoring_Retail-area'
+          description: GET OK 200
+      summary: GET /store-traffic-monitoring/retail-area Container
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-ref}
+      in: path
+      name: area-ref
+      required: true
+    post:
+      operationId: postStore-traffic-monitoring_Retail-area
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Store-traffic-monitoring_Retail-area'
+      responses:
+        "201":
+          description: created
+      summary: POST /store-traffic-monitoring/retail-area
+  /sra/v0.2.x/{store-id}/store-traffic-monitoring/retail-area/{area-ref}/area-ref/values:
+    description: reference to a retail-area
+    get:
+      operationId: getStore-traffic-monitoring_Retail-area_Area-ref_Values_Leafref
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeafRefOptions'
+          description: GET OK 200
+      summary: GET /store-traffic-monitoring/retail-area/{area-ref}/area-ref/values
+        Leafref
+    parameters:
+    - $ref: '#/components/parameters/store-id'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {area-ref}
+      in: path
+      name: area-ref
+      required: true

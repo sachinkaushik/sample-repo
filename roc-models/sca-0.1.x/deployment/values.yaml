@@ -1,0 +1,122 @@
+# SPDX-FileCopyrightText: 2022-present Intel Corporation
+#
+# SPDX-License-Identifier: LicenseRef-Intel
+
+# Default values for all Helm charts.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  fullnameOverride: "onos"
+  nameOverride: ""
+  image:
+    registry: ""
+    tag: ""
+  store:
+    consensus:
+      enabled: true
+      name: ""
+      image:
+        registry: ""
+        repository: atomix/atomix-raft-storage-node
+        tag: ""
+        pullPolicy: IfNotPresent
+        pullSecrets: []
+      clusters: 1
+      replicas: 1
+      partitions: 1
+      raft: {}
+      persistence:
+        storageClass: ""
+        storageSize: 1Gi
+
+import:
+  onos-topo:
+    enabled: true
+  onos-config:
+    enabled: true
+  onos-cli:
+    enabled: true
+  roc-api:
+    enabled: true
+  roc-gui:
+    enabled: true
+  roc-adapter:
+    enabled: true
+
+# ONOS-CLI
+onos-cli: {}
+
+# ROC API
+roc-api:
+  image:
+    registry: default-route-openshift-image-registry.apps.nex.one-edge.intel.com
+    repository: springboard-dev-common/roc-api-server-sca-0.1.x
+    tag: 0.1.0-dev
+    pullPolicy: IfNotPresent
+# for GUI development only - comment out for production
+#  corsOrigins:
+#    - http://localhost:3000
+
+roc-adapter:
+  fullnameOverride: "roc-adapter"
+  certManager:
+    enabled: true
+  image:
+    registry: default-route-openshift-image-registry.apps.nex.one-edge.intel.com
+    repository: springboard-dev-common/roc-adapter-sca-0.1.x
+    tag: 0.1.0-dev
+    pullPolicy: IfNotPresent
+
+roc-gui:
+  runtimeConfig:
+    targetType: store
+  image:
+    registry: default-route-openshift-image-registry.apps.nex.one-edge.intel.com
+    repository: springboard-dev-common/roc-ui
+    tag: v0.2.2
+    pullPolicy: IfNotPresent
+
+# ONOS-TOPO
+onos-topo:
+  store:
+    consensus:
+      enabled: false
+
+# ONOS-CONFIG
+onos-config:
+  store:
+    consensus:
+      enabled: false
+  modelPlugins:
+    - name: sca-0-1-x
+      image: default-route-openshift-image-registry.apps.nex.one-edge.intel.com/springboard-dev-common/roc-sca-0.1.x:0.1.0-dev
+      pullPolicy: IfNotPresent
+      endpoint: localhost
+      port: 5152
+
+  openpolicyagent:
+    enabled: false
+    regoConfigMap: fabric-umbrella-opa-rbac
+
+
+topology:
+  kind: store
+  adapter:
+    address: roc-adapter:5150
+    version: 0.1.x
+    type: sca
+  targets:
+    - id: portland-north
+      name: Portland North
+
+# Load Initial Mega-Patch
+config:
+  reconcile_interval: 30s
+  # Path to the mega-patch json file
+  megaPatch: ""
+  image:
+    registry: ""
+    repository: curlimages/curl
+    tag: "7.85.0"
+    pullPolicy: "IfNotPresent"

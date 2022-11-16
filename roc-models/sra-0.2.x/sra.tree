@@ -1,0 +1,88 @@
+module: intel-sra-source
+  +--rw retail-area* [area-id]
+     +--rw area-id         string
+     +--rw display-name?   string
+     +--rw description?    string
+     +--rw image?          string
+     +--rw location!
+     |  +--rw x                    int64
+     |  +--rw y                    int64
+     |  +--rw z?                   int64
+     |  +--rw coordinate-system    enumeration
+     |  +--rw orientation-x?       int64
+     +--rw source* [source-id]
+        +--rw source-id       string
+        +--rw display-name?   string
+        +--rw description?    string
+        +--rw image?          string
+        +--rw location!
+        |  +--rw x                    int64
+        |  +--rw y                    int64
+        |  +--rw z?                   int64
+        |  +--rw coordinate-system    enumeration
+        |  +--rw orientation-x?       int64
+        +--rw video
+        |  +--rw path           string
+        |  +--rw source-type    enumeration
+        +--ro state
+           +--ro status?        string
+           +--ro error?         string
+           +--ro error-since?   string
+
+module: intel-sra
+  +--rw store-traffic-monitoring!
+  |  +--rw enable                          boolean
+  |  +--rw default?                        -> /src:retail-area/source/source-id
+  |  +--rw retail-area* [area-ref]
+  |  |  +--rw area-ref        -> /src:retail-area/area-id
+  |  |  +--rw enabled         boolean
+  |  |  +--rw stream-count?   uint8
+  |  +--rw person-detection-application
+  |     +--rw device         enumeration
+  |     +--rw precision      enumeration
+  |     +--rw model?         string
+  |     +--ro model-state
+  |        +--ro active-model-name?   string
+  |        +--ro active-model-file?   string
+  +--rw shopper-monitoring!
+  |  +--rw enable                             boolean
+  |  +--rw default?                           -> /src:retail-area/source/source-id
+  |  +--rw retail-area* [area-ref]
+  |  |  +--rw area-ref        -> /src:retail-area/area-id
+  |  |  +--rw enabled         boolean
+  |  |  +--rw stream-count?   uint8
+  |  +--rw face-detection-application
+  |  |  +--rw device         enumeration
+  |  |  +--rw precision      enumeration
+  |  |  +--rw model?         string
+  |  |  +--ro model-state
+  |  |     +--ro active-model-name?   string
+  |  |     +--ro active-model-file?   string
+  |  +--rw head-pose-detection-application
+  |  |  +--rw device         enumeration
+  |  |  +--rw precision      enumeration
+  |  |  +--rw model?         string
+  |  |  +--ro model-state
+  |  |     +--ro active-model-name?   string
+  |  |     +--ro active-model-file?   string
+  |  +--rw emotion-recognition-application
+  |     +--rw device         enumeration
+  |     +--rw precision      enumeration
+  |     +--rw model?         string
+  |     +--ro model-state
+  |        +--ro active-model-name?   string
+  |        +--ro active-model-file?   string
+  +--rw shelf-monitoring!
+     +--rw enable                          boolean
+     +--rw default?                        -> /src:retail-area/source/source-id
+     +--rw retail-area* [area-ref]
+     |  +--rw area-ref        -> /src:retail-area/area-id
+     |  +--rw enabled         boolean
+     |  +--rw stream-count?   uint8
+     +--rw object-detection-application
+        +--rw device         enumeration
+        +--rw precision      enumeration
+        +--rw model?         string
+        +--ro model-state
+           +--ro active-model-name?   string
+           +--ro active-model-file?   string

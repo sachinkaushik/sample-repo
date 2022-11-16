@@ -1,0 +1,29 @@
+{
+  "default-target": "portland-southeast",
+  "Updates": {
+    "retail-area-0.1.0": [
+      {
+        "area-id": "jewellery-counter",
+        "description": "Jewellery Counter",
+        "display-name": "Jewellery Counter"
+      },
+      {
+        "area-id": "jewellery-backroom",
+        "display-name": "Jewellery Back room"
+      },
+      {
+        "area-id": "sporting-goods",
+        "display-name": "Sporting goods",
+        "additionalProperties": {
+          "store-id": "portland-southeast"
+        }
+      }
+    ]
+  },
+  "Deletes": {},
+  "Extensions": {
+    "transaction-strategy-111": 0,
+    "model-version-101": "0.2.0",
+    "model-type-102": "Sra"
+  }
+}

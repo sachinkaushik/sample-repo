@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2022-present Intel Corporation
+#
+# SPDX-License-Identifier: LicenseRef-Intel
+
+name: sca
+version: 0.1.x
+artifactName: sca-0.1.x
+goPackage: github.com/intel-innersource/frameworks.edge.one-intel-edge.springboard.reference-implementation.roc-models/models/sca-0.1.x
+openAPITargetAlias: city-id
+contactName: Intel Corporation
+contactUrl: https://www.intel.com
+licenseName: LicenseRef-Intel
+modules:
+  - name: intel-sca-source
+    organization: Intel Corporation
+    revision: 2022-10-27
+    file: intel-sca-source@2022-10-27.yang
+  - name: intel-sca
+    organization: Intel Corporation
+    revision: 2022-10-27
+    file: intel-sca@2022-10-27.yang

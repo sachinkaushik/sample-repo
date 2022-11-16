@@ -1,0 +1,130 @@
+# SPDX-FileCopyrightText: 2022-present Intel Corporation
+#
+# SPDX-License-Identifier: LicenseRef-Intel
+
+# Default values for all Helm charts.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  fullnameOverride: "onos"
+  nameOverride: ""
+  image:
+    registry: ""
+    tag: ""
+  store:
+    consensus:
+      enabled: true
+      name: ""
+      image:
+        registry: ""
+        repository: atomix/atomix-raft-storage-node
+        tag: ""
+        pullPolicy: IfNotPresent
+        pullSecrets: []
+      clusters: 1
+      replicas: 1
+      partitions: 1
+      raft: {}
+      persistence:
+        storageClass: ""
+        storageSize: 1Gi
+
+import:
+  onos-topo:
+    enabled: true
+  onos-config:
+    enabled: true
+  onos-cli:
+    enabled: true
+  roc-api:
+    enabled: true
+  roc-gui:
+    enabled: true
+  roc-adapter:
+    enabled: true
+
+# ONOS-CLI
+onos-cli: {}
+
+# ROC API
+roc-api:
+  image:
+    registry: amr-registry.caas.intel.com
+    repository: one-intel-edge/roc/roc-api-sra-0.2.x
+    tag: v0.2.2
+    pullPolicy: IfNotPresent
+# for GUI development only - comment out for production
+#  corsOrigins:
+#    - http://localhost:3000
+
+roc-adapter:
+  fullnameOverride: "roc-adapter"
+  image:
+    registry: amr-registry.caas.intel.com
+    repository: one-intel-edge/roc/roc-adapter-sra_0_2_x
+    tag: latest
+    pullPolicy: IfNotPresent
+
+roc-gui:
+  runtimeConfig:
+    targetType: store
+  image:
+    registry: amr-registry.caas.intel.com
+    repository: one-intel-edge/roc/roc-ui
+    tag: v0.2.0
+    pullPolicy: IfNotPresent
+
+# ONOS-TOPO
+onos-topo:
+  store:
+    consensus:
+      enabled: false
+
+# ONOS-CONFIG
+onos-config:
+  store:
+    consensus:
+      enabled: false
+  modelPlugins:
+    - name: sra-0-2
+      image: amr-registry.caas.intel.com/one-intel-edge/roc/sra-0.2.x:0.2.0-dev-sra-0.2.x
+      pullPolicy: IfNotPresent
+      endpoint: localhost
+      port: 5152
+
+  openpolicyagent:
+    enabled: false
+    regoConfigMap: fabric-umbrella-opa-rbac
+
+
+topology:
+  kind: store
+  adapter:
+    address: roc-adapter:5150
+    version: 0.2.x
+    type: sra
+  targets:
+    - id: portland-north
+      name: Walmart Portland North
+      lat: 45.60062054936311
+      long: -122.67883977447724
+    - id: portland-southeast
+      name: Walmart Portland South East
+      lat: 45.49627356082832
+      long: -122.57446966174983
+    - id: reference-store
+      name: Reference Implementation Store
+      lat: 45.1
+      long: -122.1      
+
+# Load Initial Mega-Patch
+config:
+  reconcile_interval: 30s
+  # Path to the mega-patch json file
+  megaPatch: ""
+  image:
+    registry: ""
+    repository: curlimages/curl
+    tag: "7.85.0"
+    pullPolicy: "IfNotPresent"

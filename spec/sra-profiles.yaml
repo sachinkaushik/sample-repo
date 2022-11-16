@@ -6,6 +6,6 @@ compositeProfiles:
   - profileName: Production
     appProfiles:
       - appName: sra-evam-helm
-        valuesFile: sra-app/sra-evam-helm_production-profile.tar.gz
+        valuesFile: ""
       - appName: rocaas-umbrella
-        valuesFile: sra-roc/rocaas-umbrella_production-profile.tar.gz
+        valuesFile: ""
