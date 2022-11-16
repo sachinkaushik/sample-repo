@@ -2,7 +2,7 @@
     {
         "id": "e75e23786ba51dab",
         "type": "tab",
-        "label": "Smart Retail Analytics v3.6",
+        "label": "Smart Retail Analytics v3.7",
         "disabled": false,
         "info": "",
         "env": []
@@ -241,7 +241,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"video\":\"https://github.com/intel-iot-devkit/sample-videos/raw/master/bottle-detection.mp4\"}",
+                "to": "{\"video\":\"https://github.com/chandrakantkhandelwal/demo_videos/raw/main/sample_videos/bottle-object_detection.mp4\"}",
                 "tot": "json"
             }
         ],
@@ -320,6 +320,7 @@
         "tls": "",
         "persist": false,
         "proxy": "",
+        "insecureHTTPParser": false,
         "authType": "",
         "senderr": false,
         "headers": [],
@@ -607,10 +608,10 @@
         "useModelInstanceId": true,
         "modelInstanceId": "shelf",
         "modelInstanceIdType": "str",
-        "useNewModel": "",
-        "newDetectionModel": "",
+        "useNewModel": true,
+        "newDetectionModel": "models/object_detection/SSD_1/FP32/SSD_1.xml",
         "newDetectionModelType": "str",
-        "newDetectionModelProc": "",
+        "newDetectionModelProc": "models/object_detection/SSD_1/SSD_1.json",
         "newDetectionModelProcType": "str",
         "checkStatus": "",
         "x": 930,
